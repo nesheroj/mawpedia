@@ -1,0 +1,52 @@
+<section>
+  <form #searchForm="ngForm">
+    <md-card class="filters">
+      <md-card-title>
+        <md-input placeholder="Search" ngControl="searchTermControl" [(ngModel)]="searchTerm" (ngModelChange)="onSearch($event)">
+          <button md-suffix md-icon-button [color]="showFilters ? 'primary' : 'default'">
+            <i class="material-icons" (click)="toggleFilters($event)">tune</i>
+          </button>
+        </md-input>
+      </md-card-title>
+      <md-card-content *ngIf="showFilters" class="ng-animate">
+        <p>
+          <md-checkbox align="end" [(ngModel)]="extendedSearch"><small title="Enabling this will search on the card's texts and keywords too.">Extended search?</small></md-checkbox>
+        </p>
+        <p>
+          <label for="typeFilter">Card type: </label>
+          <select name="typeFilter" [(ngModel)]="typeFilter">
+            <option [value]="-1">Please select</option>
+            <option [value]="i" *ngFor="#cardType of cardTypes; #i = index">{{ cardType }}</option>
+          </select>
+        </p>
+        <p>
+          <label for="factionFilter">Faction: </label>
+          <select name="factionFilter" [(ngModel)]="factionFilter">
+            <option [value]="-1">Please select</option>
+            <option [value]="i" *ngFor="#cardFaction of cardFactions; #i = index">{{ cardFaction }}</option>
+          </select>
+        </p>
+        <p>
+          <label for="sortBy">Sort by: </label>
+          <select name="sortBy" [(ngModel)]="sortBy">
+            <option value="">Please select</option>
+            <option [value]="field" *ngFor="#field of sortFields">{{ field | mpcapitalise }}</option>
+          </select>
+          <md-checkbox [(ngModel)]="reverse">reverse order?</md-checkbox>
+        </p>
+      </md-card-content>
+      <md-card-actions *ngIf="showFilters" class="ng-animate">
+        <button md-button color="primary" (click)="onSearch()">APPLY</button>
+        <button md-button>RESET</button>
+      </md-card-actions>
+    </md-card>
+  </form>
+  <div class="cards-container">
+    <md-card *ngFor="#card of cards | async">
+      <img md-card-image src="http://cdn.guerrademitos.com/JPGEN/{{ card.code }}.jpg">
+      <md-card-title>
+        <a [routerLinkle]="['CardDetails', { code: card.code }]">[{{ card.code }}] {{ card.name }}</a>
+      </md-card-title>
+    </md-card>
+  </div>
+</section>

@@ -1,0 +1,18 @@
+<div>
+  <md-progress-bar mode="query" *ngIf="isLoading()"></md-progress-bar>
+  <md-toolbar>
+    <a md-button color="primary" [routerLinkle]="['Cards']">MaWPedia</a>
+    <separator></separator>
+    <a md-button color="primary" *ngIf="isLogged()" [routerLinkle]="['CreateCard']">Create card</a>
+    <a md-button color="primary" *ngIf="!isLogged()" [routerLinkle]="['Login']">Login</a>
+    <a md-button color="primary" class="pointer" *ngIf="isLogged()" (click)="onLogout()">Logout</a>
+  </md-toolbar>
+
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+
+  <footer>
+      <div class="center"><small>MaWPedia is made with 💚 by <a href="https://github.com/nesukun">Nestor Hernandez Ojeda</a>. <a href="http://en.guerrademitos.com/">Mythos at War</a> is © of GdM Games. Artwork is © of their respective artists.</small></div>
+  </footer>
+</div>

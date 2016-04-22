@@ -1,0 +1,8 @@
+{
+  "render": {
+    "client": true,
+    "server": false
+  },
+  "dbindex": 0,
+  "port": 8080
+}

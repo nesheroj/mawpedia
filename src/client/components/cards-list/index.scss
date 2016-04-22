@@ -1,0 +1,39 @@
+md-card.filters {
+  margin-bottom: 20px;
+  text-align: center;
+
+  transition: .8s height;
+
+  > .ng-enter {
+    height: 0;
+  }
+}
+
+.cards-container {
+	display: flex;
+  align-content: space-between;
+	flex-direction: column;
+	flex-wrap: wrap;
+	height: 60vw;
+	font-size: 0;
+
+  > md-card {
+    width: 30%;
+    box-sizing: border-box;
+    transition: .8s opacity;
+
+  }
+
+  &:hover > md-card {
+	  opacity: 0.3;
+
+    &:hover {
+	    opacity: 1;
+    }
+  }
+}
+
+[title] {
+  border-bottom: 1px dotted black;
+  cursor: help;
+}

@@ -1,0 +1,24 @@
+.cards-container {
+  margin-top: 20px;
+	display: flex;
+  align-content: center;
+	flex-direction: column;
+	flex-wrap: wrap;
+	height: 502px;
+	font-size: 0;
+
+  > md-card {
+    width: 30%;
+    box-sizing: border-box;
+    transition: .8s opacity;
+
+  }
+
+  &:hover > md-card {
+	  opacity: 0.3;
+
+    &:hover {
+	    opacity: 1;
+    }
+  }
+}

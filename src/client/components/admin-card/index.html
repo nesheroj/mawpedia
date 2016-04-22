@@ -1,0 +1,118 @@
+<md-card>
+  <!--<img *ngIf="card.code" md-card-image src="http://cdn.guerrademitos.com/JPGEN/{{ card.code }}.jpg">-->
+  <!--<pre>{{ card | mpjson }}</pre>-->
+  <md-card-title>{{ card._id ? 'Edit card' : 'Add card' }}</md-card-title>
+  <md-card-content>
+    <form #cardForm="ngForm">
+      <p>
+        <md-input required placeholder="Card code" ngControl="cardCodeControl" [disabled]="card._created" [(ngModel)]="card.code"></md-input>
+      </p>
+      <p>
+        <md-input required placeholder="Card name" ngControl="cardNameControl" [(ngModel)]="card.name"></md-input>
+      </p>
+      <p>
+        <md-radio-group name="cardType" ngControl="cardTypeControl" [value]="card.type" (ngModelChange)="card.type = $event">
+          <md-radio-button [value]="i" name="cardType" color="primary" *ngFor="#cardType of cardTypes; #i = index">{{ cardType }}</md-radio-button>
+        </md-radio-group>
+      </p>
+      <p>
+        <md-radio-group name="cardFaction" ngControl="cardFactionControl" [value]="card.faction" (ngModelChange)="card.faction = $event">
+          <md-radio-button [value]="i" name="cardFaction" color="primary" *ngFor="#cardFaction of cardFactions; #i = index">{{ cardFaction }}</md-radio-button>
+        </md-radio-group>
+      </p>
+      <p *ngIf="showField('cost')">
+        <md-input type="number" required placeholder="Cost" ngControl="cardCostControl" [(ngModel)]="card.cost"></md-input>
+      </p>
+      <p *ngIf="showField('strength')">
+        <md-input type="number" required placeholder="Strength" ngControl="cardStrengthControl" [(ngModel)]="card.strength"></md-input>
+      </p>
+      <p *ngIf="showField('power')">
+        <md-input type="number" required placeholder="Power" ngControl="cardPowerControl" [(ngModel)]="card.power"></md-input>
+      </p>
+      <p>
+        <md-input placeholder="Keywords" ngControl="cardKeywordControl" [(ngModel)]="keyword"></md-input>
+        <button md-button color="primary" [disabled]="!canAddKeyword()" (click)="addKeyword()">ADD</button>
+        <md-list dense>
+          <md-list-item *ngFor="#keyword of card.keywords; #i = index">
+            <p md-line>{{ keyword }}</p>
+            <button md-icon-button color="accent" (click)="removeKeyword(i)">
+              <i class="material-icons">delete</i>
+            </button>
+          </md-list-item>
+        </md-list>
+      </p>
+      <p>
+        <md-input type="date" required placeholder="Card publication date" ngControl="cardDateControl" [(ngModel)]="card.publishDate"></md-input>
+      </p>
+    </form>
+    <h3>Illustrations</h3>
+    <form #illustrationForm="ngForm">
+      <md-card>
+        <md-card-title-group>
+          <md-card-title>Add illustration</md-card-title>
+          <md-card-subtitle>
+            <md-input required placeholder="Illustration code" ngControl="illustrationCode" [(ngModel)]="illustration.code"></md-input>
+          </md-card-subtitle>
+          <md-card-subtitle>
+            <md-input required placeholder="Artist name" ngControl="illustrationArtist" [(ngModel)]="illustration.artistName"></md-input>
+          </md-card-subtitle>
+          <md-card-subtitle>
+            <md-input placeholder="Illustration note" ngControl="illustrationNote" [(ngModel)]="illustration.note"></md-input>
+          </md-card-subtitle>
+        </md-card-title-group>
+        <md-card-actions>
+          <button md-button color="primary" [disabled]="!illustrationForm.form.valid" (click)="addIllustration()">ADD</button>
+          <button md-button (click)="initialiseIllustration()">RESET</button>
+        </md-card-actions>
+      </md-card>
+    </form>
+    <md-card *ngFor="#illustration of card.illustrations; #i = index">
+      <md-card-title-group>
+        <md-card-title>{{ illustration.code }}</md-card-title>
+        <md-card-subtitle>{{ illustration.artistName }}</md-card-subtitle>
+        <md-card-subtitle>{{ illustration.note }}</md-card-subtitle>
+        <img md-card-md-image src="http://cdn.guerrademitos.com/JPGEN/{{ illustration.code }}.jpg">
+      </md-card-title-group>
+      <md-card-actions>
+        <button md-button color="primary" (click)="editIllustration(i)">EDIT</button>
+        <button md-button color="accent" (click)="removeIllustration(i)">REMOVE</button>
+      </md-card-actions>
+    </md-card>
+    <h3>Texts</h3>
+    <form #textForm="ngForm">
+      <md-card>
+        <md-card-title>Add card text</md-card-title>
+        <md-card-content>
+          <p class="center">
+            <md-radio-group name="textType" ngControl="textType" [(ngModel)]="text.type">
+              <md-radio-button [value]="i" name="textType" *ngFor="#textType of textTypes; #i = index">{{ textType }}</md-radio-button>
+            </md-radio-group>
+          </p>
+          <p class="center">
+            <textarea required ngControl="textText" [(ngModel)]="text.text" rows="5" style="width: 400px"></textarea>
+          </p>
+        </md-card-content>
+        <md-card-actions>
+          <button md-button color="primary" [disabled]="!textForm.form.valid" (click)="addText()">ADD</button>
+          <button md-button (click)="initialiseText()">RESET</button>
+        </md-card-actions>
+      </md-card>
+    </form>
+    <md-list dense>
+      <md-list-item *ngFor="#text of card.texts; #i = index">
+        <h3 md-line>{{ textTypes[text.type] }}</h3>
+        <p md-line>{{ text.text }}</p>
+        <button md-icon-button color="primary" (click)="editText(i)">
+          <i class="material-icons">edit</i>
+        </button>
+        <button md-icon-button color="accent" (click)="removeText(i)">
+          <i class="material-icons">delete</i>
+        </button>
+      </md-list-item>
+    </md-list>
+  </md-card-content>
+  <md-card-actions>
+    <button md-button color="primary" [disabled]="!canSubmit(cardForm)" (click)="onSubmit()">SUBMIT</button>
+    <button md-button (click)="initialiseCard()">RESET</button>
+  </md-card-actions>
+</md-card>

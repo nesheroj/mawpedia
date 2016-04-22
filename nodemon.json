@@ -1,0 +1,4 @@
+{
+  "ignore": ["static/*", "webpack-stats.json"],
+  "ext": "js json html scss"
+}

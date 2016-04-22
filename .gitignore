@@ -1,0 +1,10 @@
+.idea/
+node_modules/
+.imdone/
+.vscode/
+.nyc_output/
+*.iml
+npm-debug.log
+junit.xml
+main.js
+webpack-stats.json

@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+  background: #f2f2f2;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+input {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+a {
+  color: rgb(255,82,82);
+  text-decoration: none;
+  font-weight: 400;
+  transition: border-bottom 0.35s;
+
+  &:hover {
+    color: rgb(211,47,47);
+  }
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.center {
+  text-align: center;
+}
+
+mawpedia-root {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
