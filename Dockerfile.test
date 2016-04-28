@@ -1,7 +1,7 @@
 FROM node:argon-slim
 
 # Shut up meg
-ENV NPM_CONFIG_LOGLEVEL warning
+ENV NPM_CONFIG_LOGLEVEL warn
 
 # Create app directory
 RUN mkdir -p /usr/src/app
