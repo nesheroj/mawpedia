@@ -18,5 +18,6 @@ test('Hashing a password produces the expected format.', async t => {
 test('Hashing the same payload twice produces the same result.', async t => {
 
   await checkAgainst('4p455w0rd', await hash('4p455w0rd'));
+  t.throws(checkAgainst('4p455w0rd', await hash('4n0th3rp455w0rd')));
 
 });

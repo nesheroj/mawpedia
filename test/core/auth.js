@@ -3,22 +3,25 @@ import test from 'ava';
 import request from 'supertest';
 import Koa from 'koa';
 
-import {
-  getToken,
-  checkAuth
-} from '~/src/server/core/auth';
+import * as auth from '~/src/server/core/auth';
 
-test('Generating a token produces the expected format.', t => {
+let app;
 
-  t.true(/[a-f0-9]+/.test(getToken({})));
+test.before(t => {
+
+  app = new Koa();
+
+  app.use(auth.checkAuth(true));
 
 });
 
-test('An undefined token produces the expected response.', async t => {
+test('Generating a token produces the expected format.', t => {
 
-  const app = new Koa();
+  t.true(/[a-f0-9]+/.test(auth.getToken({})));
 
-  app.use(checkAuth(true));
+});
+
+test('An undefined API token produces the expected response.', async t => {
 
   await request(app.listen())
   .get('/')
@@ -26,11 +29,7 @@ test('An undefined token produces the expected response.', async t => {
 
 });
 
-test('An invalid token produces the expected response.', async t => {
-
-  const app = new Koa();
-
-  app.use(checkAuth(true));
+test('An invalid API token produces the expected response.', async t => {
 
   await request(app.listen())
   .get('/')
@@ -39,15 +38,17 @@ test('An invalid token produces the expected response.', async t => {
 
 });
 
-test('A valid token produces the expected response.', async t => {
-
-  const app = new Koa();
-
-  app.use(checkAuth(true));
+test('A valid API token produces the expected response.', async t => {
 
   await request(app.listen())
   .get('/')
-  .set('Authorization', `Bearer ${getToken({})}`)
+  .set('Authorization', `Bearer ${auth.getToken({})}`)
   .expect(404);
+
+});
+
+test('An invalid TOTP is rejected.', async t => {
+
+  t.is(auth.checkCredentials(), false);
 
 });
