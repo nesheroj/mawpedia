@@ -1,4 +1,4 @@
-// import autoprefixer from 'autoprefixer';
+import autoprefixer from 'autoprefixer';
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import StatsPlugin from 'stats-webpack-plugin';
@@ -35,6 +35,7 @@ export default {
       test: /\.scss$/i,
       loaders: [
         'raw',
+        'postcss',
         {
           loader: 'sass',
           query: {
@@ -56,11 +57,13 @@ export default {
     }],
     noParse: [path.join(__dirname, 'node_modules', 'angular2', 'bundles')]
   },
-  // postcss: () => {
-  //   return {
-  //     defaults: [autoprefixer({ browsers: ['last 2 versions'] })]
-  //   };
-  // },
+  postcss: () => {
+
+    return {
+      defaults: [autoprefixer({ browsers: ['last 2 versions'] })]
+    };
+
+  },
   progress: true,
   plugins: [
     new HtmlWebpackPlugin({
