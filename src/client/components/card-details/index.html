@@ -6,10 +6,7 @@
     <md-card-content>
       <h3 *ngIf="card.texts">Notes:</h3>
       <ul>
-        <li *ngFor="#text of card.texts">
-          <strong>{{ textTypes[text.type] }}: </strong>
-          <span [innerHTML]="text.text | mpmarkdown"></span>
-        </li>
+        <li *ngFor="#text of card.texts['Notes']" [innerHTML]="text | mpmarkdown"></li>
       </ul>
       <h3>Illustrations:</h3>
       <div class="cards-container">

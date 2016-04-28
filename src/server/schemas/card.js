@@ -7,10 +7,6 @@ const illustration = Joi.object().keys({
   artistName: Joi.string().required(),
   note: Joi.string().default('')
 });
-const cardText = Joi.object().keys({
-  type: unsignedInt.required(),
-  text: Joi.string().required()
-});
 
 export const cardCreateRequest = Joi.object().keys({
   code: code.required(),
@@ -24,7 +20,7 @@ export const cardCreateRequest = Joi.object().keys({
   keywords: Joi.array().unique().items(Joi.string()).default([]),
   illustrations: Joi.array().items(illustration).default([]),
   publishDate: Joi.string().default(() => new Date().toISOString().split('T')[0], 'TBD'),
-  texts: Joi.array().unique().items(cardText).default([]),
+  texts: Joi.object().pattern(/^[$A-Z_][0-9A-Z_$]*$/i, Joi.array().items(Joi.string()).default([])),
   _created: Joi.string().isoDate().default(() => new Date().toISOString(), 'TBD'),
   _updated: Joi.string().isoDate().default(() => new Date().toISOString(), 'TBD')
 });

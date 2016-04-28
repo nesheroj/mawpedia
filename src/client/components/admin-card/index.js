@@ -75,7 +75,7 @@ class AdminCardHomeComponent {
 
   addText() {
 
-    this.card.texts.push(this.text);
+    this.card.texts[this.text.type].push(this.text.content);
     this.initialiseText();
 
   }
@@ -96,6 +96,13 @@ class AdminCardHomeComponent {
 
   initialiseCard() {
 
+    const texts = {};
+    this.textTypes.forEach(textType => {
+
+      texts[textType] = [];
+
+    });
+
     this.card = {
       code: '',
       name: '',
@@ -107,7 +114,7 @@ class AdminCardHomeComponent {
       power: 0,
       keywords: [],
       illustrations: [],
-      texts: [],
+      texts,
       publishDate: new Date().toISOString().split('T')[0]
     };
     this.keyword = '';
@@ -127,8 +134,8 @@ class AdminCardHomeComponent {
   initialiseText() {
 
     this.text = {
-      type: 0,
-      text: ''
+      type: this.textTypes[0],
+      content: ''
     };
 
   }
@@ -139,9 +146,9 @@ class AdminCardHomeComponent {
 
   }
 
-  removeText(index) {
+  removeText(type, index) {
 
-    this.card.texts.splice(index, 1);
+    this.card.texts[type].splice(index, 1);
 
   }
 
@@ -158,10 +165,11 @@ class AdminCardHomeComponent {
 
   }
 
-  editText(index) {
+  editText(type, index) {
 
-    Object.assign(this.text, this.card.texts[index]);
-    this.card.texts.splice(index, 1);
+    this.text.content = this.card.texts[type][index];
+    this.text.type = type;
+    this.card.texts[type].splice(index, 1);
 
   }
 

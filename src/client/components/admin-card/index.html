@@ -1,5 +1,4 @@
 <md-card>
-  <!--<img *ngIf="card.code" md-card-image src="http://cdn.guerrademitos.com/JPGEN/{{ card.code }}.jpg">-->
   <!--<pre>{{ card | mpjson }}</pre>-->
   <md-card-title>{{ card._id ? 'Edit card' : 'Add card' }}</md-card-title>
   <md-card-content>
@@ -85,11 +84,11 @@
         <md-card-content>
           <p class="center">
             <md-radio-group name="textType" ngControl="textType" [(ngModel)]="text.type">
-              <md-radio-button [value]="i" name="textType" *ngFor="#textType of textTypes; #i = index">{{ textType }}</md-radio-button>
+              <md-radio-button [value]="textType" name="textType" *ngFor="#textType of textTypes">{{ textType }}</md-radio-button>
             </md-radio-group>
           </p>
           <p class="center">
-            <textarea required ngControl="textText" [(ngModel)]="text.text" rows="5" style="width: 400px"></textarea>
+            <textarea required ngControl="textText" [(ngModel)]="text.content" rows="5" style="width: 400px"></textarea>
           </p>
         </md-card-content>
         <md-card-actions>
@@ -99,16 +98,18 @@
       </md-card>
     </form>
     <md-list dense>
-      <md-list-item *ngFor="#text of card.texts; #i = index">
-        <h3 md-line>{{ textTypes[text.type] }}</h3>
-        <p md-line>{{ text.text }}</p>
-        <button md-icon-button color="primary" (click)="editText(i)">
-          <i class="material-icons">edit</i>
-        </button>
-        <button md-icon-button color="accent" (click)="removeText(i)">
-          <i class="material-icons">delete</i>
-        </button>
-      </md-list-item>
+      <template ngFor #textType [ngForOf]="textTypes">
+        <md-list-item *ngFor="#text of card.texts[textType]; #i = index">
+          <h3 md-line>{{ textType }}</h3>
+          <p md-line>{{ text }}</p>
+          <button md-icon-button color="primary" (click)="editText(textType, i)">
+            <i class="material-icons">edit</i>
+          </button>
+          <button md-icon-button color="accent" (click)="removeText(textType, i)">
+            <i class="material-icons">delete</i>
+          </button>
+        </md-list-item>
+      </template>
     </md-list>
   </md-card-content>
   <md-card-actions>
