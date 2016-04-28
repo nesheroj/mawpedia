@@ -4,41 +4,24 @@ export function validateRequest(schema, options = { strict: true, required: true
 
   return async (ctx, next) => {
 
-    const payload = ctx.request.body;
+    try {
 
-    if (typeof payload === 'undefined') {
+      ctx.request.body = Joi.attempt(ctx.request.body, schema, { stripUnknown: !options.strict });
+      return next();
 
-      if (!options.required) {
+    } catch (err) {
 
-        ctx.request.body = {};
+      if (options.required) {
+
+        ctx.throw(400, err);
 
       } else {
 
-        ctx.throw(400, { _errors: 'No data was sent.' });
+        return next();
 
       }
 
-      return;
-
     }
-
-    return new Promise((resolve, reject) => {
-
-      Joi.validate(payload, schema, { stripUnknown: !options.strict }, (err, value) => {
-
-        if (err) {
-
-          ctx.throw(400, { _errors: err });
-          reject();
-
-        }
-
-        ctx.request.body = value;
-        resolve();
-
-      });
-
-    }).then(() => next());
 
   };
 

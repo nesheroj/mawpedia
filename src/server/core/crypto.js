@@ -62,7 +62,6 @@ export function checkAgainst(sourcePayload, targetHash) {
 
       } else {
 
-        console.error(hashedSourceBuffer.toString('hex'), hashedTarget, targetIterations, targetMethod, new Buffer(targetSalt, 'hex'));
         reject(new Error('Hashes do not match'));
 
       }
