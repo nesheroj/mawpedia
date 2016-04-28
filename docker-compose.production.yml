@@ -1,7 +1,7 @@
 web:
   image: mawpedia:prod
   expose:
-    - 80:8080
+    - 8080
   env_file: mawpedia.env
   environment:
     - NODE_ENV=production
