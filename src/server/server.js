@@ -1,11 +1,13 @@
 import cluster from 'cluster';
 import os from 'os';
+import path from 'path';
 import config from 'config';
 import Koa from 'koa';
 import serve from 'koa-static';
 import helmet from 'koa-helmet';
 import compress from 'koa-compress';
 import send from 'koa-send';
+import favicon from 'koa-favicon';
 import koaRouter from 'koa-router';
 import bodyParser from 'koa-bodyparser';
 import webpack from 'webpack';
@@ -67,6 +69,7 @@ if (maxForks === 1 || !cluster.isMaster) {
 //   app.use(cors());
   app.use(compress());
   app.use(bodyParser());
+  app.use(favicon(path.resolve(__dirname, '/static/favicon.ico')));
   app.use(serve('static'));
 
   const router = koaRouter();
