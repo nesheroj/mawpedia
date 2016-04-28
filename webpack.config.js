@@ -1,6 +1,6 @@
 // import autoprefixer from 'autoprefixer';
 import path from 'path';
-// import HtmlWebpackPlugin from 'html-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import StatsPlugin from 'stats-webpack-plugin';
 import webpack from 'webpack';
 
@@ -10,6 +10,7 @@ export default {
   devtool: 'eval',
   entry: './client/index.js',
   output: {
+    filename: 'main.js?[hash]',
     path: path.resolve('./static')
   },
   module: {
@@ -62,10 +63,10 @@ export default {
   // },
   progress: true,
   plugins: [
-  //   new HtmlWebpackPlugin({
-  //     filename: 'index.html',
-  //     template: 'index.tmpl.html'
-  //   }),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'client/index.html'
+    }),
     new webpack.DefinePlugin({
       __DEVELOPMENT__
     }),
