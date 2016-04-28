@@ -83,13 +83,8 @@
     "raw-loader": "^0.5.1",
     "remarkable": "^1.6.2",
     "rxjs": "^5.0.0-beta.7",
-    "sails-redis": "^0.10.7",
-    "sass-loader": "^3.2.0",
     "stats-webpack-plugin": "^0.3.1",
-    "style-loader": "^0.13.1",
-    "waterline": "^0.12.1",
     "webpack": "^2.1.0-beta.5",
-    "winston": "^2.2.0",
     "zone.js": "^0.6.12"
   },
   "devDependencies": {
