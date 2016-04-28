@@ -1,4 +1,4 @@
-FROM node:slim
+FROM node:argon-slim
 
 # Shut up meg
 ENV NPM_CONFIG_LOGLEVEL warning
