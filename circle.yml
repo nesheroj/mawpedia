@@ -1,0 +1,15 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker info
+    - docker build -t mawpedia:test -f Dockerfile.test .
+
+test:
+  override:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+    - docker run mawpedia:test npm run lint
+    - docker run mawpedia:test npm test
+    - docker run mawpedia:test npm run coverage
