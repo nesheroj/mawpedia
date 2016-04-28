@@ -12,4 +12,4 @@ test:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - docker run mawpedia:test npm run lint
     - docker run mawpedia:test npm test
-    - docker run mawpedia:test npm run coverage
+    # - docker run mawpedia:test npm run coverage
