@@ -1,5 +1,5 @@
-import autoprefixer from 'autoprefixer';
 import path from 'path';
+import autoprefixer from 'autoprefixer';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import StatsPlugin from 'stats-webpack-plugin';
 import webpack from 'webpack';

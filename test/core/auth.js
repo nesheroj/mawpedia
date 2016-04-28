@@ -1,8 +1,11 @@
 import '../helpers'; /* eslint import-order/import-order: [0] */
 import test from 'ava';
+import request from 'supertest';
+import Koa from 'koa';
+
 import {
-  getToken
-  // checkAuth
+  getToken,
+  checkAuth
 } from '~/src/server/core/auth';
 
 test('Generating a token produces the expected format.', t => {
@@ -11,34 +14,40 @@ test('Generating a token produces the expected format.', t => {
 
 });
 
-// test('An undefined token produces the expected response.', t => {
+test('An undefined token produces the expected response.', async t => {
 
-//   return new Promise((resolve, reject) => {
+  const app = new Koa();
 
-//     checkAuth(mockContext(), () => resolve());
-//     reject();
+  app.use(checkAuth(true));
 
-//   });
+  await request(app.listen())
+  .get('/')
+  .expect(401);
 
-// });
+});
 
-// test.cb('An invalid token produces the expected response.', t => {
+test('An invalid token produces the expected response.', async t => {
 
-//   const context = mockContext();
+  const app = new Koa();
 
-//   context.request.header.token = '';
+  app.use(checkAuth(true));
 
-//   t.throws(checkAuth(context, () => t.end(true)));
-//   t.end();
+  await request(app.listen())
+  .get('/')
+  .set('Authorization', 'Bearer 1234')
+  .expect(403);
 
-// });
+});
 
-// test.cb('A valid token produces the expected response.', t => {
+test('A valid token produces the expected response.', async t => {
 
-//   const context = mockContext();
+  const app = new Koa();
 
-//   context.request.header.token = getToken({});
+  app.use(checkAuth(true));
 
-//   checkAuth(context, () => t.end());
+  await request(app.listen())
+  .get('/')
+  .set('Authorization', `Bearer ${getToken({})}`)
+  .expect(404);
 
-// });
+});

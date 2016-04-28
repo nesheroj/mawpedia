@@ -1,7 +1,6 @@
 import { Directive } from 'angular2/core';
 import { RouterLink } from 'angular2/router';
 
-
 @Directive({
   selector: '[routerLinkle]',
   inputs: ['routeParams: routerLinkle', 'target: target'],
@@ -12,7 +11,7 @@ import { RouterLink } from 'angular2/router';
   }
 })
 export default class RouterLinkle extends RouterLink {
-  constructor(router, location) {
+  constructor(router, location) { /* eslint no-useless-constructor: [0] */
 
     super(router, location);
 
