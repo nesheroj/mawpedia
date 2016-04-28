@@ -9,7 +9,18 @@ dependencies:
 
 test:
   override:
-    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
-    - docker run mawpedia:test npm run lint
-    - docker run mawpedia:test npm test
-    - docker run mawpedia:test npm run coverage
+    - docker run --name mawpediatest mawpedia:test npm run circle
+    - docker cp mawpediatest:/usr/src/app/coverage.lcov $CIRCLE_TEST_REPORTS/
+    - docker cp mawpediatest:/usr/src/app/.nyc_output $CIRCLE_TEST_REPORTS/
+
+deployment:
+  digitalocean:
+    branch: master
+    owner: nesukun
+    commands:
+      - docker build -t mawpedia:prod .
+      - docker save -o $CIRCLE_ARTIFACTS/mawpedia.tar mawpedia:prod
+      - scp -C $CIRCLE_ARTIFACTS/mawpedia.tar root@purpletentacle.rocks:~/mawpedia/mawpedia.tar
+      - scp -C docker-compose* root@purpletentacle.rocks:~/mawpedia/
+      - 'ssh root@purpletentacle.rocks "docker load -i ~/mawpedia/mawpedia.tar"'
+      - 'ssh root@purpletentacle.rocks "docker-compose -f ~/mawpedia/docker-compose.yml down && docker-compose -f ~/mawpedia/docker-compose.production.yml up -d"'

@@ -1,0 +1,15 @@
+web:
+  image: mawpedia:prod
+  expose:
+    - 80:8080
+  env_file: mawpedia.env
+  environment:
+    - NODE_ENV=production
+    - VIRTUAL_HOST=mawpedia.purpletentacle.rocks
+    - LETSENCRYPT_HOST=mawpedia.purpletentacle.rocks
+    - LETSENCRYPT_EMAIL=info@purpletentacle.rocks
+
+db:
+  volumes:
+    - ~/mawpedia/data:/data
+  command: redis-server --appendonly yes

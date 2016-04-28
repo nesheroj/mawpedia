@@ -9,3 +9,4 @@ junit.xml
 main.js
 webpack-stats.json
 index.html
+coverage.lcov
