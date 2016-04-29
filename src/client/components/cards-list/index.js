@@ -20,7 +20,6 @@ const PAGE_SIZE = 10;
 
 @Component({
   directives: [MD_CARD_DIRECTIVES, ROUTER_DIRECTIVES, MD_INPUT_DIRECTIVES, MdButton, MdCheckbox, RouterLinkle],
-  viewProviders: [[RouteParams], [Title], [MaWPediaApiService]],
   pipes: [MaWPediaCapitalisePipe],
   selector: 'cards-list',
   styles: [styles],
@@ -121,5 +120,6 @@ class CardsHomeComponent {
   }
 
 }
+CardsHomeComponent.parameters = [[RouteParams], [Title], [MaWPediaApiService]];
 
 export default CardsHomeComponent;

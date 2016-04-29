@@ -10,7 +10,6 @@ import { MaWPediaApiService } from '~/src/client/services/';
 
 @Component({
   directives: [ROUTER_DIRECTIVES, MdButton, MdToolbar, RouterLinkle],
-  viewProviders: [[Router], [MaWPediaApiService]],
   selector: 'mawpedia-root',
   styles: [styles],
   template
@@ -34,5 +33,6 @@ class RootComponent {
 
   }
 }
+RootComponent.parameters = [[Router], [MaWPediaApiService]];
 
 export default RootComponent;
