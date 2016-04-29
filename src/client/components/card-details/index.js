@@ -12,6 +12,7 @@ import styles from './index.scss';
 
 @Component({
   directives: [MD_CARD_DIRECTIVES, ROUTER_DIRECTIVES, MdButton, RouterLinkle],
+  viewProviders: [[RouteParams], [Title], [MaWPediaApiService]],
   pipes: [MaWPediaMarkdownPipe],
   selector: 'card-details',
   styles: [styles],
@@ -48,6 +49,5 @@ class CardDetailsHomeComponent {
   }
 
 }
-CardDetailsHomeComponent.parameters = [[RouteParams], [Title], [MaWPediaApiService]];
 
 export default CardDetailsHomeComponent;

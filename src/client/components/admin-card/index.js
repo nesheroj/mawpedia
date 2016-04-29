@@ -14,6 +14,7 @@ import styles from './index.scss';
 
 @Component({
   directives: [MD_CARD_DIRECTIVES, MD_INPUT_DIRECTIVES, MD_LIST_DIRECTIVES, MdRadioButton, MdRadioGroup, MdButton],
+  viewProviders: [[Router], [RouteParams], [Title], [MaWPediaApiService]],
   pipes: [MaWPediaJSONPipe],
   providers: [MdRadioDispatcher],
   selector: 'admin-card',
@@ -199,7 +200,5 @@ class AdminCardHomeComponent {
 
   }
 }
-
-AdminCardHomeComponent.parameters = [[Router], [RouteParams], [Title], [MaWPediaApiService]];
 
 export default AdminCardHomeComponent;

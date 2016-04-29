@@ -9,6 +9,7 @@ import { MD_INPUT_DIRECTIVES } from '@angular2-material/input';
 
 @Component({
   directives: [MD_CARD_DIRECTIVES, MD_INPUT_DIRECTIVES, MdButton],
+  viewProviders: [[Router], [MaWPediaApiService]],
   selector: 'login',
   styles: [styles],
   template
@@ -41,6 +42,5 @@ class LoginHomeComponent {
 
   }
 }
-LoginHomeComponent.parameters = [[Router], [MaWPediaApiService]];
 
 export default LoginHomeComponent;
