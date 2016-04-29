@@ -6,11 +6,11 @@
     <md-card-content>
       <h3 *ngIf="card.texts">Notes:</h3>
       <ul>
-        <li *ngFor="#text of card.texts['Notes']" [innerHTML]="text | mpmarkdown"></li>
+        <li *ngFor="let text of card.texts['Notes']" [innerHTML]="text | mpmarkdown"></li>
       </ul>
       <h3>Illustrations:</h3>
       <div class="cards-container">
-        <md-card *ngFor="#illustration of card.illustrations">
+        <md-card *ngFor="let illustration of card.illustrations">
           <a href="http://cdn.guerrademitos.com/PNGEN/{{ illustration.code }}.png" target="_blank">
             <img md-card-image src="http://cdn.guerrademitos.com/JPGEN/{{ illustration.code }}.jpg">
           </a>

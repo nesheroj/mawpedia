@@ -11,12 +11,12 @@
       </p>
       <p>
         <md-radio-group name="cardType" ngControl="cardTypeControl" [value]="card.type" (ngModelChange)="card.type = $event">
-          <md-radio-button [value]="i" name="cardType" color="primary" *ngFor="#cardType of cardTypes; #i = index">{{ cardType }}</md-radio-button>
+          <md-radio-button [value]="i" name="cardType" color="primary" *ngFor="let cardType of cardTypes; let i = index">{{ cardType }}</md-radio-button>
         </md-radio-group>
       </p>
       <p>
         <md-radio-group name="cardFaction" ngControl="cardFactionControl" [value]="card.faction" (ngModelChange)="card.faction = $event">
-          <md-radio-button [value]="i" name="cardFaction" color="primary" *ngFor="#cardFaction of cardFactions; #i = index">{{ cardFaction }}</md-radio-button>
+          <md-radio-button [value]="i" name="cardFaction" color="primary" *ngFor="let cardFaction of cardFactions; let i = index">{{ cardFaction }}</md-radio-button>
         </md-radio-group>
       </p>
       <p *ngIf="showField('cost')">
@@ -32,7 +32,7 @@
         <md-input placeholder="Keywords" ngControl="cardKeywordControl" [(ngModel)]="keyword"></md-input>
         <button md-button color="primary" [disabled]="!canAddKeyword()" (click)="addKeyword()">ADD</button>
         <md-list dense>
-          <md-list-item *ngFor="#keyword of card.keywords; #i = index">
+          <md-list-item *ngFor="let keyword of card.keywords; let i = index">
             <p md-line>{{ keyword }}</p>
             <button md-icon-button color="accent" (click)="removeKeyword(i)">
               <i class="material-icons">delete</i>
@@ -65,7 +65,7 @@
         </md-card-actions>
       </md-card>
     </form>
-    <md-card *ngFor="#illustration of card.illustrations; #i = index">
+    <md-card *ngFor="let illustration of card.illustrations; let i = index">
       <md-card-title-group>
         <md-card-title>{{ illustration.code }}</md-card-title>
         <md-card-subtitle>{{ illustration.artistName }}</md-card-subtitle>
@@ -84,7 +84,7 @@
         <md-card-content>
           <p class="center">
             <md-radio-group name="textType" ngControl="textType" [(ngModel)]="text.type">
-              <md-radio-button [value]="textType" name="textType" *ngFor="#textType of textTypes">{{ textType }}</md-radio-button>
+              <md-radio-button [value]="textType" name="textType" *ngFor="let textType of textTypes">{{ textType }}</md-radio-button>
             </md-radio-group>
           </p>
           <p class="center">
@@ -98,8 +98,8 @@
       </md-card>
     </form>
     <md-list dense>
-      <template ngFor #textType [ngForOf]="textTypes">
-        <md-list-item *ngFor="#text of card.texts[textType]; #i = index">
+      <template ngFor let-textType [ngForOf]="textTypes">
+        <md-list-item *ngFor="let text of card.texts[textType]; let i = index">
           <h3 md-line>{{ textType }}</h3>
           <p md-line>{{ text }}</p>
           <button md-icon-button color="primary" (click)="editText(textType, i)">

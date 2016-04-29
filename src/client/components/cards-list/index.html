@@ -16,21 +16,21 @@
           <label for="typeFilter">Card type: </label>
           <select name="typeFilter" [(ngModel)]="typeFilter">
             <option [value]="-1">Please select</option>
-            <option [value]="i" *ngFor="#cardType of cardTypes; #i = index">{{ cardType }}</option>
+            <option [value]="i" *ngFor="let cardType of cardTypes; let i = index">{{ cardType }}</option>
           </select>
         </p>
         <p>
           <label for="factionFilter">Faction: </label>
           <select name="factionFilter" [(ngModel)]="factionFilter">
             <option [value]="-1">Please select</option>
-            <option [value]="i" *ngFor="#cardFaction of cardFactions; #i = index">{{ cardFaction }}</option>
+            <option [value]="i" *ngFor="let cardFaction of cardFactions; let i = index">{{ cardFaction }}</option>
           </select>
         </p>
         <p>
           <label for="sortBy">Sort by: </label>
           <select name="sortBy" [(ngModel)]="sortBy">
             <option value="">Please select</option>
-            <option [value]="field" *ngFor="#field of sortFields">{{ field | mpcapitalise }}</option>
+            <option [value]="field" *ngFor="let field of sortFields">{{ field | mpcapitalise }}</option>
           </select>
           <md-checkbox [(ngModel)]="reverse">reverse order?</md-checkbox>
         </p>
@@ -42,7 +42,7 @@
     </md-card>
   </form>
   <div class="cards-container">
-    <md-card *ngFor="#card of cards | async">
+    <md-card *ngFor="let card of cards | async">
       <img md-card-image src="http://cdn.guerrademitos.com/JPGEN/{{ card.code }}.jpg">
       <md-card-title>
         <a [routerLinkle]="['CardDetails', { code: card.code }]">[{{ card.code }}] {{ card.name }}</a>
