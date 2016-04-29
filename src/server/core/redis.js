@@ -7,7 +7,7 @@ function initialise() {
 
   if (!redis) {
 
-    redis = new Redis({ showFriendlyErrorStack: __DEVELOPMENT__, db: config.get('dbindex') });
+    redis = new Redis({ showFriendlyErrorStack: __DEVELOPMENT__, host: config.get('dbhost'), db: config.get('dbindex') });
 
     redis
       .on('connect', () => {

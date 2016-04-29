@@ -4,5 +4,6 @@
     "server": false
   },
   "dbindex": 0,
+  "dbhost": "localhost",
   "port": 8080
 }
