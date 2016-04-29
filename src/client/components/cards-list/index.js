@@ -50,7 +50,7 @@ class CardsHomeComponent {
     this._apiService = apiService;
     this._routeParams = routeParams;
     this.artist = this._routeParams.get('artist');
-    titleService.setTitle(this.artist ? `MaWPedia - Cards by ${this.artist}` : `MaWPedia - Cards`);
+    titleService.setTitle(`MaWPedia - Cards`);
 
   }
 

@@ -10,15 +10,7 @@
   > md-card {
     width: 30%;
     box-sizing: border-box;
-    transition: .8s opacity;
 
   }
 
-  &:hover > md-card {
-	  opacity: 0.3;
-
-    &:hover {
-	    opacity: 1;
-    }
-  }
 }

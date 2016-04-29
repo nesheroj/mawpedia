@@ -3,10 +3,10 @@
     <md-card class="filters">
       <md-card-title>
         <md-input placeholder="Search" ngControl="searchTermControl" [(ngModel)]="searchTerm" (ngModelChange)="onSearch($event)">
-          <button md-suffix md-icon-button [color]="showFilters ? 'primary' : 'default'">
-            <i class="material-icons" (click)="toggleFilters($event)">tune</i>
-          </button>
         </md-input>
+        <button md-icon-button [color]="showFilters ? 'primary' : 'default'">
+          <i class="material-icons" (click)="toggleFilters($event)">tune</i>
+        </button>
       </md-card-title>
       <md-card-content *ngIf="showFilters" class="ng-animate">
         <p>
@@ -42,11 +42,13 @@
     </md-card>
   </form>
   <div class="cards-container">
-    <md-card *ngFor="let card of cards | async">
-      <img md-card-image src="//cdn.purpletentacle.rocks/JPGEN/{{ card.code }}.jpg">
-      <md-card-title>
-        <a [routerLinkle]="['CardDetails', { code: card.code }]">[{{ card.code }}] {{ card.name }}</a>
-      </md-card-title>
-    </md-card>
+    <a *ngFor="let card of cards | async" [routerLinkle]="['CardDetails', { code: card.code }]">
+      <md-card>
+        <img md-card-image src="//cdn.purpletentacle.rocks/JPGEN/{{ card.code }}.jpg">
+        <md-card-title>
+          {{ card.name }} - <small>{{ card.code }}</small>
+        </md-card-title>
+      </md-card>
+    </a>
   </div>
 </section>

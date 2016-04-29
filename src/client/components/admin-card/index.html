@@ -19,14 +19,14 @@
           <md-radio-button [value]="i" name="cardFaction" color="primary" *ngFor="let cardFaction of cardFactions; let i = index">{{ cardFaction }}</md-radio-button>
         </md-radio-group>
       </p>
-      <p *ngIf="showField('cost')">
-        <md-input type="number" required placeholder="Cost" ngControl="cardCostControl" [(ngModel)]="card.cost"></md-input>
-      </p>
       <p *ngIf="showField('strength')">
         <md-input type="number" required placeholder="Strength" ngControl="cardStrengthControl" [(ngModel)]="card.strength"></md-input>
       </p>
       <p *ngIf="showField('power')">
         <md-input type="number" required placeholder="Power" ngControl="cardPowerControl" [(ngModel)]="card.power"></md-input>
+      </p>
+      <p *ngIf="showField('cost')">
+        <md-input type="number" required placeholder="Cost" ngControl="cardCostControl" [(ngModel)]="card.cost"></md-input>
       </p>
       <p>
         <md-input placeholder="Keywords" ngControl="cardKeywordControl" [(ngModel)]="keyword"></md-input>

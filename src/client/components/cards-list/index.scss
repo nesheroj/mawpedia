@@ -17,14 +17,14 @@ md-card.filters {
 	height: 60vw;
 	font-size: 0;
 
-  > md-card {
+  > a {
     width: 30%;
     box-sizing: border-box;
     transition: .8s opacity;
 
   }
 
-  &:hover > md-card {
+  &:hover > a {
 	  opacity: 0.3;
 
     &:hover {

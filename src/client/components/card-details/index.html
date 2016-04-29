@@ -1,25 +1,27 @@
 <section *ngIf="card">
   <md-card>
     <md-card-title>
-      [{{ card.code }}] {{ card.name }}
+      {{ card.name }} - <small>{{ card.code }}</small>
     </md-card-title>
     <md-card-content>
-      <h3 *ngIf="card.texts">Notes:</h3>
-      <ul>
-        <li *ngFor="let text of card.texts['Notes']" [innerHTML]="text | mpmarkdown"></li>
-      </ul>
       <h3>Illustrations:</h3>
       <div class="cards-container">
         <md-card *ngFor="let illustration of card.illustrations">
           <a href="//cdn.purpletentacle.rocks/PNGEN/{{ illustration.code }}.png" target="_blank">
             <img md-card-image src="//cdn.purpletentacle.rocks/JPGEN/{{ illustration.code }}.jpg">
           </a>
-          <md-card-title>{{ illustration.artistName }}</md-card-title>
+          <md-card-title>
+            <a [routerLinkle]="['CardsByArtist', { artist: illustration.artistName }]">{{ illustration.artistName }}</a>
+          </md-card-title>
           <md-card-content>
             <p [innerHTML]="illustration.note | mpmarkdown"></p>
           </md-card-content>
         </md-card>
       </div>
+      <h3 *ngIf="card.texts">Notes:</h3>
+      <ul>
+        <li *ngFor="let text of card.texts['Notes']" [innerHTML]="text | mpmarkdown"></li>
+      </ul>
     </md-card-content>
     <md-card-actions align="end" *ngIf="isLogged()">
       <a md-button color="warn" [routerLinkle]="['EditCard', { code: card.code }]">EDIT</a>
