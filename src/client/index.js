@@ -8,6 +8,7 @@ import '!!style!css!sass!./index.scss';
 //   BROWSER_ROUTER_PROVIDERS,
 //   BROWSER_HTTP_PROVIDERS
 // } from 'angular2-universal';
+import { enableProdMode } from 'angular2/core';
 import { bootstrap, Title } from 'angular2/platform/browser';
 import { FORM_PROVIDERS } from 'angular2/common';
 import { ROUTER_PROVIDERS } from 'angular2/router';
@@ -23,7 +24,7 @@ if (__DEVELOPMENT__) {
 
 } else {
 
-  // enableProdMode();
+  enableProdMode();
 
 }
 
