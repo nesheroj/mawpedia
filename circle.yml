@@ -5,8 +5,8 @@ machine:
 dependencies:
   override:
     - docker info
-    - docker build -t mawpedia .
     - mkdir node_modules
+    - docker build -t mawpedia .
 
 test:
   override:
