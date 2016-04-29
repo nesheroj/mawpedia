@@ -6,7 +6,6 @@ import { checkAuth } from '~/src/server/core/auth';
 import {
   getCards,
   getCardByCode,
-  // getCardByArtist,
   upsertCard
 } from '~/src/server/data/card';
 import { cardCreateRequest } from '~/src/server/schemas/card';

@@ -3,10 +3,8 @@ import json from 'koa-json';
 import bodyParser from 'koa-bodyparser';
 import packageInfo from '~/package';
 import * as auth from '~/src/server/core/auth';
-// import { checkAgainst } from '~/core/crypto';
 import { validateRequest } from '~/src/server/core/validation';
-import { loginSchema } from '~/src/server/schemas/';
-// import { findUser } from '~/services/user';
+import { loginRequest } from '~/src/server/schemas/';
 
 const router = koaRouter({ prefix: '/api' });
 
@@ -19,7 +17,7 @@ router.get('/', (ctx, next) => {
 
 });
 
-router.post('/login', validateRequest(loginSchema), (ctx, next) => {
+router.post('/login', validateRequest(loginRequest), (ctx, next) => {
 
   const loginRequest = ctx.request.body;
 

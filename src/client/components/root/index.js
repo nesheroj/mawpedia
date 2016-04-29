@@ -29,7 +29,7 @@ class RootComponent {
   onLogout() {
 
     this._apiService.logout();
-    this._router.navigate(['/']);
+    this._router.navigate(['/Cards']);
 
   }
 }

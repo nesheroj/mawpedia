@@ -65,7 +65,7 @@ if (maxForks === 1 || !cluster.isMaster) {
 //   app.use(cors());
   app.use(compress());
   app.use(bodyParser());
-  app.use(favicon(path.resolve(__dirname, '/static/favicon.ico')));
+  app.use(favicon(path.resolve('static/favicon.ico')));
   app.use(serve('static'));
 
   const router = koaRouter();
