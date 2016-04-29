@@ -1,5 +1,7 @@
 web:
   image: mawpedia
+  links:
+    - db
   env_file: mawpedia.env
   environment:
     - NODE_ENV=production
