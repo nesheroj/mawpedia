@@ -43,7 +43,7 @@
   </form>
   <div class="cards-container">
     <md-card *ngFor="let card of cards | async">
-      <img md-card-image src="http://cdn.guerrademitos.com/JPGEN/{{ card.code }}.jpg">
+      <img md-card-image src="//cdn.purpletentacle.rocks/JPGEN/{{ card.code }}.jpg">
       <md-card-title>
         <a [routerLinkle]="['CardDetails', { code: card.code }]">[{{ card.code }}] {{ card.name }}</a>
       </md-card-title>
