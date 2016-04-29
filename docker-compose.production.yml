@@ -1,5 +1,5 @@
 web:
-  image: mawpedia:prod
+  image: mawpedia
   expose:
     - 8080
   env_file: mawpedia.env

@@ -5,21 +5,20 @@ machine:
 dependencies:
   override:
     - docker info
-    - docker build -t mawpedia:test -f Dockerfile.test .
+    - docker build -t mawpedia .
 
 test:
   override:
-    - docker run --name mawpediatest mawpedia:test npm run circle
-    - docker cp mawpediatest:/usr/src/app/coverage.lcov $CIRCLE_TEST_REPORTS/
-    - docker cp mawpediatest:/usr/src/app/.nyc_output $CIRCLE_TEST_REPORTS/
+    - docker run --name mawpedia --volume=~/mawpedia/node_modules:/usr/src/app/node_modules mawpedia npm run circle
+    - docker cp mawpedia:/usr/src/app/coverage.lcov $CIRCLE_TEST_REPORTS/
+    - docker cp mawpedia:/usr/src/app/.nyc_output $CIRCLE_TEST_REPORTS/
 
 deployment:
   digitalocean:
     branch: master
     owner: nesukun
     commands:
-      - docker build -t mawpedia:prod .
-      - docker save -o $CIRCLE_ARTIFACTS/mawpedia.tar mawpedia:prod
+      - docker save -o $CIRCLE_ARTIFACTS/mawpedia.tar mawpedia
       - scp -C $CIRCLE_ARTIFACTS/mawpedia.tar root@purpletentacle.rocks:~/mawpedia/mawpedia.tar
       - scp -C docker-compose* root@purpletentacle.rocks:~/mawpedia/
       - 'ssh root@purpletentacle.rocks "docker load -i ~/mawpedia/mawpedia.tar"'
