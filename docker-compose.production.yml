@@ -1,16 +1,17 @@
 web:
   image: mawpedia
-  expose:
-    - 8080
   env_file: mawpedia.env
   environment:
     - NODE_ENV=production
     - VIRTUAL_HOST=mawpedia.purpletentacle.rocks
     - LETSENCRYPT_HOST=mawpedia.purpletentacle.rocks
     - LETSENCRYPT_EMAIL=info@purpletentacle.rocks
+  restart: always
+
 
 db:
   image: redis:latest
   volumes:
     - ~/mawpedia/data:/data
   command: redis-server --appendonly yes
+  restart: always

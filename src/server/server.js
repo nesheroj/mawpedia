@@ -30,15 +30,11 @@ function launchForks(amount) {
 
 if (maxForks === 1 || cluster.isMaster) {
 
-  if (__DEVELOPMENT__) {
+  webpack(webpackConfig).run((err, stats) => {
 
-    webpack(webpackConfig).run((err, stats) => {
+    err && console.error(err);
 
-      err && console.error(err);
-
-    });
-
-  }
+  });
 
   if (maxForks > 1) {
 
