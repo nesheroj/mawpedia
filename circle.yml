@@ -3,6 +3,8 @@ machine:
     - docker
 
 dependencies:
+  cache_directories:
+    - node_modules
   override:
     - docker info
     - mkdir node_modules; exit 0
