@@ -9,7 +9,7 @@ dependencies:
 
 test:
   override:
-    - docker run --name mawpedia --volume=~/mawpedia/node_modules:/usr/src/app/node_modules mawpedia npm run circle
+    - docker run --name mawpedia mawpedia npm run circle
     - docker cp mawpedia:/usr/src/app/coverage.lcov $CIRCLE_TEST_REPORTS/
     - docker cp mawpedia:/usr/src/app/.nyc_output $CIRCLE_TEST_REPORTS/
 
