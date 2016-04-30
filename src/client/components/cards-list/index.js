@@ -27,6 +27,8 @@ const PAGE_SIZE = 10;
 })
 class CardsHomeComponent {
 
+  static parameters = [[RouteParams], [Title], [MaWPediaApiService]];
+
   offset = 0;
   searchTerm = '';
   sortBy = '';
@@ -120,6 +122,5 @@ class CardsHomeComponent {
   }
 
 }
-CardsHomeComponent.parameters = [[RouteParams], [Title], [MaWPediaApiService]];
 
 export default CardsHomeComponent;

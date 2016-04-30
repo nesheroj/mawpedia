@@ -22,6 +22,8 @@ import styles from './index.scss';
 })
 class AdminCardHomeComponent {
 
+  static parameters = [[Router], [RouteParams], [Title], [MaWPediaApiService]];
+
   cardTypes = enums.cardTypes;
   textTypes = enums.textTypes;
   cardExpansions = enums.cardExpansions;
@@ -199,7 +201,5 @@ class AdminCardHomeComponent {
 
   }
 }
-
-AdminCardHomeComponent.parameters = [[Router], [RouteParams], [Title], [MaWPediaApiService]];
 
 export default AdminCardHomeComponent;

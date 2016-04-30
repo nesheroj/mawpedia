@@ -1,8 +1,16 @@
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/do';
+import { Injectable } from 'angular2/core';
 import { Http, Headers, URLSearchParams } from 'angular2/http';
 
-export default class MaWPediaApiService {
+@Injectable()
+class MaWPediaApiService {
+
+  static parameters = [[Http]];
+
+  _requests = new Set();
+
   constructor(http) {
 
     this._http = http;
@@ -23,7 +31,7 @@ export default class MaWPediaApiService {
 
   isLoading() {
 
-    return this.isLoading;
+    return this._requests.size;
 
   }
 
@@ -37,15 +45,15 @@ export default class MaWPediaApiService {
 
     const headers = this._setTokenHeader();
 
-    return this._http.post(`/api/login`, JSON.stringify({ token }), { headers })
-        .map(response => response.json())
-        .toPromise()
-        .then(result => {
+    return this._request('get', `/api/login`, JSON.stringify({ token }), { headers })
+      .map(response => response.json())
+      .toPromise()
+      .then(result => {
 
-          this._apiToken = result.token;
-          window.localStorage.setItem('apiToken', result.token);
+        this._apiToken = result.token;
+        window.localStorage.setItem('apiToken', result.token);
 
-        });
+      });
 
   }
 
@@ -68,8 +76,8 @@ export default class MaWPediaApiService {
     const headers = this._setTokenHeader();
     const search = this._setSearchParams(params);
 
-    return this._http.get(`/api/cards`, { headers, search })
-        .map(response => response.json());
+    return this._request('get', `/api/cards`, { headers, search })
+      .map(response => response.json());
 
   }
 
@@ -78,8 +86,8 @@ export default class MaWPediaApiService {
     const headers = this._setTokenHeader();
     const search = this._setSearchParams(params);
 
-    return this._http.get(`/api/cards/byartist/${artist}`, { headers, search })
-        .map(response => response.json());
+    return this._request('get', `/api/cards/byartist/${artist}`, { headers, search })
+      .map(response => response.json());
 
   }
 
@@ -87,8 +95,8 @@ export default class MaWPediaApiService {
 
     const headers = this._setTokenHeader();
 
-    return this._http.get(`/api/cards/${code}`, { headers })
-        .map(response => response.json());
+    return this._request('get', `/api/cards/${code}`, { headers })
+      .map(response => response.json());
 
   }
 
@@ -97,8 +105,31 @@ export default class MaWPediaApiService {
     console.log(card);
     const headers = this._setTokenHeader();
 
-    return this._http.post(`/api/cards`, JSON.stringify(card), { headers })
-        .map(response => response.json());
+    return this._request('post', `/api/cards`, JSON.stringify(card), { headers })
+      .map(response => response.json());
+
+  }
+
+  _request(verb, ...params) {
+
+    const request = this._http[verb](...params);
+    this._requests.add(request);
+
+    const onError = error => {
+
+      console.error(error);
+      this._requests.delete(request);
+
+    };
+
+    const onComplete = () => {
+
+      this._requests.delete(request);
+
+    };
+
+    return request
+    .do(() => {}, onError, onComplete);
 
   }
 
@@ -130,4 +161,5 @@ export default class MaWPediaApiService {
   }
 
 }
-MaWPediaApiService.parameters = [[Http]];
+
+export default MaWPediaApiService;

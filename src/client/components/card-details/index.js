@@ -19,6 +19,8 @@ import styles from './index.scss';
 })
 class CardDetailsHomeComponent {
 
+  static parameters = [[RouteParams], [Title], [MaWPediaApiService]];
+
   cardTypes = enums.cardTypes;
   textTypes = enums.textTypes;
   cardExpansions = enums.cardExpansions;
@@ -33,10 +35,6 @@ class CardDetailsHomeComponent {
     this.code = this._routeParams.get('code');
     this._titleService.setTitle(`MaWPedia - [${this.code}]`);
 
-  }
-
-  ngAfterViewInit() {
-
     this._apiService.getCardByCode(this.code).toPromise()
     .then(card => {
 
@@ -48,6 +46,5 @@ class CardDetailsHomeComponent {
   }
 
 }
-CardDetailsHomeComponent.parameters = [[RouteParams], [Title], [MaWPediaApiService]];
 
 export default CardDetailsHomeComponent;

@@ -4,18 +4,22 @@ import routes from '~/src/routes.js';
 import template from './index.html';
 import styles from './index.scss';
 import { MdToolbar } from '@angular2-material/toolbar';
+import { MdProgressBar } from '@angular2-material/progress-bar';
 import { MdButton } from '@angular2-material/button';
 import { RouterLinkle } from '~/src/client/directives/';
 import { MaWPediaApiService } from '~/src/client/services/';
 
 @Component({
-  directives: [ROUTER_DIRECTIVES, MdButton, MdToolbar, RouterLinkle],
+  directives: [ROUTER_DIRECTIVES, MdButton, MdToolbar, MdProgressBar, RouterLinkle],
   selector: 'mawpedia-root',
   styles: [styles],
   template
 })
 @RouteConfig(routes)
 class RootComponent {
+
+  static parameters = [[Router], [MaWPediaApiService]];
+
   constructor(router, apiService) {
 
     this._router = router;
@@ -33,6 +37,5 @@ class RootComponent {
 
   }
 }
-RootComponent.parameters = [[Router], [MaWPediaApiService]];
 
 export default RootComponent;
