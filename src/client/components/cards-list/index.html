@@ -41,14 +41,28 @@
       </md-card-actions>
     </md-card>
   </form>
-  <div class="cards-container">
-    <a *ngFor="let card of cards | async" [routerLinkle]="['CardDetails', { code: card.code }]">
-      <md-card>
-        <img md-card-image src="//cdn.purpletentacle.rocks/JPGEN/{{ card.code }}.jpg">
-        <md-card-title>
-          {{ card.name }} - <small>{{ card.code }}</small>
-        </md-card-title>
-      </md-card>
-    </a>
+  <div class="cards-container" [ngSwitch]="!!artist">
+    <template [ngSwitchWhen]="false">
+      <a *ngFor="let card of cards | async" [routerLinkle]="['CardDetails', { code: card.code }]">
+        <md-card>
+          <img md-card-image src="//cdn.purpletentacle.rocks/JPGEN/{{ card.illustrations[card.defaultIllustration || 0].code }}.jpg">
+          <md-card-title>
+            {{ card.name }} - <small>{{ card.code }}</small>
+          </md-card-title>
+        </md-card>
+      </a>
+    </template>
+    <template [ngSwitchWhen]="true">
+      <template  ngFor let-card [ngForOf]="cards | async">
+        <a *ngFor="let illustration of card.illustrations" [routerLinkle]="['CardDetails', { code: card.code }]">
+          <md-card>
+            <img md-card-image src="//cdn.purpletentacle.rocks/JPGEN/{{ illustration.code }}.jpg">
+            <md-card-title>
+              {{ card.name }} - <small>{{ card.code }}</small>
+            </md-card-title>
+          </md-card>
+        </a>
+      </template>
+    </template>
   </div>
 </section>

@@ -18,6 +18,7 @@ export const cardCreateRequest = Joi.object().keys({
   strength: unsignedInt.default(0),
   power: unsignedInt.default(0),
   keywords: Joi.array().unique().items(Joi.string()).default([]),
+  defaultIllustration: unsignedInt.default(0),
   illustrations: Joi.array().items(illustration).default([]),
   publishDate: Joi.string().default(() => new Date().toISOString().split('T')[0], 'TBD'),
   texts: Joi.object().pattern(/^[$A-Z_][0-9A-Z_$]*$/i, Joi.array().items(Joi.string()).default([])),

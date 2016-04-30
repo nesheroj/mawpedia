@@ -19,7 +19,7 @@ test('Can create a card.', async t => {
   const app = new Koa();
 
   app.use(bodyParser());
-  app.use(validateRequest(cardCreateRequest));
+  app.use(validateRequest(cardCreateRequest, { strict: true }));
   app.use(passthrough);
 
   await request(app.listen())

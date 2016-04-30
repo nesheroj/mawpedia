@@ -11,12 +11,12 @@
       </p>
       <p>
         <md-radio-group name="cardType" ngControl="cardTypeControl" [value]="card.type" (ngModelChange)="card.type = $event">
-          <md-radio-button [value]="i" name="cardType" color="primary" *ngFor="let cardType of cardTypes; let i = index">{{ cardType }}</md-radio-button>
+          <md-radio-button [value]="i" name="cardType" *ngFor="let cardType of cardTypes; let i = index">{{ cardType }}</md-radio-button>
         </md-radio-group>
       </p>
       <p>
         <md-radio-group name="cardFaction" ngControl="cardFactionControl" [value]="card.faction" (ngModelChange)="card.faction = $event">
-          <md-radio-button [value]="i" name="cardFaction" color="primary" *ngFor="let cardFaction of cardFactions; let i = index">{{ cardFaction }}</md-radio-button>
+          <md-radio-button [value]="i" name="cardFaction" *ngFor="let cardFaction of cardFactions; let i = index">{{ cardFaction }}</md-radio-button>
         </md-radio-group>
       </p>
       <p *ngIf="showField('strength')">
@@ -73,6 +73,7 @@
         <img md-card-md-image src="//cdn.purpletentacle.rocks/JPGEN/{{ illustration.code }}.jpg">
       </md-card-title-group>
       <md-card-actions>
+        <button md-button color="primary" [disabled]="card.defaultIllustration === i" (click)="card.defaultIllustration = i">SET DEFAULT</button>
         <button md-button color="primary" (click)="editIllustration(i)">EDIT</button>
         <button md-button color="accent" (click)="removeIllustration(i)">REMOVE</button>
       </md-card-actions>

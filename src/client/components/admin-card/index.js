@@ -115,6 +115,7 @@ class AdminCardHomeComponent {
       strength: 0,
       power: 0,
       keywords: [],
+      defaultIllustration: 0,
       illustrations: [],
       texts,
       publishDate: new Date().toISOString().split('T')[0]
@@ -143,6 +144,12 @@ class AdminCardHomeComponent {
   }
 
   removeIllustration(index) {
+
+    if (index > 0 && this.card.defaultIllustration >= index) {
+
+      this.card.defaultIllustration--;
+
+    }
 
     this.card.illustrations.splice(index, 1);
 
