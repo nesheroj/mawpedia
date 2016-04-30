@@ -88,7 +88,7 @@ function processFilters(filters) {
 
   return card => {
 
-    let pass = (filters.term === '' || ~sanitizeForSearch(card.code).indexOf(sanitizedTerm) || ~sanitizeForSearch(card.name).indexOf(sanitizedTerm));
+    let pass = filters.term === '' || ~sanitizeForSearch(card.code).indexOf(sanitizedTerm) || ~sanitizeForSearch(card.name).indexOf(sanitizedTerm);
 
     if (!pass && !!filters.extendedSearch) {
 

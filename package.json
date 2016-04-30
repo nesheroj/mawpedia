@@ -62,7 +62,7 @@
     "ioredis": "^1.15.1",
     "joi": "^8.0.5",
     "json-loader": "^0.5.4",
-    "jsonwebtoken": "^5.7.0",
+    "jsonwebtoken": "^6.2.0",
     "koa": "^2.0.0",
     "koa-bodyparser": "^3.0.0",
     "koa-compress": "^2.0.0",
@@ -90,12 +90,12 @@
   "devDependencies": {
     "ava": "^0.14.0",
     "concurrently": "^2.0.0",
-    "nodemon": "^1.9.1",
+    "nodemon": "^1.9.2",
     "nyc": "^6.4.1",
     "supertest": "^1.2.0",
     "tap-diff": "^0.1.1",
     "tap-notify": "^1.0.0",
-    "xo": "^0.14.0"
+    "xo": "^0.15.0"
   },
   "ava": {
     "babel": "inherit",

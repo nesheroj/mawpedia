@@ -24,7 +24,7 @@ const maxForks = (config.has('maxForks') && config.get('maxForks')) || Number.MA
 function launchForks(amount) {
 
   cluster.fork();
-  !(--amount) || launchForks(amount);
+  !--amount || launchForks(amount);
 
 }
 
