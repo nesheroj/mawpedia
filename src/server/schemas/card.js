@@ -5,7 +5,7 @@ const unsignedInt = Joi.number().integer().min(0);
 const illustration = Joi.object().keys({
   code: code.required(),
   artistName: Joi.string().required(),
-  note: Joi.string().default('')
+  note: Joi.string().allow('').required()
 });
 
 export const cardCreateRequest = Joi.object().keys({

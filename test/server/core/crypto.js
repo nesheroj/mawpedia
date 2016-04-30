@@ -1,4 +1,4 @@
-import '../helpers'; /* eslint import-order/import-order: [0] */
+import '../../helpers'; /* eslint import-order/import-order: [0] */
 import test from 'ava';
 import { hash, checkAgainst } from '~/src/server/core/crypto';
 

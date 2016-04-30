@@ -1,0 +1,34 @@
+{
+  "code": "asdf",
+  "name": "asdf",
+  "type": 1,
+  "expansion": 0,
+  "faction": 1,
+  "cost": 6,
+  "strength": 3,
+  "power": 3,
+  "keywords": [
+    "asdfasdf",
+    "asdfasdfasdf"
+  ],
+  "illustrations": [
+    {
+      "code": "asdfasdf",
+      "artistName": "asdfasdf",
+      "note": ""
+    }
+  ],
+  "texts": {
+    "Flavor": [],
+    "General": [
+      "asdfasdf"
+    ],
+    "Influence": [
+      "asdfasdfasdf"
+    ],
+    "Confrontation": [],
+    "Lore": [],
+    "Notes": []
+  },
+  "publishDate": "2016-04-30"
+}
