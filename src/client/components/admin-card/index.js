@@ -28,6 +28,7 @@ class AdminCardHomeComponent {
   textTypes = enums.textTypes;
   cardExpansions = enums.cardExpansions;
   cardFactions = enums.cardFactions;
+  isLoading = true;
 
   constructor(router, routeParams, titleService, apiService) {
 
@@ -53,6 +54,7 @@ class AdminCardHomeComponent {
       this._apiService.getCardByCode(this.code).toPromise()
       .then(card => {
 
+        this.isLoading = false;
         this.card = card;
 
       });
@@ -63,12 +65,13 @@ class AdminCardHomeComponent {
 
   canSubmit(formElement) {
 
-    return formElement.form.valid && this.card.illustrations && this.card.texts && this.card.keywords;
+    return !this.isLoading && formElement.form.valid && this.card.illustrations && this.card.texts && this.card.keywords;
 
   }
 
   onSubmit() {
 
+    this.isLoading = true;
     this._apiService.postCard(this.card).toPromise()
     .then(() => this._router.navigate(['/CardDetails', { code: this.card.code }]))
     .catch(error => console.error(error));
