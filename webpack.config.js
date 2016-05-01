@@ -71,7 +71,8 @@ export default {
       template: 'client/index.html'
     }),
     new webpack.DefinePlugin({
-      __DEVELOPMENT__
+      __DEVELOPMENT__,
+      __PRODUCTION__
     }),
     new StatsPlugin(path.join('..', 'webpack-stats.json'), {
       chunkModules: true

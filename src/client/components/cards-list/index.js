@@ -1,6 +1,7 @@
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/scan';
 import { Component } from 'angular2/core';
 import { ROUTER_DIRECTIVES, RouteParams } from 'angular2/router';
 import { Title } from 'angular2/platform/browser';
@@ -27,7 +28,10 @@ const PAGE_SIZE = 10;
 })
 class CardsHomeComponent {
 
-  offset = 0;
+  static parameters = [[RouteParams], [Title], [MaWPediaApiService]];
+
+  nextOffset = 0;
+  maxOffset = 0;
   searchTerm = '';
   sortBy = '';
   reverse = false;
@@ -38,25 +42,37 @@ class CardsHomeComponent {
   cardFactions = enums.cardFactions;
   extendedSearch = false;
   typeFilter = -1;
+  textTypeFilter = -1;
   factionFilter = -1;
+  canLoadMore = false;
 
   cards = this.searchTermStream
   .debounceTime(300)
   .distinctUntilChanged()
-  .switchMap(params => this.artist ? this._apiService.getCardsByArtist(this.artist, params) : this._apiService.getCards(params));
+  .switchMap(params => this.artist ? this._apiService.getCardsByArtist(this.artist, params) : this._apiService.getCards(params))
+  .scan((acc, curr) => {
+
+    const cards = this.nextOffset === 0 ? curr : [...acc, ...curr];
+    this.nextOffset = cards.length;
+    this.maxOffset = curr.total;
+    return cards;
+
+  }, []);
 
   constructor(routeParams, titleService, apiService) {
 
     this._apiService = apiService;
     this._routeParams = routeParams;
-    this.artist = this._routeParams.get('artist');
+    this.artist = decodeURIComponent(this._routeParams.get('artist') || '');
     titleService.setTitle(`MaWPedia - Cards`);
 
   }
 
-  onSearch() {
+  onSearch(offset = 0) {
 
-    const params = { offset: this.offset, limit: PAGE_SIZE };
+    this.nextOffset = offset;
+
+    const params = { offset, limit: PAGE_SIZE };
     const filters = {};
 
     if (this.searchTerm.length) {
@@ -74,6 +90,12 @@ class CardsHomeComponent {
     if (~this.typeFilter) {
 
       filters.type = this.typeFilter;
+
+    }
+
+    if (~this.textTypeFilter) {
+
+      filters.textType = this.textTypeFilter;
 
     }
 
@@ -111,6 +133,18 @@ class CardsHomeComponent {
 
   }
 
+  resetFilters() {
+
+    this.searchTerm = '';
+    this.extendedSearch = false;
+    this.typeFilter = -1;
+    this.textTypeFilter = -1;
+    this.factionFilter = -1;
+    this.sortBy = '';
+    this.reverse = false;
+
+  }
+
   toggleFilters($event) {
 
     this.showFilters = !this.showFilters;
@@ -120,6 +154,5 @@ class CardsHomeComponent {
   }
 
 }
-CardsHomeComponent.parameters = [[RouteParams], [Title], [MaWPediaApiService]];
 
 export default CardsHomeComponent;

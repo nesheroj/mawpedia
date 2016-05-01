@@ -1,4 +1,4 @@
-import '../helpers';  /* eslint import-order/import-order: [0] */
+import '../../helpers';  /* eslint import-order/import-order: [0] */
 import test from 'ava';
 import Joi from 'joi';
 import request from 'supertest';
@@ -23,6 +23,7 @@ test('An invalid payload throws.', async t => {
 
   app.use(bodyParser());
   app.use(validateRequest(schema));
+  app.use(passthrough);
 
   await request(app.listen())
   .post('/')

@@ -1,14 +1,19 @@
+section {
+  width: 100%;
+  max-width: 505px;
+  margin: 0 auto;
+}
+
 .cards-container {
   margin-top: 20px;
 	display: flex;
   align-content: center;
-	flex-direction: column;
+	flex-direction: row;
 	flex-wrap: wrap;
-	height: 502px;
 	font-size: 0;
 
   > md-card {
-    width: 30%;
+    width: 50%;
     box-sizing: border-box;
 
   }

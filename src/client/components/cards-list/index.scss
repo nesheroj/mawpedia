@@ -1,39 +1,41 @@
-md-card.filters {
-  margin-bottom: 20px;
-  text-align: center;
-
-  transition: .8s height;
-
-  > .ng-enter {
-    height: 0;
-  }
-}
-
-.cards-container {
-	display: flex;
-  align-content: space-between;
-	flex-direction: column;
-	flex-wrap: wrap;
-	height: 60vw;
-	font-size: 0;
-
-  > a {
-    width: 30%;
+section {
+  md-card.filters {
+    text-align: center;
     box-sizing: border-box;
-    transition: .8s opacity;
+    width: 100%;
+    max-width: 505px;
+    margin: 0 auto;
+    margin-bottom: 20px;
 
-  }
+    transition: .8s height;
 
-  &:hover > a {
-	  opacity: 0.3;
+    > .ng-enter {
+      height: 0;
+    }
 
-    &:hover {
-	    opacity: 1;
+    small[title] {
+      border-bottom: 1px dotted black;
+      cursor: help;
     }
   }
-}
 
-[title] {
-  border-bottom: 1px dotted black;
-  cursor: help;
+  .cards-container {
+    width: 100%;
+    max-width: 505px;
+    margin: 0 auto;
+
+    > a {
+      display: block;
+      margin-bottom: 20px;
+
+      > img {
+        width: 100%;
+      }
+    }
+  }
+
+  > button {
+    display: block;
+    margin: 0 auto;
+  }
 }

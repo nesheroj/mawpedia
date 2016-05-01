@@ -19,11 +19,14 @@ import styles from './index.scss';
 })
 class CardDetailsHomeComponent {
 
+  static parameters = [[RouteParams], [Title], [MaWPediaApiService]];
+
   cardTypes = enums.cardTypes;
   textTypes = enums.textTypes;
   cardExpansions = enums.cardExpansions;
   cardFactions = enums.cardFactions;
   isLogged = () => this._apiService.isLogged();
+  showIllustrations = false;
 
   constructor(routeParams, titleService, apiService) {
 
@@ -33,21 +36,23 @@ class CardDetailsHomeComponent {
     this.code = this._routeParams.get('code');
     this._titleService.setTitle(`MaWPedia - [${this.code}]`);
 
-  }
-
-  ngAfterViewInit() {
-
     this._apiService.getCardByCode(this.code).toPromise()
     .then(card => {
 
       this.card = card;
+      this.defaultIllustration = this.card.illustrations[this.card.defaultIllustration || 0];
       this._titleService.setTitle(`MaWPedia - [${this.code}] ${this.card.name}`);
 
     });
 
   }
 
+  toggleIllustrations() {
+
+    this.showIllustrations = !this.showIllustrations;
+
+  }
+
 }
-CardDetailsHomeComponent.parameters = [[RouteParams], [Title], [MaWPediaApiService]];
 
 export default CardDetailsHomeComponent;

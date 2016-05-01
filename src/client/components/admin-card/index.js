@@ -22,10 +22,13 @@ import styles from './index.scss';
 })
 class AdminCardHomeComponent {
 
+  static parameters = [[Router], [RouteParams], [Title], [MaWPediaApiService]];
+
   cardTypes = enums.cardTypes;
   textTypes = enums.textTypes;
   cardExpansions = enums.cardExpansions;
   cardFactions = enums.cardFactions;
+  isLoading = true;
 
   constructor(router, routeParams, titleService, apiService) {
 
@@ -51,6 +54,7 @@ class AdminCardHomeComponent {
       this._apiService.getCardByCode(this.code).toPromise()
       .then(card => {
 
+        this.isLoading = false;
         this.card = card;
 
       });
@@ -61,12 +65,13 @@ class AdminCardHomeComponent {
 
   canSubmit(formElement) {
 
-    return formElement.form.valid && this.card.illustrations && this.card.texts && this.card.keywords;
+    return !this.isLoading && formElement.form.valid && this.card.illustrations && this.card.texts && this.card.keywords;
 
   }
 
   onSubmit() {
 
+    this.isLoading = true;
     this._apiService.postCard(this.card).toPromise()
     .then(() => this._router.navigate(['/CardDetails', { code: this.card.code }]))
     .catch(error => console.error(error));
@@ -113,6 +118,7 @@ class AdminCardHomeComponent {
       strength: 0,
       power: 0,
       keywords: [],
+      defaultIllustration: 0,
       illustrations: [],
       texts,
       publishDate: new Date().toISOString().split('T')[0]
@@ -141,6 +147,12 @@ class AdminCardHomeComponent {
   }
 
   removeIllustration(index) {
+
+    if (index > 0 && this.card.defaultIllustration >= index) {
+
+      this.card.defaultIllustration--;
+
+    }
 
     this.card.illustrations.splice(index, 1);
 
@@ -199,7 +211,5 @@ class AdminCardHomeComponent {
 
   }
 }
-
-AdminCardHomeComponent.parameters = [[Router], [RouteParams], [Title], [MaWPediaApiService]];
 
 export default AdminCardHomeComponent;

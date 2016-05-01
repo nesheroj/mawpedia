@@ -1,30 +1,33 @@
 <section *ngIf="card">
   <md-card>
-    <md-card-title>
+    <a *ngIf="!showIllustrations" href="//cdn.purpletentacle.rocks/PNGEN/{{ defaultIllustration.code }}.png" target="_blank">
+      <img md-card-image src="//cdn.purpletentacle.rocks/JPGEN/{{ defaultIllustration.code }}.jpg">
+    </a>
+    <md-card-title *ngIf="showIllustrations">
       {{ card.name }} - <small>{{ card.code }}</small>
     </md-card-title>
     <md-card-content>
-      <h3>Illustrations:</h3>
-      <div class="cards-container">
-        <md-card *ngFor="let illustration of card.illustrations">
-          <a href="//cdn.purpletentacle.rocks/PNGEN/{{ illustration.code }}.png" target="_blank">
-            <img md-card-image src="//cdn.purpletentacle.rocks/JPGEN/{{ illustration.code }}.jpg">
-          </a>
-          <md-card-title>
-            <a [routerLinkle]="['CardsByArtist', { artist: illustration.artistName }]">{{ illustration.artistName }}</a>
-          </md-card-title>
-          <md-card-content>
-            <p [innerHTML]="illustration.note | mpmarkdown"></p>
-          </md-card-content>
-        </md-card>
-      </div>
-      <h3 *ngIf="card.texts">Notes:</h3>
+      <h3 *ngIf="card.texts['Notes']">Notes:</h3>
       <ul>
         <li *ngFor="let text of card.texts['Notes']" [innerHTML]="text | mpmarkdown"></li>
       </ul>
     </md-card-content>
-    <md-card-actions align="end" *ngIf="isLogged()">
-      <a md-button color="warn" [routerLinkle]="['EditCard', { code: card.code }]">EDIT</a>
+    <md-card-actions align="end">
+      <button md-button color="primary" *ngIf="card.illustrations.length > 1" (click)="toggleIllustrations()">TOGGLE ILLUSTRATIONS ({{ card.illustrations.length }})</button>
+      <a md-button color="warn" *ngIf="isLogged()" [routerLinkle]="['EditCard', { code: card.code }]">EDIT</a>
     </md-card-actions>
   </md-card>
+  <div class="cards-container" *ngIf="showIllustrations">
+    <md-card *ngFor="let illustration of card.illustrations">
+      <a href="//cdn.purpletentacle.rocks/PNGEN/{{ illustration.code }}.png" target="_blank">
+        <img md-card-image src="//cdn.purpletentacle.rocks/JPGEN/{{ illustration.code }}.jpg">
+      </a>
+      <md-card-title>
+        <a [routerLinkle]="['CardsByArtist', { artist: illustration.artistName }]">{{ illustration.artistName }}</a>
+      </md-card-title>
+      <md-card-content>
+        <p [innerHTML]="illustration.note | mpmarkdown"></p>
+      </md-card-content>
+    </md-card>
+  </div>
 </section>

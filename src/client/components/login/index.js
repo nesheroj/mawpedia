@@ -14,6 +14,9 @@ import { MD_INPUT_DIRECTIVES } from '@angular2-material/input';
   template
 })
 class LoginHomeComponent {
+
+  static parameters = [[Router], [MaWPediaApiService]];
+
   constructor(router, apiService) {
 
     this._router = router;
@@ -41,6 +44,5 @@ class LoginHomeComponent {
 
   }
 }
-LoginHomeComponent.parameters = [[Router], [MaWPediaApiService]];
 
 export default LoginHomeComponent;

@@ -16,16 +16,29 @@ const isPublishedBefore = currentDate => card => currentDate >= new Date(card.pu
 
 router.get('/byartist/:artistName', (ctx, next) => {
 
+  let total = 0;
+
   return getCards(ctx.params.artistName)
     .then(cards => ctx.state.isAuthorised ? cards : cards.filter(isPublishedBefore(new Date())))
-    .then(cards => cards.filter(card => card.illustrations.some(illustration => illustration.artistName === ctx.params.artistName)))
+    .then(cards => cards.filter(card => {
+
+      card.illustrations = card.illustrations.filter(illustration => illustration.artistName === ctx.params.artistName);
+      return card.illustrations.length;
+
+    }))
     .then(cards => ctx.query.filters ? cards.filter(processFilters(JSON.parse(ctx.query.filters))) : cards)
     .then(cards => ctx.query.sortBy ? cards.sort(compareCardsBy(ctx.query.sortBy, !!ctx.query.reverse)) : cards)
-    .then(cards => ctx.query.limit ? cards.slice(ctx.query.offset || 0, ctx.query.limit) : cards)
+    .then(cards => {
+
+      total = cards.length;
+      return ctx.query.limit ? cards.slice(ctx.query.offset || 0, (ctx.query.offset || 0) + ctx.query.limit) : cards;
+
+    })
+    .then(cards => ctx.query.limit ? cards.slice(ctx.query.offset || 0, (ctx.query.offset || 0) + ctx.query.limit) : cards)
     .then(cards => {
 
       ctx.status = 200;
-      ctx.body = cards;
+      ctx.body = { cards, total };
 
     }, err => ctx.throw(404, 'Not Found', err));
 
@@ -33,15 +46,22 @@ router.get('/byartist/:artistName', (ctx, next) => {
 
 router.get('/', checkAuth(), (ctx, next) => {
 
+  let total = 0;
+
   return getCards()
     .then(cards => ctx.state.isAuthorised ? cards : cards.filter(isPublishedBefore(new Date())))
     .then(cards => ctx.query.filters ? cards.filter(processFilters(JSON.parse(ctx.query.filters))) : cards)
     .then(cards => ctx.query.sortBy ? cards.sort(compareCardsBy(ctx.query.sortBy, !!ctx.query.reverse)) : cards)
-    .then(cards => ctx.query.limit ? cards.slice(ctx.query.offset || 0, ctx.query.limit) : cards)
+    .then(cards => {
+
+      total = cards.length;
+      return ctx.query.limit ? cards.slice(ctx.query.offset || 0, (ctx.query.offset || 0) + ctx.query.limit) : cards;
+
+    })
     .then(cards => {
 
       ctx.status = 200;
-      ctx.body = cards;
+      ctx.body = { cards, total };
 
     }, err => ctx.throw(404, 'Not Found', err));
 
@@ -93,6 +113,12 @@ function processFilters(filters) {
     if (!pass && !!filters.extendedSearch) {
 
       pass = card.texts.some(cardText => ~sanitizeForSearch(cardText.text).indexOf(sanitizedTerm)) || card.keywords.some(keyword => ~sanitizeForSearch(keyword).indexOf(sanitizedTerm));
+
+    }
+
+    if (filters.textType) {
+
+      pass = pass && card.texts[filters.textType].length > 0;
 
     }
 
