@@ -18,11 +18,7 @@ import RootComponent from './components/root/';
 import MAWPEDIA_SERVICES from './services/';
 import MAWPEDIA_PIPES from './pipes/';
 
-if (__DEVELOPMENT__) {
-
-  console.clear();
-
-} else {
+if (__PRODUCTION__) {
 
   enableProdMode();
 

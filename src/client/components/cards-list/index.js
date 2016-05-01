@@ -1,6 +1,7 @@
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/scan';
 import { Component } from 'angular2/core';
 import { ROUTER_DIRECTIVES, RouteParams } from 'angular2/router';
 import { Title } from 'angular2/platform/browser';
@@ -29,7 +30,7 @@ class CardsHomeComponent {
 
   static parameters = [[RouteParams], [Title], [MaWPediaApiService]];
 
-  offset = 0;
+  nextOffset = 0;
   searchTerm = '';
   sortBy = '';
   reverse = false;
@@ -41,11 +42,21 @@ class CardsHomeComponent {
   extendedSearch = false;
   typeFilter = -1;
   factionFilter = -1;
+  canLoadMore = false;
 
   cards = this.searchTermStream
   .debounceTime(300)
   .distinctUntilChanged()
-  .switchMap(params => this.artist ? this._apiService.getCardsByArtist(this.artist, params) : this._apiService.getCards(params));
+  .switchMap(params => this.artist ? this._apiService.getCardsByArtist(this.artist, params) : this._apiService.getCards(params))
+  .scan((acc, curr) => {
+
+    console.log(acc, curr);
+    const cards = [...acc, ...curr];
+    this.nextOffset = cards.length;
+    this.canLoadMore = this.nextOffset < curr.total;
+    return [...acc, ...curr];
+
+  }, []);
 
   constructor(routeParams, titleService, apiService) {
 
@@ -56,9 +67,9 @@ class CardsHomeComponent {
 
   }
 
-  onSearch() {
+  onSearch(offset = 0) {
 
-    const params = { offset: this.offset, limit: PAGE_SIZE };
+    const params = { offset, limit: PAGE_SIZE };
     const filters = {};
 
     if (this.searchTerm.length) {
@@ -110,6 +121,17 @@ class CardsHomeComponent {
   ngAfterViewInit() {
 
     this.onSearch();
+
+  }
+
+  resetFilters() {
+
+    this.searchTerm = '';
+    this.extendedSearch = false;
+    this.typeFilter = -1;
+    this.factionFilter = -1;
+    this.sortBy = '';
+    this.reverse = false;
 
   }
 

@@ -14,7 +14,6 @@ import webpack from 'webpack';
 import packageInfo from '~/package';
 import apiRouter from '~/src/server/api/';
 import cardsRouter from '~/src/server/api/cards';
-// import domain from '~/core/domain';
 import profile from '~/src/server/core/profile';
 import webpackConfig from '~/webpack.config';
 
@@ -60,9 +59,7 @@ if (maxForks === 1 || !cluster.isMaster) {
   const app = new Koa();
 
   app.use(profile);
-//   app.use(domain(app));
   app.use(helmet());
-//   app.use(cors());
   app.use(compress());
   app.use(bodyParser());
   app.use(favicon(path.resolve('static/favicon.ico')));

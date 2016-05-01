@@ -77,7 +77,14 @@ class MaWPediaApiService {
     const search = this._setSearchParams(params);
 
     return this._request('get', `/api/cards`, { headers, search })
-      .map(response => response.json());
+      .map(response => {
+
+        const data = response.json();
+        const cards = data.cards;
+        cards.total = data.total;
+        return cards;
+
+      });
 
   }
 
@@ -87,7 +94,14 @@ class MaWPediaApiService {
     const search = this._setSearchParams(params);
 
     return this._request('get', `/api/cards/byartist/${artist}`, { headers, search })
-      .map(response => response.json());
+      .map(response => {
+
+        const data = response.json();
+        const cards = data.cards;
+        cards.total = data.total;
+        return cards;
+
+      });
 
   }
 
