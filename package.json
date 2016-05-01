@@ -25,7 +25,7 @@
     "watch": "nodemon --debug"
   },
   "author": "",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@angular2-material/button": "^2.0.0-alpha.3",
