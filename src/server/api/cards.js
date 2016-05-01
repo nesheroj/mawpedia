@@ -116,6 +116,12 @@ function processFilters(filters) {
 
     }
 
+    if (filters.textType) {
+
+      pass = pass && card.texts[filters.textType].length > 0;
+
+    }
+
     pass = pass && ['type', 'expansion', 'faction'].every(field => typeof filters[field] === 'undefined' || Number(filters[field]) === card[field]);
 
     return pass;

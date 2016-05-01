@@ -26,6 +26,7 @@ class CardDetailsHomeComponent {
   cardExpansions = enums.cardExpansions;
   cardFactions = enums.cardFactions;
   isLogged = () => this._apiService.isLogged();
+  showIllustrations = false;
 
   constructor(routeParams, titleService, apiService) {
 
@@ -39,9 +40,16 @@ class CardDetailsHomeComponent {
     .then(card => {
 
       this.card = card;
+      this.defaultIllustration = this.card.illustrations[this.card.defaultIllustration || 0];
       this._titleService.setTitle(`MaWPedia - [${this.code}] ${this.card.name}`);
 
     });
+
+  }
+
+  toggleIllustrations() {
+
+    this.showIllustrations = !this.showIllustrations;
 
   }
 

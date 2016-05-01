@@ -2,7 +2,8 @@
   <form #searchForm="ngForm">
     <md-card class="filters">
       <md-card-title>
-        <md-input placeholder="Search" ngControl="searchTermControl" [(ngModel)]="searchTerm" (ngModelChange)="onSearch($event)">
+        <h3 *ngIf="artist">Cards by {{ artist }}</h3>
+        <md-input placeholder="Search" ngControl="searchTermControl" [(ngModel)]="searchTerm" (ngModelChange)="onSearch(0)">
         </md-input>
         <button md-icon-button [color]="showFilters ? 'primary' : 'default'" title="Toggle filters">
           <i class="material-icons" (click)="toggleFilters($event)">tune</i>
@@ -17,6 +18,14 @@
           <select name="typeFilter" [(ngModel)]="typeFilter">
             <option [value]="-1">Please select</option>
             <option [value]="i" *ngFor="let cardType of cardTypes; let i = index">{{ cardType }}</option>
+          </select>
+        </p>
+        <p>
+          <label for="textTypeFilter">Action type: </label>
+          <select name="textTypeFilter" [(ngModel)]="textTypeFilter">
+            <option [value]="-1">Please select</option>
+            <option [value]="'Confrontation'">Confrontation</option>
+            <option [value]="'Influence'">Influence</option>
           </select>
         </p>
         <p>
@@ -36,7 +45,7 @@
         </p>
       </md-card-content>
       <md-card-actions *ngIf="showFilters" class="ng-animate">
-        <button md-button color="primary" (click)="onSearch()">APPLY</button>
+        <button md-button color="primary" (click)="onSearch(0)">APPLY</button>
         <button md-button (click)="resetFilters()">RESET</button>
       </md-card-actions>
     </md-card>
@@ -55,5 +64,5 @@
       </template>
     </template>
   </div>
-  <button md-button [disabled]="!canLoadMore" (click)="onSearch(nextOffset)">LOAD MORE</button>
+  <button md-button [disabled]="nextOffset >= maxOffset" (click)="onSearch(nextOffset)">LOAD MORE</button>
 </section>

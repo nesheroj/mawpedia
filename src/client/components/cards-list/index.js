@@ -31,6 +31,7 @@ class CardsHomeComponent {
   static parameters = [[RouteParams], [Title], [MaWPediaApiService]];
 
   nextOffset = 0;
+  maxOffset = 0;
   searchTerm = '';
   sortBy = '';
   reverse = false;
@@ -41,6 +42,7 @@ class CardsHomeComponent {
   cardFactions = enums.cardFactions;
   extendedSearch = false;
   typeFilter = -1;
+  textTypeFilter = -1;
   factionFilter = -1;
   canLoadMore = false;
 
@@ -50,11 +52,10 @@ class CardsHomeComponent {
   .switchMap(params => this.artist ? this._apiService.getCardsByArtist(this.artist, params) : this._apiService.getCards(params))
   .scan((acc, curr) => {
 
-    console.log(acc, curr);
-    const cards = [...acc, ...curr];
+    const cards = this.nextOffset === 0 ? curr : [...acc, ...curr];
     this.nextOffset = cards.length;
-    this.canLoadMore = this.nextOffset < curr.total;
-    return [...acc, ...curr];
+    this.maxOffset = curr.total;
+    return cards;
 
   }, []);
 
@@ -62,12 +63,14 @@ class CardsHomeComponent {
 
     this._apiService = apiService;
     this._routeParams = routeParams;
-    this.artist = this._routeParams.get('artist');
+    this.artist = decodeURIComponent(this._routeParams.get('artist') || '');
     titleService.setTitle(`MaWPedia - Cards`);
 
   }
 
   onSearch(offset = 0) {
+
+    this.nextOffset = offset;
 
     const params = { offset, limit: PAGE_SIZE };
     const filters = {};
@@ -87,6 +90,12 @@ class CardsHomeComponent {
     if (~this.typeFilter) {
 
       filters.type = this.typeFilter;
+
+    }
+
+    if (~this.textTypeFilter) {
+
+      filters.textType = this.textTypeFilter;
 
     }
 
@@ -129,6 +138,7 @@ class CardsHomeComponent {
     this.searchTerm = '';
     this.extendedSearch = false;
     this.typeFilter = -1;
+    this.textTypeFilter = -1;
     this.factionFilter = -1;
     this.sortBy = '';
     this.reverse = false;
