@@ -13,7 +13,7 @@
       </ul>
     </md-card-content>
     <md-card-actions align="end">
-      <button md-button color="primary" *ngIf="card.illustrations.length > 1" (click)="toggleIllustrations()">TOGGLE ILLUSTRATIONS ({{ card.illustrations.length }})</button>
+      <button md-button color="primary" (click)="toggleIllustrations()">TOGGLE ILLUSTRATIONS ({{ card.illustrations.length }})</button>
       <a md-button color="warn" *ngIf="isLogged()" [routerLinkle]="['EditCard', { code: card.code }]">EDIT</a>
     </md-card-actions>
   </md-card>
