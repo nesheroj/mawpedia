@@ -27,5 +27,5 @@ deployment:
       - scp -C $CIRCLE_ARTIFACTS/mawpedia.tar root@purpletentacle.rocks:~/mawpedia/mawpedia.tar
       - scp -C docker-compose* root@purpletentacle.rocks:~/mawpedia/
       - 'ssh root@purpletentacle.rocks "docker load -i ~/mawpedia/mawpedia.tar"'
-      - 'ssh root@purpletentacle.rocks "docker images -q --filter \"dangling=true\" | xargs -n1 -r docker rmi"'
       - 'ssh root@purpletentacle.rocks "docker-compose -f ~/mawpedia/docker-compose.production.yml down && docker-compose -f ~/mawpedia/docker-compose.production.yml up -d"'
+      - 'ssh root@purpletentacle.rocks "docker images -q --filter \"dangling=true\" | xargs -n1 -r docker rmi"'
