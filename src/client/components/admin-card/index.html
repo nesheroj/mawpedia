@@ -66,12 +66,12 @@
       </md-card>
     </form>
     <md-card *ngFor="let illustration of card.illustrations; let i = index">
-      <md-card-title-group>
-        <md-card-title>{{ illustration.code }}</md-card-title>
-        <md-card-subtitle>{{ illustration.artistName }}</md-card-subtitle>
-        <md-card-subtitle>{{ illustration.note }}</md-card-subtitle>
-        <img md-card-md-image src="//cdn.purpletentacle.rocks/JPGEN/{{ illustration.code }}.jpg">
-      </md-card-title-group>
+      <img md-card-image src="//cdn.purpletentacle.rocks/JPGEN/{{ illustration.code }}.jpg">
+      <md-card-title>{{ illustration.code }}</md-card-title>
+      <md-card-content>
+        <p>{{ illustration.artistName }}</p>
+        <p>{{ illustration.note }}</p>
+      </md-card-content>
       <md-card-actions>
         <button md-button color="primary" [disabled]="card.defaultIllustration === i" (click)="card.defaultIllustration = i">SET DEFAULT</button>
         <button md-button color="primary" (click)="editIllustration(i)">EDIT</button>

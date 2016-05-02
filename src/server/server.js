@@ -12,8 +12,8 @@ import koaRouter from 'koa-router';
 import bodyParser from 'koa-bodyparser';
 import webpack from 'webpack';
 import packageInfo from '~/package';
-import apiRouter from '~/src/server/api/';
-import cardsRouter from '~/src/server/api/cards';
+import apiRouter from '~/src/server/endpoints/';
+import cardsRouter from '~/src/server/endpoints/cards';
 import profile from '~/src/server/core/profile';
 import webpackConfig from '~/webpack.config';
 

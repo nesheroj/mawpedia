@@ -8,6 +8,7 @@ import { MD_LIST_DIRECTIVES } from '@angular2-material/list';
 import { MdRadioButton, MdRadioGroup, MdRadioDispatcher } from '@angular2-material/radio';
 import { MaWPediaApiService } from '~/src/client/services/';
 import { MaWPediaJSONPipe } from '~/src/client/pipes/';
+import { objSome } from '~/src/common/object-utils';
 import * as enums from '~/src/common/enums';
 import template from './index.html';
 import styles from './index.scss';
@@ -59,13 +60,17 @@ class AdminCardHomeComponent {
 
       });
 
+    } else {
+
+      this.isLoading = false;
+
     }
 
   }
 
   canSubmit(formElement) {
 
-    return !this.isLoading && formElement.form.valid && this.card.illustrations && this.card.texts && this.card.keywords;
+    return !this.isLoading && formElement.form.valid && this.card.illustrations.length && objSome(textType => textType.length, this.card.texts);
 
   }
 

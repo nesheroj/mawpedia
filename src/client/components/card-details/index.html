@@ -7,7 +7,7 @@
       {{ card.name }} - <small>{{ card.code }}</small>
     </md-card-title>
     <md-card-content>
-      <h3 *ngIf="card.texts['Notes']">Notes:</h3>
+      <h3 *ngIf="card.texts['Notes'].length">Notes:</h3>
       <ul>
         <li *ngFor="let text of card.texts['Notes']" [innerHTML]="text | mpmarkdown"></li>
       </ul>
