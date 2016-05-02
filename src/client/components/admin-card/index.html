@@ -4,12 +4,6 @@
   <md-card-content>
     <form #cardForm="ngForm">
       <p>
-        <md-input required placeholder="Card code" ngControl="cardCodeControl" [disabled]="card._created" [(ngModel)]="card.code"></md-input>
-      </p>
-      <p>
-        <md-input required placeholder="Card name" ngControl="cardNameControl" [(ngModel)]="card.name"></md-input>
-      </p>
-      <p>
         <md-radio-group name="cardType" ngControl="cardTypeControl" [value]="card.type" (ngModelChange)="card.type = $event">
           <md-radio-button [value]="i" name="cardType" *ngFor="let cardType of cardTypes; let i = index">{{ cardType }}</md-radio-button>
         </md-radio-group>
@@ -18,6 +12,12 @@
         <md-radio-group name="cardFaction" ngControl="cardFactionControl" [value]="card.faction" (ngModelChange)="card.faction = $event">
           <md-radio-button [value]="i" name="cardFaction" *ngFor="let cardFaction of cardFactions; let i = index">{{ cardFaction }}</md-radio-button>
         </md-radio-group>
+      </p>
+      <p>
+        <md-input required placeholder="Card code" ngControl="cardCodeControl" [disabled]="card._created" [(ngModel)]="card.code"></md-input>
+      </p>
+      <p>
+        <md-input required placeholder="Card name" ngControl="cardNameControl" [(ngModel)]="card.name"></md-input>
       </p>
       <p *ngIf="showField('strength')">
         <md-input type="number" required placeholder="Strength" ngControl="cardStrengthControl" [(ngModel)]="card.strength"></md-input>
