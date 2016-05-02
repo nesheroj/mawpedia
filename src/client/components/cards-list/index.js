@@ -64,7 +64,7 @@ class CardsHomeComponent {
     this._apiService = apiService;
     this._routeParams = routeParams;
     this.artist = decodeURIComponent(this._routeParams.get('artist') || '');
-    titleService.setTitle(`MaWPedia - Cards`);
+    titleService.setTitle(`MaWpedia - Cards`);
 
   }
 

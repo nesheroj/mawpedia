@@ -34,14 +34,14 @@ class CardDetailsHomeComponent {
     this._routeParams = routeParams;
     this._titleService = titleService;
     this.code = this._routeParams.get('code');
-    this._titleService.setTitle(`MaWPedia - [${this.code}]`);
+    this._titleService.setTitle(`MaWpedia - [${this.code}]`);
 
     this._apiService.getCardByCode(this.code).toPromise()
     .then(card => {
 
       this.card = card;
       this.defaultIllustration = this.card.illustrations[this.card.defaultIllustration || 0];
-      this._titleService.setTitle(`MaWPedia - [${this.code}] ${this.card.name}`);
+      this._titleService.setTitle(`MaWpedia - [${this.code}] ${this.card.name}`);
 
     });
 

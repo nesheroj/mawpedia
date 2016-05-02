@@ -40,7 +40,7 @@ class AdminCardHomeComponent {
     this.initialiseIllustration();
     this.initialiseText();
     this.code = this._routeParams.get('code');
-    titleService.setTitle(this.code ? `MaWPedia - Edit Card` : `MaWPedia - Create Card`);
+    titleService.setTitle(this.code ? `MaWpedia - Edit Card` : `MaWpedia - Create Card`);
 
   }
 
