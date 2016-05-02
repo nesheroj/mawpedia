@@ -6,6 +6,7 @@ import { checkAuth } from '~/src/server/core/auth';
 import {
   getCards,
   getCardByCode,
+  removeCard,
   upsertCard
 } from '~/src/server/data/card';
 import { cardCreateRequest } from '~/src/server/schemas/card';
@@ -97,6 +98,18 @@ router.post('/', checkAuth(true), validateRequest(cardCreateRequest), async (ctx
 
   ctx.status = resultCode;
   ctx.body = resultDocument;
+
+});
+
+router.del('/:code', checkAuth(), (ctx, next) => {
+
+  return removeCard(ctx.params.code)
+    .then(resultDocument => {
+
+      ctx.status = 200;
+      ctx.body = { code: ctx.params.code };
+
+    }, err => ctx.throw(404, 'Not Found', err));
 
 });
 

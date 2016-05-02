@@ -116,5 +116,6 @@
   <md-card-actions>
     <button md-button color="primary" [disabled]="!canSubmit(cardForm)" (click)="onSubmit()">SUBMIT</button>
     <button md-button (click)="initialiseCard()">RESET</button>
+    <button md-button color="accent" *ngIf="card._created" (click)="removeCard()">REMOVE CARD</button>
   </md-card-actions>
 </md-card>

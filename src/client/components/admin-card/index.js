@@ -83,6 +83,15 @@ class AdminCardHomeComponent {
 
   }
 
+  removeCard() {
+
+    this.isLoading = true;
+    this._apiService.removeCard(this.card.code).toPromise()
+    .then(() => this._router.navigate(['/Cards']))
+    .catch(error => console.error(error));
+
+  }
+
   addText() {
 
     this.card.texts[this.text.type].push(this.text.content);

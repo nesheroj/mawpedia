@@ -116,10 +116,18 @@ class MaWPediaApiService {
 
   postCard(card) {
 
-    console.log(card);
     const headers = this._setTokenHeader();
 
     return this._request('post', `/api/cards`, JSON.stringify(card), { headers })
+      .map(response => response.json());
+
+  }
+
+  removeCard(code) {
+
+    const headers = this._setTokenHeader();
+
+    return this._request('delete', `/api/cards/${code}`, { headers })
       .map(response => response.json());
 
   }

@@ -1,4 +1,4 @@
-import { findOne, scan, upsert } from '~/src/server/core/redis';
+import { findOne, scan, upsert, del } from '~/src/server/core/redis';
 
 export function getCards() {
 
@@ -23,5 +23,13 @@ export function upsertCard(cardDocument) {
 
   return upsert(cardKey, JSON.stringify(cardDocument))
     .then(() => getCardByCode(cardDocument.code));
+
+}
+
+export function removeCard(code) {
+
+  const cardKey = `cards:${code}`;
+
+  return del(cardKey);
 
 }

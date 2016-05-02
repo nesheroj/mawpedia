@@ -88,3 +88,11 @@ export function upsert(key, value) {
   return value ? redis.set(key, value) : Promise.reject();
 
 }
+
+export function del(key) {
+
+  initialise();
+
+  return redis.del(key);
+
+}
