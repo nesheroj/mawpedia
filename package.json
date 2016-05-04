@@ -17,7 +17,6 @@
     "circle": "concurrently -r \"npm run test\" \"npm run lint\"",
     "dev": "concurrently -r \"npm run watch\" \"npm run tdd\"",
     "lint": "xo",
-    "postinstall": "echo 'done'",
     "start": "node src/server/index.js",
     "tdd": "nodemon --exec \"npm run testlocal && npm run lint\"",
     "test": "nyc ava --check-coverage && nyc report --reporter=text-lcov > coverage.lcov",

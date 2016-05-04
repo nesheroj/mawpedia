@@ -4,7 +4,7 @@
       <img md-card-image src="//cdn.purpletentacle.rocks/JPGEN/{{ defaultIllustration.code }}.jpg">
     </a>
     <md-card-title *ngIf="!showIllustrations">
-      <a [routerLinkle]="['CardsByArtist', { artist: illustration.artistName }]">{{ illustration.artistName }}</a>
+      <a [routerLinkle]="['CardsByArtist', { artist: defaultIllustration.artistName }]">{{ defaultIllustration.artistName }}</a>
     </md-card-title>
     <md-card-title *ngIf="showIllustrations">
       {{ card.name }} - <small>{{ card.code }}</small>
