@@ -1,11 +1,12 @@
-import { Component } from 'angular2/core';
-import { Router } from 'angular2/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router-deprecated';
 import template from './index.html';
 import styles from './index.scss';
 import { MaWPediaApiService } from '~/src/client/services/';
 import { MdButton } from '@angular2-material/button';
 import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
 import { MD_INPUT_DIRECTIVES } from '@angular2-material/input';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   directives: [MD_CARD_DIRECTIVES, MD_INPUT_DIRECTIVES, MdButton],
@@ -15,9 +16,9 @@ import { MD_INPUT_DIRECTIVES } from '@angular2-material/input';
 })
 class LoginHomeComponent {
 
-  static parameters = [[Router], [MaWPediaApiService]];
+  static parameters = [[Router], [Title], [MaWPediaApiService]];
 
-  constructor(router, apiService) {
+  constructor(router, titleService, apiService) {
 
     this._router = router;
     this._apiService = apiService;
@@ -26,6 +27,7 @@ class LoginHomeComponent {
       this._router.navigate(['/Cards']);
 
     }
+    titleService.setTitle(`MaWpedia - Admin access`);
 
   }
 

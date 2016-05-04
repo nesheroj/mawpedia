@@ -34,7 +34,7 @@
         <md-list dense>
           <md-list-item *ngFor="let keyword of card.keywords; let i = index">
             <p md-line>{{ keyword }}</p>
-            <button md-icon-button color="accent" (click)="removeKeyword(i)">
+            <button md-icon-button color="warn" (click)="removeKeyword(i)">
               <i class="material-icons">delete</i>
             </button>
           </md-list-item>
@@ -75,7 +75,7 @@
       <md-card-actions>
         <button md-button color="primary" [disabled]="card.defaultIllustration === i" (click)="card.defaultIllustration = i">SET DEFAULT</button>
         <button md-button color="primary" (click)="editIllustration(i)">EDIT</button>
-        <button md-button color="accent" (click)="removeIllustration(i)">REMOVE</button>
+        <button md-button color="warn" (click)="removeIllustration(i)">REMOVE</button>
       </md-card-actions>
     </md-card>
     <h3>Texts</h3>
@@ -106,7 +106,7 @@
           <button md-icon-button color="primary" (click)="editText(textType, i)">
             <i class="material-icons">edit</i>
           </button>
-          <button md-icon-button color="accent" (click)="removeText(textType, i)">
+          <button md-icon-button color="warn" (click)="removeText(textType, i)">
             <i class="material-icons">delete</i>
           </button>
         </md-list-item>
@@ -116,6 +116,6 @@
   <md-card-actions>
     <button md-button color="primary" [disabled]="!canSubmit(cardForm)" (click)="onSubmit()">SUBMIT</button>
     <button md-button (click)="initialiseCard()">RESET</button>
-    <button md-button color="accent" *ngIf="card._created" (click)="removeCard()">REMOVE CARD</button>
+    <button md-button color="warn" *ngIf="card._created" (click)="removeCard()">REMOVE CARD</button>
   </md-card-actions>
 </md-card>

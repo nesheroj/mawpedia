@@ -1,5 +1,5 @@
-import { Component } from 'angular2/core';
-import { Router, RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
+import { Component } from '@angular/core';
+import { Router, RouteConfig, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import routes from '~/src/routes.js';
 import template from './index.html';
 import styles from './index.scss';

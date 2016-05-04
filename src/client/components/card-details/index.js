@@ -1,6 +1,6 @@
-import { Component } from 'angular2/core';
-import { ROUTER_DIRECTIVES, RouteParams } from 'angular2/router';
-import { Title } from 'angular2/platform/browser';
+import { Component } from '@angular/core';
+import { ROUTER_DIRECTIVES, RouteParams } from '@angular/router-deprecated';
+import { Title } from '@angular/platform-browser';
 import { MdButton } from '@angular2-material/button';
 import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
 import { MaWPediaApiService } from '~/src/client/services/';

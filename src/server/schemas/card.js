@@ -16,7 +16,7 @@ export const cardCreateRequest = Joi.object().keys({
   faction: unsignedInt.required(),
   cost: unsignedInt.default(0),
   strength: unsignedInt.default(0),
-  power: unsignedInt.default(0),
+  power: Joi.number().integer().default(0),
   keywords: Joi.array().unique().items(Joi.string()).default([]),
   defaultIllustration: unsignedInt.default(0),
   illustrations: Joi.array().items(illustration).default([]),

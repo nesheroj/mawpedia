@@ -1,8 +1,8 @@
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/do';
-import { Injectable } from 'angular2/core';
-import { Http, Headers, URLSearchParams } from 'angular2/http';
+import { Injectable } from '@angular/core';
+import { Http, Headers, URLSearchParams } from '@angular/http';
 
 @Injectable()
 class MaWPediaApiService {

@@ -1,5 +1,5 @@
 
-import { Injectable, Pipe } from 'angular2/core';
+import { Injectable, Pipe } from '@angular/core';
 import Remarkable from 'remarkable';
 
 const remarkable = new Remarkable();

@@ -8,12 +8,12 @@ import '!!style!css!sass!./index.scss';
 //   BROWSER_ROUTER_PROVIDERS,
 //   BROWSER_HTTP_PROVIDERS
 // } from 'angular2-universal';
-import { enableProdMode } from 'angular2/core';
-import { bootstrap, Title } from 'angular2/platform/browser';
-import { FORM_PROVIDERS } from 'angular2/common';
-import { ROUTER_PROVIDERS } from 'angular2/router';
-import { HTTP_PROVIDERS } from 'angular2/http';
-import { ELEMENT_PROBE_PROVIDERS } from 'angular2/platform/common_dom';
+import { enableProdMode } from '@angular/core';
+import { bootstrap } from '@angular/platform-browser-dynamic';
+import { Title, ELEMENT_PROBE_PROVIDERS } from '@angular/platform-browser';
+import { FORM_PROVIDERS } from '@angular/common';
+import { ROUTER_PROVIDERS } from '@angular/router-deprecated';
+import { HTTP_PROVIDERS } from '@angular/http';
 import RootComponent from './components/root/';
 import MAWPEDIA_SERVICES from './services/';
 import MAWPEDIA_PIPES from './pipes/';

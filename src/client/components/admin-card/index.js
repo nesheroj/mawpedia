@@ -1,6 +1,6 @@
-import { Component } from 'angular2/core';
-import { Title } from 'angular2/platform/browser';
-import { Router, RouteParams } from 'angular2/router';
+import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { Router, RouteParams } from '@angular/router-deprecated';
 import { MdButton } from '@angular2-material/button';
 import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
 import { MD_INPUT_DIRECTIVES } from '@angular2-material/input';

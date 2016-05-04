@@ -1,5 +1,5 @@
-import { Directive } from 'angular2/core';
-import { RouterLink } from 'angular2/router';
+import { Directive } from '@angular/core';
+import { RouterLink } from '@angular/router-deprecated';
 
 @Directive({
   selector: '[routerLinkle]',
