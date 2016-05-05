@@ -125,7 +125,7 @@ function processFilters(filters) {
 
     if (!pass && !!filters.extendedSearch) {
 
-      pass = card.texts.some(cardText => ~sanitizeForSearch(cardText.text).indexOf(sanitizedTerm)) || card.keywords.some(keyword => ~sanitizeForSearch(keyword).indexOf(sanitizedTerm));
+      pass = filters.term === '' || Object.keys(card.texts).some(cardType => card.texts[cardType].some(cardText => ~sanitizeForSearch(cardText).indexOf(sanitizedTerm)) || card.keywords.some(keyword => ~sanitizeForSearch(keyword).indexOf(sanitizedTerm)));
 
     }
 

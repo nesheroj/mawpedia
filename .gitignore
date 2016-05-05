@@ -10,3 +10,4 @@ main.js
 webpack-stats.json
 index.html
 coverage.lcov
+appendonly.aof
