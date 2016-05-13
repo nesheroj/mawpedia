@@ -66,7 +66,7 @@
     "es6-shim": "^0.35.0",
     "file-loader": "^0.8.5",
     "html-loader": "^0.4.3",
-    "html-webpack-plugin": "^2.16.1",
+    "html-webpack-plugin": "^2.17.0",
     "ioredis": "^1.15.1",
     "joi": "^8.0.5",
     "json-loader": "^0.5.4",
