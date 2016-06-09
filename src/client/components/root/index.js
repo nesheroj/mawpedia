@@ -5,12 +5,12 @@ import template from './index.html';
 import styles from './index.scss';
 import { MdToolbar } from '@angular2-material/toolbar';
 import { MdProgressBar } from '@angular2-material/progress-bar';
-import { MdButton } from '@angular2-material/button';
+import { MdAnchor } from '@angular2-material/button';
 import { RouterLinkle } from '~/src/client/directives/';
 import { MaWPediaApiService } from '~/src/client/services/';
 
 @Component({
-  directives: [ROUTER_DIRECTIVES, MdButton, MdToolbar, MdProgressBar, RouterLinkle],
+  directives: [ROUTER_DIRECTIVES, MdAnchor, MdToolbar, MdProgressBar, RouterLinkle],
   selector: 'mawpedia-root',
   styles: [styles],
   template

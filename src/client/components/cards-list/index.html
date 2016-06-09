@@ -41,7 +41,7 @@
             <option value="">Please select</option>
             <option [value]="field" *ngFor="let field of sortFields">{{ field | mpcapitalise }}</option>
           </select>
-          <md-checkbox [(ngModel)]="reverse">reverse order?</md-checkbox>
+          <md-checkbox [disabled]="sortBy === ''" [(ngModel)]="reverse">reverse order?</md-checkbox>
         </p>
       </md-card-content>
       <md-card-actions *ngIf="showFilters" class="ng-animate">

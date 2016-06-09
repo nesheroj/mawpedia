@@ -2,15 +2,14 @@
 // import config from 'config';
 // import {
 //   provide,
-//   // enableProdMode,
+//   enableProdMode,
 //   expressEngine,
 //   REQUEST_URL,
-//   // ORIGIN_URL,
+//   ORIGIN_URL,
 //   BASE_URL,
 //   NODE_ROUTER_PROVIDERS,
 //   NODE_HTTP_PROVIDERS,
-//   ExpressEngineConfig,
-//   selectorRegExpFactory
+//   ExpressEngineConfig
 // } from 'angular2-universal';
 // import { DOCUMENT } from 'angular2/platform/common_dom';
 // import RootComponent from '~/src/client/components/root/';

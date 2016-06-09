@@ -1,4 +1,6 @@
 import koaRouter from 'koa-router';
+import json from 'koa-json';
+import bodyParser from 'koa-bodyparser';
 import * as enums from '~/src/common/enums';
 import { sanitizeForSearch } from '~/src/common/string-utils';
 import { validateRequest } from '~/src/server/core/validation';
@@ -12,6 +14,9 @@ import {
 import { cardCreateRequest } from '~/src/server/schemas/card';
 
 const router = koaRouter({ prefix: '/api/cards' });
+
+router.use(bodyParser());
+router.use(json());
 
 const isPublishedBefore = currentDate => card => currentDate >= new Date(card.publishDate);
 
@@ -31,11 +36,11 @@ router.get('/byartist/:artistName', (ctx, next) => {
     .then(cards => ctx.query.sortBy ? cards.sort(compareCardsBy(ctx.query.sortBy, !!ctx.query.reverse)) : cards)
     .then(cards => {
 
+      const offset = Number(ctx.query.offset) || 0;
       total = cards.length;
-      return ctx.query.limit ? cards.slice(ctx.query.offset || 0, (ctx.query.offset || 0) + ctx.query.limit) : cards;
+      return ctx.query.limit ? cards.slice(offset || 0, (offset || 0) + Number(ctx.query.limit)) : cards;
 
     })
-    .then(cards => ctx.query.limit ? cards.slice(ctx.query.offset || 0, (ctx.query.offset || 0) + ctx.query.limit) : cards)
     .then(cards => {
 
       ctx.status = 200;
@@ -55,8 +60,9 @@ router.get('/', checkAuth(), (ctx, next) => {
     .then(cards => ctx.query.sortBy ? cards.sort(compareCardsBy(ctx.query.sortBy, !!ctx.query.reverse)) : cards)
     .then(cards => {
 
+      const offset = Number(ctx.query.offset) || 0;
       total = cards.length;
-      return ctx.query.limit ? cards.slice(ctx.query.offset || 0, (ctx.query.offset || 0) + ctx.query.limit) : cards;
+      return ctx.query.limit ? cards.slice(offset || 0, (offset || 0) + Number(ctx.query.limit)) : cards;
 
     })
     .then(cards => {

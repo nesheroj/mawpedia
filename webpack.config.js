@@ -54,8 +54,7 @@ export default {
       query: {
         name: '[path][name].[ext]?[hash]'
       }
-    }],
-    noParse: [path.join(__dirname, 'node_modules', 'angular2', 'bundles')]
+    }]
   },
   postcss: () => {
 
