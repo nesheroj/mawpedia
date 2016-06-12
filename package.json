@@ -67,7 +67,7 @@
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.16.1",
     "ioredis": "^1.15.1",
-    "joi": "^8.1.0",
+    "joi": "^8.4.2",
     "json-loader": "^0.5.4",
     "jsonwebtoken": "^6.2.0",
     "koa": "^2.0.0",
