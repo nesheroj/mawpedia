@@ -95,7 +95,7 @@
     "zone.js": "^0.6.12"
   },
   "devDependencies": {
-    "ava": "^0.14.0",
+    "ava": "^0.15.1",
     "concurrently": "^2.0.0",
     "nodemon": "^1.9.2",
     "nyc": "^6.4.4",
