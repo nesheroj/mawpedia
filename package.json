@@ -84,7 +84,7 @@
     "node-uuid": "^1.4.7",
     "notp": "^2.0.3",
     "postcss-loader": "^0.9.1",
-    "preboot": "2.0.9",
+    "preboot": "4.3.1",
     "raw-loader": "^0.5.1",
     "remarkable": "^1.6.2",
     "rxjs": "^5.0.0-beta.7",
