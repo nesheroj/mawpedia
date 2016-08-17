@@ -15,8 +15,6 @@ test:
     - docker run --name mawpedia mawpedia npm run circle
     - rm -r ./node_modules
     - docker cp mawpedia:/usr/src/app/node_modules .
-    - docker cp mawpedia:/usr/src/app/coverage.lcov $CIRCLE_TEST_REPORTS/
-    - docker cp mawpedia:/usr/src/app/.nyc_output $CIRCLE_TEST_REPORTS/
 
 deployment:
   digitalocean:
@@ -24,8 +22,9 @@ deployment:
     owner: nesukun
     commands:
       - docker save -o $CIRCLE_ARTIFACTS/mawpedia.tar mawpedia
-      - scp -C $CIRCLE_ARTIFACTS/mawpedia.tar root@purpletentacle.rocks:~/mawpedia/mawpedia.tar
-      - scp -C docker-compose* root@purpletentacle.rocks:~/mawpedia/
-      - 'ssh root@purpletentacle.rocks "docker load -i ~/mawpedia/mawpedia.tar"'
-      - 'ssh root@purpletentacle.rocks "docker-compose -f ~/mawpedia/docker-compose.production.yml down && docker-compose -f ~/mawpedia/docker-compose.production.yml up -d"'
-      - 'ssh root@purpletentacle.rocks "docker images -q --filter \"dangling=true\" | xargs -n1 -r docker rmi"'
+      - scp -C $CIRCLE_ARTIFACTS/mawpedia.tar root@mawpedia.guerrademitos.com:~/
+      - scp -C docker-compose.yml root@mawpedia.guerrademitos.com:~/
+      - 'ssh root@mawpedia.guerrademitos.com "docker load -i ~/mawpedia.tar"'
+      - 'ssh root@mawpedia.guerrademitos.com "docker-compose down"'
+      - 'ssh root@mawpedia.guerrademitos.com "docker-compose up -d"'
+      - 'ssh root@mawpedia.guerrademitos.com "docker images -q --filter \"dangling=true\" | xargs -n1 -r docker rmi; exit 0""'

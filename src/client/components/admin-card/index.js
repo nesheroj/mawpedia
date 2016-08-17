@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Router, RouteParams } from '@angular/router-deprecated';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MdButton } from '@angular2-material/button';
 import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
 import { MD_INPUT_DIRECTIVES } from '@angular2-material/input';
 import { MD_LIST_DIRECTIVES } from '@angular2-material/list';
-import { MdRadioButton, MdRadioGroup, MdRadioDispatcher } from '@angular2-material/radio';
+import { MdRadioButton, MdRadioGroup, MdUniqueSelectionDispatcher } from '@angular2-material/radio';
 import { MaWPediaApiService } from '~/src/client/services/';
 import { MaWPediaJSONPipe } from '~/src/client/pipes/';
 import { objSome } from '~/src/common/object-utils';
@@ -16,39 +16,34 @@ import styles from './index.scss';
 @Component({
   directives: [MD_CARD_DIRECTIVES, MD_INPUT_DIRECTIVES, MD_LIST_DIRECTIVES, MdRadioButton, MdRadioGroup, MdButton],
   pipes: [MaWPediaJSONPipe],
-  providers: [MdRadioDispatcher],
+  providers: [MdUniqueSelectionDispatcher],
   selector: 'admin-card',
   styles: [styles],
   template
 })
 class AdminCardHomeComponent {
 
-  static parameters = [[Router], [RouteParams], [Title], [MaWPediaApiService]];
+  static parameters = [[Router], [ActivatedRoute], [Title], [MaWPediaApiService]];
 
   cardTypes = enums.cardTypes;
   textTypes = enums.textTypes;
-  cardExpansions = enums.cardExpansions;
+  cardExpansions = enums.cardExpansions[window.location.hostname.split('.')[0] === 'mawpedia' ? 'mawpedia' : 'mitopedia'];
   cardFactions = enums.cardFactions;
   isLoading = true;
 
-  constructor(router, routeParams, titleService, apiService) {
+  constructor(router, route, titleService, apiService) {
 
     this._router = router;
-    this._routeParams = routeParams;
     this._apiService = apiService;
     this.initialiseCard();
     this.initialiseIllustration();
     this.initialiseText();
-    this.code = this._routeParams.get('code');
+    this.code = route.snapshot.params.code;
     titleService.setTitle(this.code ? `MaWpedia - Edit Card` : `MaWpedia - Create Card`);
-
-  }
-
-  ngAfterViewInit() {
 
     if (!this._apiService.isLogged()) {
 
-      this._router.navigate(['/Cards']);
+      this._router.navigate(['/']);
 
     } else if (this.code) {
 
@@ -78,8 +73,13 @@ class AdminCardHomeComponent {
 
     this.isLoading = true;
     this._apiService.postCard(this.card).toPromise()
-    .then(() => this._router.navigate(['/CardDetails', { code: this.card.code }]))
-    .catch(error => console.error(error));
+    .then(() => this._router.navigate(['/cards', this.card.code.toUpperCase()]))
+    .catch(err => {
+
+      this.isLoading = false;
+      console.error(err);
+
+    });
 
   }
 
@@ -87,8 +87,8 @@ class AdminCardHomeComponent {
 
     this.isLoading = true;
     this._apiService.removeCard(this.card.code).toPromise()
-    .then(() => this._router.navigate(['/Cards']))
-    .catch(error => console.error(error));
+    .then(() => this._router.navigate(['/']))
+    .catch(err => console.error(err));
 
   }
 

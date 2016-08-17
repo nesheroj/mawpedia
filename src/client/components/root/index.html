@@ -1,11 +1,12 @@
 <div>
   <md-progress-bar mode="query" *ngIf="isLoading()"></md-progress-bar>
   <md-toolbar>
-    <a md-button color="primary" href="/">MaWpedia</a>
+    <a md-button color="primary" href="/" (click)="onRoot($event)">{{ 'MaWpedia' | translate }}</a>
     <separator></separator>
-    <a md-button color="primary" *ngIf="isLogged()" [routerLinkle]="['CreateCard']">Create card</a>
-    <a md-button color="primary" *ngIf="!isLogged()" [routerLinkle]="['Login']">Login</a>
-    <a md-button color="primary" class="pointer" *ngIf="isLogged()" (click)="onLogout()">Logout</a>
+    <a md-button color="primary" *ngIf="isLogged()" [routerLink]="['/createcard']">{{ 'Create card' | translate }}</a>
+    <a md-button color="primary" *ngIf="!isLogged()" [routerLink]="['/login']">{{ 'Login' | translate }}</a>
+    <a md-button color="primary" class="pointer" *ngIf="isLogged()" (click)="onLogout()">{{ 'Logout' | translate }}</a>
+    <a md-button color="primary" class="pointer flag" href="{{ 'OPPOSITE_REALM' | translate }}">{{ 'REALM_FLAG' | translate }}</a>
   </md-toolbar>
 
   <div class="main-content">
@@ -14,7 +15,7 @@
 
   <footer>
       <div class="center">
-        <small>MaWpedia is made with 💚 by <a href="https://github.com/nesukun">Nestor Hernandez Ojeda</a>. <a href="http://en.guerrademitos.com/">Myths at War</a> is © of GdM Games. Artwork is © of their respective artists.</small>
+        <small>{{ 'MaWpedia' | translate }} is made with 💚&nbsp; by <a href="https://github.com/nesukun">Nestor Hernandez Ojeda</a>. <a href="http://en.guerrademitos.com/">Myths at War</a> is © of GdM Games. Artwork is © of their respective artists.</small>
       </div>
   </footer>
 </div>

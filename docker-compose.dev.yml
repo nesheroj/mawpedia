@@ -1,0 +1,7 @@
+web:
+  build: .
+  links:
+    - db
+
+db:
+  image: redis:latest

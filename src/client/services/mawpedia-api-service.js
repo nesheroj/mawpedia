@@ -1,8 +1,9 @@
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/do';
+import jsonpack from 'jsonpack';
 import { Injectable } from '@angular/core';
-import { Http, Headers, URLSearchParams } from '@angular/http';
+import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 
 @Injectable()
 class MaWPediaApiService {
@@ -45,8 +46,8 @@ class MaWPediaApiService {
 
     const headers = this._setTokenHeader();
 
-    return this._request('get', `/api/login`, JSON.stringify({ token }), { headers })
-      .map(response => response.json())
+    return this._request('post', `/api/login`, btoa(jsonpack.pack({ token })), new RequestOptions({ headers }))
+      .map(response => jsonpack.unpack(atob(response.text())))
       .toPromise()
       .then(result => {
 
@@ -76,10 +77,10 @@ class MaWPediaApiService {
     const headers = this._setTokenHeader();
     const search = this._setSearchParams(params);
 
-    return this._request('get', `/api/cards`, { headers, search })
+    return this._request('get', `/api/cards`, new RequestOptions({ headers, search }))
       .map(response => {
 
-        const data = response.json();
+        const data = jsonpack.unpack(atob(response.text()));
         const cards = data.cards;
         cards.total = data.total;
         return cards;
@@ -93,10 +94,10 @@ class MaWPediaApiService {
     const headers = this._setTokenHeader();
     const search = this._setSearchParams(params);
 
-    return this._request('get', `/api/cards/byartist/${artist}`, { headers, search })
+    return this._request('get', `/api/cards/byartist/${artist}`, new RequestOptions({ headers, search }))
       .map(response => {
 
-        const data = response.json();
+        const data = jsonpack.unpack(atob(response.text()));
         const cards = data.cards;
         cards.total = data.total;
         return cards;
@@ -109,8 +110,8 @@ class MaWPediaApiService {
 
     const headers = this._setTokenHeader();
 
-    return this._request('get', `/api/cards/${code}`, { headers })
-      .map(response => response.json());
+    return this._request('get', `/api/cards/${code}`, new RequestOptions({ headers }))
+      .map(response => jsonpack.unpack(atob(response.text())));
 
   }
 
@@ -118,8 +119,8 @@ class MaWPediaApiService {
 
     const headers = this._setTokenHeader();
 
-    return this._request('post', `/api/cards`, JSON.stringify(card), { headers })
-      .map(response => response.json());
+    return this._request('post', `/api/cards`, btoa(jsonpack.pack(card)), new RequestOptions({ headers }))
+      .map(response => jsonpack.unpack(atob(response.text())));
 
   }
 
@@ -127,8 +128,8 @@ class MaWPediaApiService {
 
     const headers = this._setTokenHeader();
 
-    return this._request('delete', `/api/cards/${code}`, { headers })
-      .map(response => response.json());
+    return this._request('delete', `/api/cards/${code}`, new RequestOptions({ headers }))
+      .map(response => jsonpack.unpack(atob(response.text())));
 
   }
 
@@ -158,7 +159,6 @@ class MaWPediaApiService {
   _setTokenHeader() {
 
     const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
     if (this._apiToken) {
 
       headers.append('Authorization', `Bearer ${this._apiToken}`);

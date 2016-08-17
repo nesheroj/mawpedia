@@ -10,11 +10,11 @@ import send from 'koa-send';
 import favicon from 'koa-favicon';
 import koaRouter from 'koa-router';
 import webpack from 'webpack';
+// import { packResponse, unpackRequest } from '~/src/server/core/compression';
 import packageInfo from '~/package';
 import apiRouter from '~/src/server/endpoints/';
 import cardsRouter from '~/src/server/endpoints/cards';
 import profile from '~/src/server/core/profile';
-// import render from '~/src/server/core/render';
 import webpackConfig from '~/webpack.config';
 
 const PORT = Number(config.get('port'));
@@ -65,23 +65,16 @@ if (maxForks === 1 || !cluster.isMaster) {
   app.use(favicon(path.resolve('static/favicon.ico')));
   app.use(serve('static'));
 
-  const router = koaRouter();
+  const router = koaRouter({ prefix: '/api' });
 
+  // router.use(unpackRequest(), packResponse());
   router.use(apiRouter.routes(), apiRouter.allowedMethods());
   router.use(cardsRouter.routes(), cardsRouter.allowedMethods());
 
   app.use(router.routes());
   app.use(router.allowedMethods());
 
-  // if (config.get('render.server')) {
-
-  //   app.use(render);
-
-  // } else {
-
   app.use((ctx, next) => send(ctx, 'index.html', { root: 'static' }));
-
-  // }
 
   // Start express listener
 

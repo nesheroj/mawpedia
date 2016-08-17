@@ -1,12 +1,12 @@
 <md-card>
-  <md-card-title>Admin area login</md-card-title>
+  <md-card-title>{{ 'Admin area login' | translate }}</md-card-title>
   <md-card-content>
     <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
       <p class="center">
-        <md-input maxLength="6" placeholder="Enter code" required pattern="[0-9]{6}" ngControl="tokenControl" #tokenControl="ngForm" [(ngModel)]="token"></md-input>
+        <md-input maxLength="6" placeholder="Enter code" required pattern="[0-9]{6}" name="token" ngControl="tokenControl" [(ngModel)]="token"></md-input>
       </p>
       <p class="center">
-        <button type="submit" md-raised-button color="primary" [disabled]="!loginForm.form.valid">Submit</button>
+        <button type="submit" md-raised-button color="primary" [disabled]="!loginForm.form.valid">{{ 'Submit' | translate }}</button>
       </p>
     </form>
   </md-card-content>

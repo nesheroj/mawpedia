@@ -1,9 +1,9 @@
 import koaRouter from 'koa-router';
-import json from 'koa-json';
 import bodyParser from 'koa-bodyparser';
 import * as enums from '~/src/common/enums';
 import { sanitizeForSearch } from '~/src/common/string-utils';
 import { validateRequest } from '~/src/server/core/validation';
+import { packResponse, unpackRequest } from '~/src/server/core/compression';
 import { checkAuth } from '~/src/server/core/auth';
 import {
   getCards,
@@ -13,18 +13,19 @@ import {
 } from '~/src/server/data/card';
 import { cardCreateRequest } from '~/src/server/schemas/card';
 
-const router = koaRouter({ prefix: '/api/cards' });
+const PAGE_SIZE = 15;
 
-router.use(bodyParser());
-router.use(json());
+const router = koaRouter({ prefix: '/cards' });
+
+router.use(bodyParser({ enableTypes: ['text'] }), unpackRequest(), packResponse());
 
 const isPublishedBefore = currentDate => card => currentDate >= new Date(card.publishDate);
 
-router.get('/byartist/:artistName', (ctx, next) => {
+router.get('/byartist/:artistName', async (ctx, next) => {
 
   let total = 0;
 
-  return getCards(ctx.params.artistName)
+  await getCards(ctx.state.realm)
     .then(cards => ctx.state.isAuthorised ? cards : cards.filter(isPublishedBefore(new Date())))
     .then(cards => cards.filter(card => {
 
@@ -38,7 +39,7 @@ router.get('/byartist/:artistName', (ctx, next) => {
 
       const offset = Number(ctx.query.offset) || 0;
       total = cards.length;
-      return ctx.query.limit ? cards.slice(offset || 0, (offset || 0) + Number(ctx.query.limit)) : cards;
+      return cards.slice(offset, offset + PAGE_SIZE);
 
     })
     .then(cards => {
@@ -50,11 +51,11 @@ router.get('/byartist/:artistName', (ctx, next) => {
 
 });
 
-router.get('/', checkAuth(), (ctx, next) => {
+router.get('/', checkAuth(), async (ctx, next) => {
 
   let total = 0;
 
-  return getCards()
+  await getCards(ctx.state.realm)
     .then(cards => ctx.state.isAuthorised ? cards : cards.filter(isPublishedBefore(new Date())))
     .then(cards => ctx.query.filters ? cards.filter(processFilters(JSON.parse(ctx.query.filters))) : cards)
     .then(cards => ctx.query.sortBy ? cards.sort(compareCardsBy(ctx.query.sortBy, !!ctx.query.reverse)) : cards)
@@ -62,7 +63,7 @@ router.get('/', checkAuth(), (ctx, next) => {
 
       const offset = Number(ctx.query.offset) || 0;
       total = cards.length;
-      return ctx.query.limit ? cards.slice(offset || 0, (offset || 0) + Number(ctx.query.limit)) : cards;
+      return cards.slice(offset, offset + PAGE_SIZE);
 
     })
     .then(cards => {
@@ -74,9 +75,9 @@ router.get('/', checkAuth(), (ctx, next) => {
 
 });
 
-router.get('/:code', checkAuth(), (ctx, next) => {
+router.get('/:code', checkAuth(), async (ctx, next) => {
 
-  return getCardByCode(ctx.params.code)
+  await getCardByCode(ctx.state.realm, ctx.params.code)
     .then(resultDocument => {
 
       if (ctx.state.isAuthorised || isPublishedBefore(new Date())(resultDocument)) {
@@ -99,17 +100,17 @@ router.post('/', checkAuth(true), validateRequest(cardCreateRequest), async (ctx
   const requestPayload = ctx.request.body;
   const resultCode = requestPayload._created ? 200 : 201;
 
-  const resultDocument = await upsertCard(requestPayload)
-    .catch(err => ctx.trow(503, 'There was a problem creating the card.', err));
+  const resultDocument = await upsertCard(ctx.state.realm, requestPayload)
+    .catch(err => ctx.throw(503, 'There was a problem creating the card.', err));
 
   ctx.status = resultCode;
   ctx.body = resultDocument;
 
 });
 
-router.del('/:code', checkAuth(), (ctx, next) => {
+router.del('/:code', checkAuth(), async (ctx, next) => {
 
-  return removeCard(ctx.params.code)
+  await removeCard(ctx.state.realm, ctx.params.code)
     .then(resultDocument => {
 
       ctx.status = 200;

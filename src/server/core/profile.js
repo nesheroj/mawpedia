@@ -3,8 +3,9 @@ import uuid from 'node-uuid';
 export default async function(ctx, next) {
 
   // set a unique id for request
-  ctx.uuid = uuid.v4();
-  const label = `${ctx.uuid} ${ctx.method} ${ctx.url}`;
+  ctx.state.uuid = uuid.v4();
+  ctx.state.realm = ctx.host.split('.')[0];
+  const label = `${ctx.state.uuid} ${ctx.method} ${ctx.url}`;
 
   // Profile response
   console.time(label);

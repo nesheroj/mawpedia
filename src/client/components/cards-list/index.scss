@@ -13,7 +13,36 @@ section {
       height: 0;
     }
 
-    small[title] {
+    md-card-content {
+
+      table {
+
+        width: 100%;
+
+        td {
+          padding: 5px;
+
+          &:first-child {
+            text-align: right;
+          }
+
+          &:last-child {
+            text-align: left;
+          }
+
+          &[colspan="2"] {
+            text-align: center;
+          }
+
+          select {
+            max-width: 100%;
+          }
+        }
+      }
+
+    }
+
+    md-checkbox small {
       border-bottom: 1px dotted black;
       cursor: help;
     }

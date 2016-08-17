@@ -1,6 +1,6 @@
 import koaRouter from 'koa-router';
-import json from 'koa-json';
 import bodyParser from 'koa-bodyparser';
+import { packResponse, unpackRequest } from '~/src/server/core/compression';
 import packageInfo from '~/package';
 import * as auth from '~/src/server/core/auth';
 import { validateRequest } from '~/src/server/core/validation';
@@ -8,8 +8,7 @@ import { loginRequest } from '~/src/server/schemas/';
 
 const router = koaRouter({ prefix: '/api' });
 
-router.use(bodyParser());
-router.use(json());
+router.use(bodyParser({ enableTypes: ['text'], extendTypes: { text: ['text/plain'] } }), unpackRequest(), packResponse());
 
 router.get('/', (ctx, next) => {
 

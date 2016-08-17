@@ -2,67 +2,106 @@
   <form #searchForm="ngForm">
     <md-card class="filters">
       <md-card-title>
-        <h3 *ngIf="artist">Cards by {{ artist }}</h3>
-        <md-input placeholder="Search" ngControl="searchTermControl" [(ngModel)]="searchTerm" (ngModelChange)="onSearch(0)">
+        <h3 *ngIf="artist">{{ 'Cards by' | translate }}: {{ artist }}</h3>
+        <md-input placeholder="{{ 'Search' | translate }}" ngControl="searchTermControl" name="searchTerm" [(ngModel)]="searchTerm" (ngModelChange)="onSearch(0)">
         </md-input>
-        <button md-icon-button [color]="showFilters ? 'primary' : 'default'" title="Toggle filters">
-          <i class="material-icons" (click)="toggleFilters($event)">tune</i>
+        <button md-icon-button [color]="showFilters ? 'primary' : 'default'" title="Toggle filters" (click)="toggleFilters($event)">
+            <md-icon class="material-icons step">tune</md-icon>
         </button>
       </md-card-title>
       <md-card-content *ngIf="showFilters" class="ng-animate">
-        <p>
-          <md-checkbox align="end" [(ngModel)]="extendedSearch"><small title="Enabling this will search on the card's texts and keywords too.">Extended search?</small></md-checkbox>
-        </p>
-        <p>
-          <label for="typeFilter">Card type: </label>
-          <select name="typeFilter" [(ngModel)]="typeFilter">
-            <option [value]="-1">Please select</option>
-            <option [value]="i" *ngFor="let cardType of cardTypes; let i = index">{{ cardType }}</option>
-          </select>
-        </p>
-        <p>
-          <label for="textTypeFilter">Action type: </label>
-          <select name="textTypeFilter" [(ngModel)]="textTypeFilter">
-            <option [value]="-1">Please select</option>
-            <option [value]="'Confrontation'">Confrontation</option>
-            <option [value]="'Influence'">Influence</option>
-          </select>
-        </p>
-        <p>
-          <label for="factionFilter">Faction: </label>
-          <select name="factionFilter" [(ngModel)]="factionFilter">
-            <option [value]="-1">Please select</option>
-            <option [value]="i" *ngFor="let cardFaction of cardFactions; let i = index">{{ cardFaction }}</option>
-          </select>
-        </p>
-        <p>
-          <label for="sortBy">Sort by: </label>
-          <select name="sortBy" [(ngModel)]="sortBy">
-            <option value="">Please select</option>
-            <option [value]="field" *ngFor="let field of sortFields">{{ field | mpcapitalise }}</option>
-          </select>
-          <md-checkbox [disabled]="sortBy === ''" [(ngModel)]="reverse">reverse order?</md-checkbox>
-        </p>
+        <table>
+          <tr>
+            <td colspan="2">
+              <md-checkbox align="end" name="extendedSearch" [(ngModel)]="extendedSearch">
+                <small md-tooltip="{{ 'Enabling this will search on the card\'s texts and keywords too.' | translate }}">{{ 'Extended search?' | translate }}</small>
+              </md-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="typeFilter">{{ 'Card type' | translate }}: </label>
+            </td>
+            <td>
+              <select name="typeFilter" [(ngModel)]="typeFilter">
+                <option [value]="-1">{{ 'Please select' | translate }}</option>
+                <option [value]="i" *ngFor="let cardType of cardTypes; let i = index">{{ cardType | translate }}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="factionFilter">{{ 'Faction' | translate }}: </label>
+            </td>
+            <td>
+              <select name="factionFilter" [(ngModel)]="factionFilter">
+                <option [value]="-1">{{ 'Please select' | translate }}</option>
+                <option [value]="i" *ngFor="let cardFaction of cardFactions; let i = index">{{ cardFaction | translate }}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="expansionFilter">{{ 'Expansion' | translate }}: </label>
+            </td>
+            <td>
+              <select name="expansionFilter" [(ngModel)]="expansionFilter">
+                <option [value]="-1">{{ 'Please select' | translate }}</option>
+                <option [value]="i" *ngFor="let cardExpansion of cardExpansions; let i = index">{{ cardExpansion | translate }}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="textTypeFilter">{{ 'Action type' | translate }}: </label>
+            </td>
+            <td>
+              <select name="textTypeFilter" [(ngModel)]="textTypeFilter">
+                <option [value]="-1">{{ 'Please select' | translate }}</option>
+                <option [value]="'Confrontation'">{{ 'Confrontation' | translate }}</option>
+                <option [value]="'Influence'">{{ 'Influence' | translate }}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="sortBy">{{ 'Sort by' | translate }}: </label>
+            </td>
+            <td>
+              <select name="sortBy" [(ngModel)]="sortBy">
+                <option value="">{{ 'Please select' | translate }}</option>
+                <option [value]="field" *ngFor="let field of sortFields">{{ field | mpcapitalise | translate }}</option>
+              </select>
+            </td>
+          </tr>
+          <tr *ngIf="sortBy !== ''" >
+            <td colspan="2">
+              <md-checkbox name="reverse" [(ngModel)]="reverse">{{ 'reverse order?' | translate }}</md-checkbox>
+            </td>
+          </tr>
+        </table>
       </md-card-content>
       <md-card-actions *ngIf="showFilters" class="ng-animate">
-        <button md-button color="primary" (click)="onSearch(0)">APPLY</button>
-        <button md-button (click)="resetFilters()">RESET</button>
+        <button md-button color="primary" (click)="onSearch(0)">{{ 'APPLY' | translate }}</button>
+        <button md-button (click)="resetFilters()">{{ 'RESET FILTERS' | translate }}</button>
       </md-card-actions>
     </md-card>
   </form>
   <div class="cards-container" [ngSwitch]="!!artist">
-    <template [ngSwitchWhen]="false">
-      <a *ngFor="let card of cards | async" [routerLinkle]="['CardDetails', { code: card.code }]">
-        <img src="//cdn.purpletentacle.rocks/JPGEN/{{ card.illustrations[card.defaultIllustration || 0].code }}.jpg">
+    <template [ngSwitchCase]="false">
+      <a *ngFor="let card of cards | async" [routerLink]="['/cards/', card.code]">
+        <img src="{{ 'CDNROOT' | translate }}/JPG/{{ card.illustrations[card.defaultIllustration || 0].code }}.jpg">
       </a>
     </template>
-    <template [ngSwitchWhen]="true">
-      <template  ngFor let-card [ngForOf]="cards | async">
-        <a *ngFor="let illustration of card.illustrations" [routerLinkle]="['CardDetails', { code: card.code }]">
-          <img src="//cdn.purpletentacle.rocks/JPGEN/{{ illustration.code }}.jpg">
+    <template [ngSwitchCase]="true">
+      <template ngFor let-card [ngForOf]="cards | async">
+        <a *ngFor="let illustration of card.illustrations" [routerLink]="['/cards/', card.code]">
+          <img src="{{ 'CDNROOT' | translate }}/JPG/{{ illustration.code }}.jpg">
         </a>
       </template>
     </template>
   </div>
-  <button md-button [disabled]="nextOffset >= maxOffset" (click)="onSearch(nextOffset)">LOAD MORE</button>
+  <template [ngIf]="nextOffset < maxOffset">
+    <button md-button (click)="onSearch(nextOffset)">{{ 'LOAD MORE' | translate }}</button>
+  </template>
 </section>

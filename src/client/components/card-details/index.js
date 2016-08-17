@@ -1,17 +1,16 @@
 import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES, RouteParams } from '@angular/router-deprecated';
+import { ROUTER_DIRECTIVES, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { MdButton } from '@angular2-material/button';
 import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
 import { MaWPediaApiService } from '~/src/client/services/';
 import { MaWPediaMarkdownPipe } from '~/src/client/pipes/';
 import * as enums from '~/src/common/enums';
-import { RouterLinkle } from '~/src/client/directives/';
 import template from './index.html';
 import styles from './index.scss';
 
 @Component({
-  directives: [MD_CARD_DIRECTIVES, ROUTER_DIRECTIVES, MdButton, RouterLinkle],
+  directives: [MD_CARD_DIRECTIVES, ROUTER_DIRECTIVES, MdButton],
   pipes: [MaWPediaMarkdownPipe],
   selector: 'card-details',
   styles: [styles],
@@ -19,7 +18,7 @@ import styles from './index.scss';
 })
 class CardDetailsHomeComponent {
 
-  static parameters = [[RouteParams], [Title], [MaWPediaApiService]];
+  static parameters = [[ActivatedRoute], [Title], [MaWPediaApiService]];
 
   cardTypes = enums.cardTypes;
   textTypes = enums.textTypes;
@@ -28,12 +27,11 @@ class CardDetailsHomeComponent {
   isLogged = () => this._apiService.isLogged();
   showIllustrations = false;
 
-  constructor(routeParams, titleService, apiService) {
+  constructor(route, titleService, apiService) {
 
     this._apiService = apiService;
-    this._routeParams = routeParams;
     this._titleService = titleService;
-    this.code = this._routeParams.get('code');
+    this.code = route.snapshot.params.code;
     this._titleService.setTitle(`MaWpedia - [${this.code}]`);
 
     this._apiService.getCardByCode(this.code).toPromise()

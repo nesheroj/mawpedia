@@ -1,34 +1,34 @@
 import { findOne, scan, upsert, del } from '~/src/server/core/redis';
 
-export function getCards() {
+export function getCards(realm) {
 
   return scan({
-    match: 'cards:*'
+    match: `cards:${realm}:*`
   }).then(result => result.map(card => JSON.parse(card)));
 
 }
 
-export function getCardByCode(code) {
+export function getCardByCode(realm, code) {
 
-  const cardKey = `cards:${code}`;
+  const cardKey = `cards:${realm}:${code}`;
 
   return findOne(cardKey)
     .then(result => result === null ? Promise.reject() : JSON.parse(result));
 
 }
 
-export function upsertCard(cardDocument) {
+export function upsertCard(realm, cardDocument) {
 
-  const cardKey = `cards:${cardDocument.code}`;
+  const cardKey = `cards:${realm}:${cardDocument.code}`;
 
   return upsert(cardKey, JSON.stringify(cardDocument))
-    .then(() => getCardByCode(cardDocument.code));
+    .then(() => getCardByCode(realm, cardDocument.code));
 
 }
 
-export function removeCard(code) {
+export function removeCard(realm, code) {
 
-  const cardKey = `cards:${code}`;
+  const cardKey = `cards:${realm}:${code}`;
 
   return del(cardKey);
 

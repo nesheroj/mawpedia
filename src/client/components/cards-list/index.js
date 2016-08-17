@@ -3,7 +3,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/scan';
 import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES, RouteParams } from '@angular/router-deprecated';
+import { ROUTER_DIRECTIVES, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { Subject } from 'rxjs/Subject';
 import { MdButton } from '@angular2-material/button';
@@ -13,14 +13,11 @@ import { MdCheckbox } from '@angular2-material/checkbox';
 import { MaWPediaApiService } from '~/src/client/services/';
 import { MaWPediaCapitalisePipe } from '~/src/client/pipes/';
 import * as enums from '~/src/common/enums';
-import { RouterLinkle } from '~/src/client/directives/';
 import template from './index.html';
 import styles from './index.scss';
 
-const PAGE_SIZE = 10;
-
 @Component({
-  directives: [MD_CARD_DIRECTIVES, ROUTER_DIRECTIVES, MD_INPUT_DIRECTIVES, MdButton, MdCheckbox, RouterLinkle],
+  directives: [MD_CARD_DIRECTIVES, ROUTER_DIRECTIVES, MD_INPUT_DIRECTIVES, MdButton, MdCheckbox],
   pipes: [MaWPediaCapitalisePipe],
   selector: 'cards-list',
   styles: [styles],
@@ -28,7 +25,7 @@ const PAGE_SIZE = 10;
 })
 class CardsHomeComponent {
 
-  static parameters = [[RouteParams], [Title], [MaWPediaApiService]];
+  static parameters = [[ActivatedRoute], [Title], [MaWPediaApiService]];
 
   nextOffset = 0;
   maxOffset = 0;
@@ -40,10 +37,12 @@ class CardsHomeComponent {
   sortFields = enums.sortFields;
   cardTypes = enums.cardTypes;
   cardFactions = enums.cardFactions;
+  cardExpansions = enums.cardExpansions[window.location.hostname.split('.')[0] === 'mawpedia' ? 'mawpedia' : 'mitopedia'];
   extendedSearch = false;
   typeFilter = -1;
   textTypeFilter = -1;
   factionFilter = -1;
+  expansionFilter = -1;
   canLoadMore = false;
 
   cards = this.searchTermStream
@@ -59,11 +58,10 @@ class CardsHomeComponent {
 
   }, []);
 
-  constructor(routeParams, titleService, apiService) {
+  constructor(route, titleService, apiService) {
 
     this._apiService = apiService;
-    this._routeParams = routeParams;
-    this.artist = decodeURIComponent(this._routeParams.get('artist') || '');
+    this.artist = decodeURIComponent(route.snapshot.params.artist || '');
     titleService.setTitle(`MaWpedia - Cards`);
 
   }
@@ -72,7 +70,7 @@ class CardsHomeComponent {
 
     this.nextOffset = offset;
 
-    const params = { offset, limit: PAGE_SIZE };
+    const params = { offset };
     const filters = {};
 
     if (this.searchTerm.length) {
@@ -102,6 +100,12 @@ class CardsHomeComponent {
     if (~this.factionFilter) {
 
       filters.faction = this.factionFilter;
+
+    }
+
+    if (~this.expansionFilter) {
+
+      filters.expansion = this.expansionFilter;
 
     }
 
@@ -140,6 +144,7 @@ class CardsHomeComponent {
     this.typeFilter = -1;
     this.textTypeFilter = -1;
     this.factionFilter = -1;
+    this.expansionFilter = -1;
     this.sortBy = '';
     this.reverse = false;
 

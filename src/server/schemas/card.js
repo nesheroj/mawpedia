@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-const code = Joi.string().alphanum().uppercase();
+const code = Joi.string().regex(/^[a-zA-Z0-9\-]{4,}$/).uppercase();
 const unsignedInt = Joi.number().integer().min(0);
 const illustration = Joi.object().keys({
   code: code.required(),

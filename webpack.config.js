@@ -4,11 +4,13 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import StatsPlugin from 'stats-webpack-plugin';
 import webpack from 'webpack';
 
-export default {
+const config = {
   cache: false,
   context: path.resolve('./src'),
   devtool: 'eval',
-  entry: './client/index.js',
+  entry: [
+    './client/index.js'
+  ],
   output: {
     filename: 'main.js?[hash]',
     path: path.resolve('./static')
@@ -19,8 +21,8 @@ export default {
       exclude: /node_modules/i,
       loader: 'babel',
       query: {
-        plugins: ['transform-decorators-legacy'],
-        presets: ['es2015-webpack', 'stage-1']
+        plugins: ['transform-runtime', 'transform-decorators-legacy'],
+        presets: [['es2015', { module: false }], 'stage-1']
       }
     }, {
       test: /\.json$/i,
@@ -36,12 +38,8 @@ export default {
       loaders: [
         'raw',
         'postcss',
-        {
-          loader: 'sass',
-          query: {
-            name: '[path][name].[ext]?[hash]'
-          }
-        }]
+        'sass'
+      ]
     }, {
       test: /\.(jpe?g|png|gif)$/i,
       loader: 'file',
@@ -78,3 +76,11 @@ export default {
     })
   ]
 };
+
+if (__PRODUCTION__) {
+
+  config.plugins.push(new webpack.optimize.UglifyJsPlugin());
+
+}
+
+export default config;

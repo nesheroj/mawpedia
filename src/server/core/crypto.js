@@ -22,7 +22,7 @@ export function hash(payload) {
 
       }
 
-      crypto[method](payload, generatedSalt, iterations, 64, (err, hashedPayloadBuffer) => {
+      crypto[method](payload, generatedSalt, iterations, 64, 'sha256', (err, hashedPayloadBuffer) => {
 
         /* istanbul ignore if */
         if (err) {
@@ -47,7 +47,7 @@ export function checkAgainst(sourcePayload, targetHash) {
 
   return new Promise((resolve, reject) => {
 
-    crypto[targetMethod](sourcePayload, new Buffer(targetSalt, 'hex'), Number(targetIterations), 64, (err, hashedSourceBuffer) => {
+    crypto[targetMethod](sourcePayload, new Buffer(targetSalt, 'hex'), Number(targetIterations), 64, 'sha256', (err, hashedSourceBuffer) => {
 
       /* istanbul ignore if */
       if (err) {
