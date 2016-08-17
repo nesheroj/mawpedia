@@ -10,6 +10,7 @@ if (!config.has('secret')) {
 }
 
 const secret = config.get('secret');
+const authenticators = config.get('authenticators') || [];
 
 export function getToken(payload) {
 
@@ -54,6 +55,6 @@ export function checkAuth(force = false) {
 
 export function checkCredentials(token) {
 
-  return notp.totp.verify(token, secret) !== null;
+  return authenticators.some(authenticator => notp.totp.verify(token, secret) !== null);
 
 }

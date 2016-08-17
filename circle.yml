@@ -7,14 +7,11 @@ dependencies:
     - node_modules
   override:
     - docker info
-    - mkdir node_modules; exit 0
     - docker build -t mawpedia .
 
 test:
   override:
     - docker run --name mawpedia mawpedia npm run circle
-    - rm -r ./node_modules
-    - docker cp mawpedia:/usr/src/app/node_modules .
 
 deployment:
   digitalocean:

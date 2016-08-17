@@ -8,10 +8,8 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # Install app dependencies
-RUN npm install -g typings
 COPY package.json /usr/src/app/
-COPY node_modules /usr/src/app/
-RUN npm install; exit 0
+RUN npm install --production=false; exit 0
 
 # Bundle app source
 COPY . /usr/src/app
