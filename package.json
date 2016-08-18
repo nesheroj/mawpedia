@@ -108,6 +108,7 @@
   "devDependencies": {
     "ava": "^0.14.0",
     "concurrently": "^2.2.0",
+    "jsdom": "^9.4.2",
     "node-fetch": "^1.6.0",
     "nodemon": "^1.10.0",
     "nyc": "^8.1.0",

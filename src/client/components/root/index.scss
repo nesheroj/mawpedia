@@ -11,10 +11,47 @@ separator {
   flex: 1 1 auto;
 }
 
-footer {
-  margin-top: 20px;
-}
-
 .flag[md-button] {
   min-width: auto;
+}
+
+section {
+  height: auto;
+  min-height: 100%;
+  & > .main-content {
+    padding-bottom: 76px;
+  }
+}
+
+footer {
+  clear: both;
+  display: block;
+  position: relative;
+  height: 60px;
+  margin-top: -76px;
+}
+
+@media (max-width: 675px) {
+  section {
+    & > .main-content {
+      padding-bottom: 94px;
+    }
+  }
+
+  footer {
+    height: 78px;
+    margin-top: -94px;
+  }
+}
+
+@media (max-width: 524px) {
+  section {
+    & > .main-content {
+      padding-bottom: 0;
+    }
+  }
+
+  footer {
+    display: none;
+  }
 }

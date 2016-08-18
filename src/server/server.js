@@ -10,7 +10,8 @@ import send from 'koa-send';
 import favicon from 'koa-favicon';
 import koaRouter from 'koa-router';
 import webpack from 'webpack';
-// import { packResponse, unpackRequest } from '~/src/server/core/compression';
+import bodyParser from 'koa-bodyparser';
+import { packResponse, unpackRequest } from '~/src/server/core/compression';
 import packageInfo from '~/package';
 import apiRouter from '~/src/server/endpoints/';
 import cardsRouter from '~/src/server/endpoints/cards';
@@ -67,9 +68,9 @@ if (maxForks === 1 || !cluster.isMaster) {
 
   const router = koaRouter({ prefix: '/api' });
 
-  // router.use(unpackRequest(), packResponse());
-  router.use(apiRouter.routes(), apiRouter.allowedMethods());
+  router.use(bodyParser({ enableTypes: ['text'], extendTypes: { text: ['text/plain'] } }), unpackRequest(), packResponse());
   router.use(cardsRouter.routes(), cardsRouter.allowedMethods());
+  router.use(apiRouter.routes(), apiRouter.allowedMethods());
 
   app.use(router.routes());
   app.use(router.allowedMethods());

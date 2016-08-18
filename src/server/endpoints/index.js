@@ -1,14 +1,10 @@
 import koaRouter from 'koa-router';
-import bodyParser from 'koa-bodyparser';
-import { packResponse, unpackRequest } from '~/src/server/core/compression';
 import packageInfo from '~/package';
 import * as auth from '~/src/server/core/auth';
 import { validateRequest } from '~/src/server/core/validation';
 import { loginRequest } from '~/src/server/schemas/';
 
-const router = koaRouter({ prefix: '/api' });
-
-router.use(bodyParser({ enableTypes: ['text'], extendTypes: { text: ['text/plain'] } }), unpackRequest(), packResponse());
+const router = koaRouter();
 
 router.get('/', (ctx, next) => {
 

@@ -5,6 +5,10 @@ import jsonpack from 'jsonpack';
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 
+const unpackResponse = response => jsonpack.unpack(window.atob(response));
+
+const packRequest = request => window.btoa(jsonpack.pack(request));
+
 @Injectable()
 class MaWPediaApiService {
 
@@ -46,8 +50,8 @@ class MaWPediaApiService {
 
     const headers = this._setTokenHeader();
 
-    return this._request('post', `/api/login`, btoa(jsonpack.pack({ token })), new RequestOptions({ headers }))
-      .map(response => jsonpack.unpack(atob(response.text())))
+    return this._request('post', `/api/login`, packRequest({ token }), new RequestOptions({ headers }))
+      .map(response => unpackResponse(response.text()))
       .toPromise()
       .then(result => {
 
@@ -80,7 +84,7 @@ class MaWPediaApiService {
     return this._request('get', `/api/cards`, new RequestOptions({ headers, search }))
       .map(response => {
 
-        const data = jsonpack.unpack(atob(response.text()));
+        const data = unpackResponse(response.text());
         const cards = data.cards;
         cards.total = data.total;
         return cards;
@@ -97,7 +101,7 @@ class MaWPediaApiService {
     return this._request('get', `/api/cards/byartist/${artist}`, new RequestOptions({ headers, search }))
       .map(response => {
 
-        const data = jsonpack.unpack(atob(response.text()));
+        const data = unpackResponse(response.text());
         const cards = data.cards;
         cards.total = data.total;
         return cards;
@@ -111,7 +115,7 @@ class MaWPediaApiService {
     const headers = this._setTokenHeader();
 
     return this._request('get', `/api/cards/${code}`, new RequestOptions({ headers }))
-      .map(response => jsonpack.unpack(atob(response.text())));
+      .map(response => unpackResponse(response.text()));
 
   }
 
@@ -119,8 +123,8 @@ class MaWPediaApiService {
 
     const headers = this._setTokenHeader();
 
-    return this._request('post', `/api/cards`, btoa(jsonpack.pack(card)), new RequestOptions({ headers }))
-      .map(response => jsonpack.unpack(atob(response.text())));
+    return this._request('post', `/api/cards`, packRequest(card), new RequestOptions({ headers }))
+      .map(response => unpackResponse(response.text()));
 
   }
 
@@ -129,7 +133,7 @@ class MaWPediaApiService {
     const headers = this._setTokenHeader();
 
     return this._request('delete', `/api/cards/${code}`, new RequestOptions({ headers }))
-      .map(response => jsonpack.unpack(atob(response.text())));
+      .map(response => unpackResponse(response.text()));
 
   }
 

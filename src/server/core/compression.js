@@ -10,6 +10,7 @@ export function unpackRequest() {
       ctx.request.body = jsonpack.unpack(base64.decode(ctx.request.body));
 
     }
+
     await next();
 
   };
@@ -25,6 +26,7 @@ export function packResponse() {
     if (ctx.body) {
 
       ctx.body = base64.encode(jsonpack.pack(ctx.body));
+      ctx.type = 'text/plain; charset=utf-8';
 
     }
 

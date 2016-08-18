@@ -1,9 +1,7 @@
 import koaRouter from 'koa-router';
-import bodyParser from 'koa-bodyparser';
 import * as enums from '~/src/common/enums';
 import { sanitizeForSearch } from '~/src/common/string-utils';
 import { validateRequest } from '~/src/server/core/validation';
-import { packResponse, unpackRequest } from '~/src/server/core/compression';
 import { checkAuth } from '~/src/server/core/auth';
 import {
   getCards,
@@ -16,8 +14,6 @@ import { cardCreateRequest } from '~/src/server/schemas/card';
 const PAGE_SIZE = 15;
 
 const router = koaRouter({ prefix: '/cards' });
-
-router.use(bodyParser({ enableTypes: ['text'] }), unpackRequest(), packResponse());
 
 const isPublishedBefore = currentDate => card => currentDate >= new Date(card.publishDate);
 

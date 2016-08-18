@@ -22,6 +22,6 @@ deployment:
       - scp -C $CIRCLE_ARTIFACTS/mawpedia.tar root@mawpedia.guerrademitos.com:~/
       - scp -C docker-compose.yml root@mawpedia.guerrademitos.com:~/
       - 'ssh root@mawpedia.guerrademitos.com "docker load -i ~/mawpedia.tar"'
-      # - 'ssh root@mawpedia.guerrademitos.com "docker-compose down"'
-      # - 'ssh root@mawpedia.guerrademitos.com "docker-compose up -d"'
-      - 'ssh root@deviantrobot.com "docker images -q 2>/dev/null >/dev/null | xargs -n1 -r docker rmi; exit 0"'
+      - 'ssh root@mawpedia.guerrademitos.com "docker-compose down"'
+      - 'ssh root@mawpedia.guerrademitos.com "docker-compose up -d"'
+      - 'ssh root@mawpedia.guerrademitos.com "docker images -q 2>/dev/null >/dev/null | xargs -n1 -r docker rmi; exit 0"'
