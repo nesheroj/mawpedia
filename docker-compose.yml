@@ -37,7 +37,6 @@ letsencrypt:
 
 cdn:
   image: nginx
-  container_name: cdn
   environment:
     - VIRTUAL_HOST=mpcdn.guerrademitos.com
     - LETSENCRYPT_HOST=mpcdn.guerrademitos.com
@@ -51,10 +50,10 @@ app:
   links:
     - db
   environment:
-    - NODE_ENV=production
-    - VIRTUAL_HOST=mawpedia.guerrademitos.com
-    - LETSENCRYPT_HOST=mawpedia.guerrademitos.com
-    - LETSENCRYPT_EMAIL=info@pguerrademitos.com
+    NODE_ENV: production
+    VIRTUAL_HOST: 'mawpedia.guerrademitos.com,mitopedia.guerrademitos.com'
+    LETSENCRYPT_HOST: mitopedia.guerrademitos.com
+    LETSENCRYPT_EMAIL: info@guerrademitos.com
   volumes:
     - ./local.json:/usr/src/app/config/local.json:ro
   restart: always
