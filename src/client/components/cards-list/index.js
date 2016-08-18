@@ -62,7 +62,7 @@ class CardsHomeComponent {
 
     this._apiService = apiService;
     this.artist = decodeURIComponent(route.snapshot.params.artist || '');
-    titleService.setTitle(`MaWpedia - Cards`);
+    // titleService.setTitle(`MaWpedia - Cards`);
 
   }
 

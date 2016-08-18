@@ -52,7 +52,7 @@ app:
   environment:
     NODE_ENV: production
     VIRTUAL_HOST: 'mawpedia.guerrademitos.com,mitopedia.guerrademitos.com'
-    LETSENCRYPT_HOST: mawpedia.guerrademitos.com
+    LETSENCRYPT_HOST: 'mawpedia.guerrademitos.com,mitopedia.guerrademitos.com'
     LETSENCRYPT_EMAIL: info@guerrademitos.com
   volumes:
     - ./local.json:/usr/src/app/config/local.json:ro

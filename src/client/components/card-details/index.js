@@ -32,14 +32,14 @@ class CardDetailsHomeComponent {
     this._apiService = apiService;
     this._titleService = titleService;
     this.code = route.snapshot.params.code;
-    this._titleService.setTitle(`MaWpedia - [${this.code}]`);
+    // this._titleService.setTitle(`MaWpedia - [${this.code}]`);
 
     this._apiService.getCardByCode(this.code).toPromise()
     .then(card => {
 
       this.card = card;
       this.defaultIllustration = this.card.illustrations[this.card.defaultIllustration || 0];
-      this._titleService.setTitle(`MaWpedia - [${this.code}] ${this.card.name}`);
+      // this._titleService.setTitle(`MaWpedia - [${this.code}] ${this.card.name}`);
 
     });
 

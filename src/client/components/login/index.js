@@ -27,7 +27,7 @@ class LoginHomeComponent {
       this._router.navigate(['/']);
 
     }
-    titleService.setTitle(`MaWpedia - Admin access`);
+    // titleService.setTitle(`MaWpedia - Admin access`);
 
   }
 

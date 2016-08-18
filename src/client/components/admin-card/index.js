@@ -39,7 +39,7 @@ class AdminCardHomeComponent {
     this.initialiseIllustration();
     this.initialiseText();
     this.code = route.snapshot.params.code;
-    titleService.setTitle(this.code ? `MaWpedia - Edit Card` : `MaWpedia - Create Card`);
+    // titleService.setTitle(this.code ? `MaWpedia - Edit Card` : `MaWpedia - Create Card`);
 
     if (!this._apiService.isLogged()) {
 

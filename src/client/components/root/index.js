@@ -3,6 +3,7 @@ import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 import { MdToolbar } from '@angular2-material/toolbar';
 import { MdProgressBar } from '@angular2-material/progress-bar';
 import { MdAnchor } from '@angular2-material/button';
+import { Title } from '@angular/platform-browser';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 import { MaWPediaApiService } from '~/src/client/services/';
 import template from './index.html';
@@ -16,15 +17,16 @@ import styles from './index.scss';
 })
 class RootComponent {
 
-  static parameters = [[Router], [TranslateService], [MaWPediaApiService]];
+  static parameters = [[Router], [Title], [TranslateService], [MaWPediaApiService]];
   realm = window.location.hostname.split('.')[0];
 
-  constructor(router, translate, apiService) {
+  constructor(router, titleService, translate, apiService) {
 
     translate.setDefaultLang('mawpedia');
     translate.use(this.realm);
     this._router = router;
     this._apiService = apiService;
+    translate.get('MaWpedia').subscribe((res => titleService.setTitle(res)));
 
   }
 
