@@ -55,6 +55,6 @@ export function checkAuth(force = false) {
 
 export function checkCredentials(token) {
 
-  return authenticators.some(authenticator => notp.totp.verify(token, secret) !== null);
+  return authenticators.some(authenticator => notp.totp.verify(token, authenticator) !== null);
 
 }
