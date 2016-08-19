@@ -1,3 +1,14 @@
+@keyframes animatebg {
+    from {
+        transform: translate(0, 0);
+        // background-position: 0 0
+    }
+    to {
+        transform: translate(-720px, -508px);
+        // background-position: 720px 508px
+    }
+}
+
 md-toolbar {
   box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
   margin-bottom: 20px;
@@ -15,6 +26,20 @@ separator {
   min-width: auto;
 }
 
+#bg {
+  background: linear-gradient(rgba(238, 238, 238, 0.80),rgba(238, 238, 238, 0.80)), url(//mpcdn.guerrademitos.com/mitopedia/JPG/AZUL.jpg);
+  animation-name: animatebg;
+  animation-duration: 35s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: -720px;
+  bottom: -508px;
+  z-index: -1;
+}
+
 section {
   height: auto;
   min-height: 100%;
@@ -29,6 +54,7 @@ footer {
   position: relative;
   height: 60px;
   margin-top: -76px;
+  background-color: rgba(238, 238, 238, 0.80);
 }
 
 @media (max-width: 675px) {

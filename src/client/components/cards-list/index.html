@@ -102,6 +102,6 @@
     </template>
   </div>
   <template [ngIf]="nextOffset < maxOffset">
-    <button md-button (click)="onSearch(nextOffset)">{{ 'LOAD MORE' | translate }}</button>
+    <button md-raised-button (click)="onSearch(nextOffset)">{{ 'LOAD MORE' | translate }}</button>
   </template>
 </section>
