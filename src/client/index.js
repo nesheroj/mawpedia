@@ -32,7 +32,9 @@ import { PortalModule } from '@angular2-material/core/portal/portal-directives';
 import { OverlayModule } from '@angular2-material/core/overlay/overlay-directives';
 import { MdMenuModule } from '@angular2-material/menu/menu';
 import { RtlModule } from '@angular2-material/core/rtl/dir';
+import { Angulartics2 } from 'angulartics2';
 import { TranslateModule, TranslateLoader } from 'ng2-translate/ng2-translate';
+import { Angulartics } from './angulartics.workaround';
 import mawpediaRoutes from './routes';
 import mawpediaServices from './services/';
 import mawpediaPipes from './pipes/';
@@ -82,6 +84,8 @@ if (__PRODUCTION__) {
   ],
   providers: [
     Title,
+    Angulartics2,
+    { provide: Angulartics2, useClass: Angulartics },
     ...mawpediaServices
   ],
   bootstrap: [RootComponent]

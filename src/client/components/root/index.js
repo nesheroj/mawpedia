@@ -4,6 +4,8 @@ import { MdToolbar } from '@angular2-material/toolbar';
 import { MdProgressBar } from '@angular2-material/progress-bar';
 import { MdAnchor } from '@angular2-material/button';
 import { Title } from '@angular/platform-browser';
+import { Angulartics2 } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/src/providers/angulartics2-google-analytics';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 import { MaWPediaApiService } from '~/src/client/services/';
 import template from './index.html';
@@ -11,16 +13,17 @@ import styles from './index.scss';
 
 @Component({
   directives: [ROUTER_DIRECTIVES, MdAnchor, MdToolbar, MdProgressBar],
+  providers: [Angulartics2GoogleAnalytics],
   selector: 'mawpedia-root',
   styles: [styles],
   template
 })
 class RootComponent {
 
-  static parameters = [[Router], [Title], [TranslateService], [MaWPediaApiService]];
+  static parameters = [[Router], [Title], [Angulartics2], [Angulartics2GoogleAnalytics], [TranslateService], [MaWPediaApiService]];
   realm = window.location.hostname.split('.')[0];
 
-  constructor(router, titleService, translate, apiService) {
+  constructor(router, titleService, angulartics2, angulartics2GoogleAnalytics, translate, apiService) {
 
     translate.setDefaultLang('mawpedia');
     translate.use(this.realm);
