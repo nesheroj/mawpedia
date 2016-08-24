@@ -70,7 +70,7 @@
     "babel-runtime": "^6.6.1",
     "base-64": "^0.1.0",
     "config": "^1.20.1",
-    "css-loader": "^0.23.1",
+    "css-loader": "^0.24.0",
     "es6-shim": "^0.35.0",
     "file-loader": "^0.9.0",
     "html-loader": "^0.4.3",
