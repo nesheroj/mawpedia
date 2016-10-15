@@ -32,7 +32,7 @@ class CardsHomeComponent {
   searchTermStream = new Subject();
   sortFields = enums.sortFields;
   cardTypes = enums.cardTypes;
-  cardFactions = enums.cardFactions;
+  cardFactions = enums.cardFactions.filter(faction => enums.hiddenFactions && !enums.hiddenFactions.includes(faction));
   cardExpansions = enums.cardExpansions[window.location.hostname.split('.')[0] === 'mawpedia' ? 'mawpedia' : 'mitopedia'];
   extendedSearch = false;
   typeFilter = -1;

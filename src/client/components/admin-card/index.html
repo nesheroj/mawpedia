@@ -114,7 +114,7 @@
       </md-card-subtitle>
     </md-card-title-group>
     <md-card-actions>
-      <button md-button color="primary" [disabled]="!illustrationForm.form.valid && illustration.artists.length" (click)="addIllustration()">{{ 'ADD' | translate }}</button>
+      <button md-button color="primary" [disabled]="!illustrationForm.form.valid || illustration.artists.length === 0" (click)="addIllustration()">{{ 'ADD' | translate }}</button>
       <button md-button (click)="initialiseIllustration()">{{ 'RESET' | translate }}</button>
     </md-card-actions>
   </md-card>

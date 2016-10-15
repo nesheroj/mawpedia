@@ -4,7 +4,8 @@
       <img md-card-image src="{{ 'CDNROOT' | translate }}/JPG/{{ defaultIllustration.code }}.jpg">
     </a>
     <md-card-title *ngIf="!showIllustrations">
-      <template ngFor let-artistName [ngForOf]="defaultIllustration.artists">
+      <template ngFor let-artistName [ngForOf]="defaultIllustration.artists" let-i="index">
+        <span *ngIf="i > 0">, </span>
         <a [routerLink]="['/cards', 'artist', artistName]">{{ artistName }}</a>
       </template>
     </md-card-title>
@@ -28,7 +29,8 @@
         <img md-card-image src="{{ 'CDNROOT' | translate }}/JPG/{{ illustration.code }}.jpg">
       </a>
       <md-card-title>
-        <template ngFor let-artistName [ngForOf]="illustration.artists">
+        <template ngFor let-artistName [ngForOf]="defaultIllustration.artists" let-i="index">
+          <span *ngIf="i > 0">, </span>
           <a [routerLink]="['/cards', 'artist', artistName]">{{ artistName }}</a>
         </template>
       </md-card-title>

@@ -17,13 +17,15 @@ const router = koaRouter({ prefix: '/cards' });
 
 const isPublishedBefore = currentDate => card => card.publishDate.length && currentDate >= new Date(card.publishDate);
 
+const isFactionVisible = card => enums.hiddenFactions.length && enums.hiddenFactions(card.faction);
+
 router.get('/byartist/:artistName', checkAuth(), async (ctx, next) => {
 
   let total = 0;
   const currentDate = new Date();
 
   await getCards(ctx.state.realm)
-    .then(cards => ctx.state.isAuthorised ? cards : cards.filter(isPublishedBefore(currentDate)))
+    .then(cards => ctx.state.isAuthorised ? cards : cards.filter(isFactionVisible && isPublishedBefore(currentDate)))
     .then(cards => cards.reduce((acc, card) => {
 
       card.illustrations = card.illustrations.filter(illustration => illustration.artists.includes(ctx.params.artistName));
@@ -128,11 +130,11 @@ function processFilters(filters) {
 
   return card => {
 
-    let pass = filters.term === '' || ~sanitizeForSearch(card.code).indexOf(sanitizedTerm) || ~sanitizeForSearch(card.name).indexOf(sanitizedTerm);
+    let pass = filters.term === '' || sanitizeForSearch(card.code).includes(sanitizedTerm) || sanitizeForSearch(card.name).includes(sanitizedTerm);
 
     if (!pass && !!filters.extendedSearch) {
 
-      pass = filters.term === '' || Object.keys(card.texts).some(cardType => card.texts[cardType].some(cardText => ~sanitizeForSearch(cardText).indexOf(sanitizedTerm)) || card.keywords.some(keyword => ~sanitizeForSearch(keyword).indexOf(sanitizedTerm)));
+      pass = filters.term === '' || Object.keys(card.texts).some(cardType => card.texts[cardType].some(cardText => sanitizeForSearch(cardText).includes(sanitizedTerm)) || card.keywords.some(keyword => sanitizeForSearch(keyword).includes(sanitizedTerm)));
 
     }
 

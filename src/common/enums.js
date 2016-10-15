@@ -5,4 +5,5 @@ export const cardExpansions = {
   mitopedia: ['GDM1', 'GDM2', 'GDM3', 'GDM4', 'GDM5', 'GDM6', 'GDM7', 'GDM8', 'GDM9', 'GDM10', 'GDM11', 'Promocional']
 };
 export const cardFactions = ['Japanese', 'Norse', 'Aztec', 'Greek', 'Egyptian', 'Neutral', 'Primigenic', 'Celtic', 'Sumerian', 'Hindu', 'Voodoo', 'Native american', 'Roman', 'Persian', 'Chinese'];
+export const hiddenFactions = [];
 export const sortFields = ['Name', 'Code', 'Cost', 'Power', 'Strength', 'Type', 'Expansion', 'Faction'];
