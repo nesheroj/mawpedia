@@ -3,17 +3,17 @@
   <md-card-content>
     <form #cardForm="ngForm">
       <p>
-        <md-radio-group name="cardType" ngControl="cardTypeControl" [value]="card.type" (ngModelChange)="card.type = $event">
+        <md-radio-group name="cardType" ngControl="cardTypeControl" [(ngModel)]="card.type">
           <md-radio-button [value]="i" name="cardType" *ngFor="let cardType of cardTypes; let i = index">{{ cardType | translate }}</md-radio-button>
         </md-radio-group>
       </p>
       <p>
-        <md-radio-group name="cardFaction" ngControl="cardFactionControl" [value]="card.faction" (ngModelChange)="card.faction = $event">
+        <md-radio-group name="cardFaction" ngControl="cardFactionControl" [(ngModel)]="card.faction">
           <md-radio-button [value]="i" name="cardFaction" *ngFor="let cardFaction of cardFactions; let i = index">{{ cardFaction | translate }}</md-radio-button>
         </md-radio-group>
       </p>
       <p>
-        <md-radio-group name="cardExpansion" ngControl="cardExpansionControl" [value]="card.expansion" (ngModelChange)="card.expansion = $event">
+        <md-radio-group name="cardExpansion" ngControl="cardExpansionControl" [(ngModel)]="card.expansion">
           <md-radio-button [value]="i" name="cardExpansion" *ngFor="let cardExpansion of cardExpansions; let i = index">{{ cardExpansion | translate }}</md-radio-button>
         </md-radio-group>
       </p>
@@ -45,7 +45,7 @@
         </md-list>
       </p>
       <p>
-        <md-input type="date" required placeholder="{{ 'Card publication date' | translate }}" name="publishDate" ngControl="cardDateControl" [(ngModel)]="card.publishDate"></md-input>
+        <md-input type="date" placeholder="{{ 'Card publication date' | translate }}" name="publishDate" ngControl="cardDateControl" [(ngModel)]="card.publishDate"></md-input>
       </p>
     </form>
     <md-divider></md-divider>
@@ -54,7 +54,7 @@
       <md-list-item *ngFor="let illustration of card.illustrations; let i = index">
         <img md-list-avatar src="{{ 'CDNROOT' | translate }}/JPG/{{ illustration.code }}.jpg" alt="{{ illustration.code }}">
         <h4 md-line>{{ illustration.code }}</h4>
-        <p md-line>{{ illustration.artistName }}</p>
+        <p md-line>{{ illustration.artists.join(', ') }}</p>
         <p md-line>{{ illustration.note }}</p>
         <button md-button color="primary" [disableRipple]="true" [disabled]="card.defaultIllustration === i" (click)="card.defaultIllustration = i">
           {{ 'MAIN' | translate }}
@@ -72,7 +72,7 @@
       <h3 md-subheader>{{ 'Texts' | translate }} *</h3>
       <template ngFor let-textType [ngForOf]="textTypes">
         <md-list-item *ngFor="let text of card.texts[textType]; let i = index">
-          <h3 md-line>{{ 'textType' | translate }}</h3>
+          <h3 md-line>{{ textType | translate }}</h3>
           <p md-line>{{ text }}</p>
           <button md-icon-button color="primary" [disableRipple]="true" (click)="editText(textType, i)">
             <md-icon>edit</md-icon>
@@ -98,14 +98,23 @@
         <md-input required placeholder="{{ 'Illustration code' | translate }}" name="illustrationCode" ngControl="illustrationCode" [(ngModel)]="illustration.code"></md-input>
       </md-card-subtitle>
       <md-card-subtitle>
-        <md-input required placeholder="{{ 'Artist name' | translate }}" name="illustratioonArtist" ngControl="illustrationArtist" [(ngModel)]="illustration.artistName"></md-input>
+        <md-input placeholder="{{ 'Artists' | translate }}" name="illustrationArtist" ngControl="illustrationArtistControl" [(ngModel)]="artist"></md-input>
+        <button md-button color="primary" [disabled]="!canAddArtist()" (click)="addArtist()">{{ 'ADD' | translate }}</button>
+        <md-list dense>
+          <md-list-item *ngFor="let artist of illustration.artists; let i = index">
+            <p md-line>{{ artist }}</p>
+            <button md-icon-button color="warn" (click)="removeArtist(i)">
+              <i class="material-icons">delete</i>
+            </button>
+          </md-list-item>
+        </md-list>
       </md-card-subtitle>
       <md-card-subtitle>
         <md-input placeholder="{{ 'Illustration note' | translate }}" name="illustrationNote" ngControl="illustrationNote" [(ngModel)]="illustration.note"></md-input>
       </md-card-subtitle>
     </md-card-title-group>
     <md-card-actions>
-      <button md-button color="primary" [disabled]="!illustrationForm.form.valid" (click)="addIllustration()">{{ 'ADD' | translate }}</button>
+      <button md-button color="primary" [disabled]="!illustrationForm.form.valid && illustration.artists.length" (click)="addIllustration()">{{ 'ADD' | translate }}</button>
       <button md-button (click)="initialiseIllustration()">{{ 'RESET' | translate }}</button>
     </md-card-actions>
   </md-card>

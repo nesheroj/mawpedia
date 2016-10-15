@@ -1,15 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MdButton } from '@angular2-material/button';
-import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
-import { MD_INPUT_DIRECTIVES } from '@angular2-material/input';
 import { Title } from '@angular/platform-browser';
+import { MaWPediaApiService } from '../../services/';
 import template from './index.html';
 import styles from './index.scss';
-import { MaWPediaApiService } from '~/src/client/services/';
 
 @Component({
-  directives: [MD_CARD_DIRECTIVES, MD_INPUT_DIRECTIVES, MdButton],
   selector: 'login',
   styles: [styles],
   template

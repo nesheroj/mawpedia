@@ -3,7 +3,7 @@ import test from 'ava';
 import request from 'supertest';
 import Koa from 'koa';
 
-import * as auth from '~/src/server/core/auth';
+import * as auth from '../../../src/server/core/auth';
 
 let app;
 

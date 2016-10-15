@@ -1,6 +1,6 @@
 import uuid from 'node-uuid';
 
-export default async function(ctx, next) {
+export default async function (ctx, next) {
 
   // set a unique id for request
   ctx.state.uuid = uuid.v4();

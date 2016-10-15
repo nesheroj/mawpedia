@@ -4,7 +4,7 @@ import Joi from 'joi';
 import request from 'supertest';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
-import { validateRequest } from '~/src/server/core/validation';
+import { validateRequest } from '../../../src/server/core/validation';
 
 const schema = Joi.object().keys({
   foo: Joi.any().valid('bar').required()
@@ -32,7 +32,7 @@ test('An invalid payload throws.', async t => {
 
 });
 
-test('An valid payload passes.', async t => {
+test('A valid payload passes.', async t => {
 
   const app = new Koa();
 

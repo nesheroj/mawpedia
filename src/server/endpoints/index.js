@@ -1,8 +1,8 @@
 import koaRouter from 'koa-router';
-import packageInfo from '~/package';
-import * as auth from '~/src/server/core/auth';
-import { validateRequest } from '~/src/server/core/validation';
-import { loginRequest } from '~/src/server/schemas/';
+import packageInfo from '../../../package';
+import * as auth from '../core/auth';
+import { validateRequest } from '../core/validation';
+import { loginRequest } from '../schemas/';
 
 const router = koaRouter();
 

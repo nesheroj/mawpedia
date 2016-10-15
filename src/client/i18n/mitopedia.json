@@ -21,7 +21,7 @@
   "Character": "Personaje",
   "Gear": "Equipo",
   "Resource": "Recurso",
-  "Action": "Accción",
+  "Action": "Acción",
   "Event": "Evento",
   "Summon": "Invocación",
   "Token": "Token",
@@ -69,5 +69,7 @@
   "SUBMIT": "ENVIAR",
   "Notes": "Notas",
   "MAIN": "PRINCIPAL",
-  "REMOVE CARD": "ELIMINAR CARTA"
+  "REMOVE CARD": "ELIMINAR CARTA",
+  "Myths at War": "Guerra de Mitos",
+  "http://en.guerrademitos.com/": "http://www.guerrademitos.com/"
 }

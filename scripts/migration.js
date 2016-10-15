@@ -33,11 +33,11 @@ const cardTypeMap = {
   token: enums.cardTypes.indexOf('Token')
 };
 
+const delayBy = time => new Promise((resolve, reject) => setTimeout(() => resolve(), time));
+
 fetch(`http://mitopedia.guerrademitos.com/api/cards`)
   .then(response => response.json())
   .then(cards => {
-
-    // console.log(artistMap);
 
     return cards
       .reduce((acc, card) => {
@@ -64,7 +64,7 @@ fetch(`http://mitopedia.guerrademitos.com/api/cards`)
             ),
             texts: card.texts.reduce((acc, text) => {
 
-              if (text.text.length) {
+              if (text.text.length > 0) {
 
                 switch (text.type) {
                   case 'Influencia':
@@ -109,15 +109,12 @@ fetch(`http://mitopedia.guerrademitos.com/api/cards`)
           console.log(validatedCard);
 
           return upsertCard('mitopedia', validatedCard)
-          .then(() => new Promise((resolve, reject) => {
-
-            setTimeout(() => resolve(), 500);
-
-          }));
+          .then(delayBy(500));
 
         });
 
       }, Promise.resolve());
 
   })
-  .catch(err => console.error(err));
+  .catch(err => console.error(err))
+  .then(() => global.process.exit());

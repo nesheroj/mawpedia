@@ -1,16 +1,14 @@
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { MdButton } from '@angular2-material/button';
-import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
-import { MaWPediaApiService } from '~/src/client/services/';
-import { MaWPediaMarkdownPipe } from '~/src/client/pipes/';
-import * as enums from '~/src/common/enums';
+import { MaWPediaApiService } from '../../services/';
+import { MaWPediaMarkdownPipe } from '../../pipes/';
+import * as enums from '../../../common/enums';
 import template from './index.html';
 import styles from './index.scss';
 
 @Component({
-  directives: [MD_CARD_DIRECTIVES, ROUTER_DIRECTIVES, MdButton],
+  directives: [ROUTER_DIRECTIVES],
   pipes: [MaWPediaMarkdownPipe],
   selector: 'card-details',
   styles: [styles],

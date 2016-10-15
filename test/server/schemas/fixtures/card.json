@@ -12,7 +12,7 @@
   "illustrations": [
     {
       "code": "asdfasdf",
-      "artistName": "asdfasdf",
+      "artists": ["asdfasdf"],
       "note": ""
     }
   ],

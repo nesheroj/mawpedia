@@ -1,6 +1,6 @@
 import '../../helpers'; /* eslint import-order/import-order: [0] */
 import test from 'ava';
-import { hash, checkAgainst } from '~/src/server/core/crypto';
+import { hash, checkAgainst } from '../../../src/server/core/crypto';
 
 test('Hasher only accepts strings as input', async t => {
 
@@ -17,7 +17,9 @@ test('Hashing a password produces the expected format.', async t => {
 
 test('Hashing the same payload twice produces the same result.', async t => {
 
-  await checkAgainst('4p455w0rd', await hash('4p455w0rd'));
-  t.throws(checkAgainst('4p455w0rd', await hash('4n0th3rp455w0rd')));
+  const shoudlNotThrow = checkAgainst('4p455w0rd', await hash('4p455w0rd'));
+  t.notThrows(shoudlNotThrow);
+  const shouldThrow = checkAgainst('4p455w0rd', await hash('4n0th3rp455w0rd'));
+  t.throws(shouldThrow);
 
 });

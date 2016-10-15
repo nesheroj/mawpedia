@@ -1,5 +1,5 @@
 import path from 'path';
-import autoprefixer from 'autoprefixer';
+// import autoprefixer from 'autoprefixer';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import StatsPlugin from 'stats-webpack-plugin';
 import webpack from 'webpack';
@@ -22,7 +22,7 @@ const config = {
       loader: 'babel',
       query: {
         plugins: ['transform-runtime', 'transform-decorators-legacy'],
-        presets: [['es2015', { module: false }], 'stage-1']
+        presets: [['es2015', { module: false }], 'es2016', 'es2017', 'stage-1']
       }
     }, {
       test: /\.json$/i,
@@ -37,7 +37,7 @@ const config = {
       test: /\.scss$/i,
       loaders: [
         'raw',
-        'postcss',
+        // 'postcss',
         'sass'
       ]
     }, {
@@ -54,14 +54,13 @@ const config = {
       }
     }]
   },
-  postcss: () => {
+  // postcss: () => {
 
-    return {
-      defaults: [autoprefixer({ browsers: ['last 2 versions'] })]
-    };
+  //   return {
+  //     defaults: [autoprefixer({ browsers: ['last 2 versions'] })]
+  //   };
 
-  },
-  progress: true,
+  // },
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',

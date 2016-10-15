@@ -4,7 +4,7 @@ const code = Joi.string().regex(/^[a-zA-Z0-9\-]{4,}$/).uppercase();
 const unsignedInt = Joi.number().integer().min(0);
 const illustration = Joi.object().keys({
   code: code.required(),
-  artistName: Joi.string().required(),
+  artists: Joi.array().items(Joi.string().required()).min(1).default([]),
   note: Joi.string().allow('').required()
 });
 
@@ -20,7 +20,7 @@ export const cardCreateRequest = Joi.object().keys({
   keywords: Joi.array().unique().items(Joi.string()).default([]),
   defaultIllustration: unsignedInt.default(0),
   illustrations: Joi.array().items(illustration).default([]),
-  publishDate: Joi.string().default(() => new Date().toISOString().split('T')[0], 'TBD'),
+  publishDate: Joi.string().default(''),
   texts: Joi.object().pattern(/^[$A-Z_][0-9A-Z_$]*$/i, Joi.array().items(Joi.string()).default([])),
   _created: Joi.string().isoDate().default(() => new Date().toISOString(), 'TBD'),
   _updated: Joi.string().isoDate().default(() => new Date().toISOString(), 'TBD')

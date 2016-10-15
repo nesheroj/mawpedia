@@ -5,7 +5,7 @@ import bodyParser from 'koa-bodyparser';
 import request from 'supertest';
 import jsdom from 'jsdom';
 import jsonpack from 'jsonpack';
-import { packResponse, unpackRequest } from '~/src/server/core/compression';
+import { packResponse, unpackRequest } from '../../../src/server/core/compression';
 
 test('Payload stays equal after packing and unpacking', async t => {
 

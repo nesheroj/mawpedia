@@ -11,12 +11,12 @@ import favicon from 'koa-favicon';
 import koaRouter from 'koa-router';
 import webpack from 'webpack';
 import bodyParser from 'koa-bodyparser';
-import { packResponse, unpackRequest } from '~/src/server/core/compression';
-import packageInfo from '~/package';
-import apiRouter from '~/src/server/endpoints/';
-import cardsRouter from '~/src/server/endpoints/cards';
-import profile from '~/src/server/core/profile';
-import webpackConfig from '~/webpack.config';
+import packageInfo from '../../package';
+import webpackConfig from '../../webpack.config';
+import { packResponse, unpackRequest } from './core/compression';
+import apiRouter from './endpoints/';
+import cardsRouter from './endpoints/cards';
+import profile from './core/profile';
 
 const PORT = Number(config.get('port'));
 const maxForks = (config.has('maxForks') && config.get('maxForks')) || Number.MAX_SAFE_INTEGER;

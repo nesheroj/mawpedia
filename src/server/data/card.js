@@ -1,4 +1,4 @@
-import { findOne, scan, upsert, del } from '~/src/server/core/redis';
+import { findOne, scan, upsert, del } from '../core/redis';
 
 export function getCards(realm) {
 

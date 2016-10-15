@@ -1,7 +1,6 @@
 import 'babel-polyfill';
 import 'zone.js';
-import '!!style!css!@angular2-material/core/style/core.css';
-import '!!style!css!@angular2-material/core/overlay/overlay.css';
+import '!!style!css!@angular/material/core/theming/prebuilt/indigo-pink.css';
 import '!!style!css!sass!./index.scss';
 import { NgModule, enableProdMode } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -10,31 +9,11 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { MdButtonToggleModule } from '@angular2-material/button-toggle/button-toggle';
-import { MdButtonModule } from '@angular2-material/button/button';
-import { MdCheckboxModule } from '@angular2-material/checkbox/checkbox';
-import { MdRadioModule } from '@angular2-material/radio/radio';
-import { MdSlideToggleModule } from '@angular2-material/slide-toggle/slide-toggle';
-import { MdSliderModule } from '@angular2-material/slider/slider';
-import { MdSidenavModule } from '@angular2-material/sidenav/sidenav';
-import { MdListModule } from '@angular2-material/list/list';
-import { MdGridListModule } from '@angular2-material/grid-list/grid-list';
-import { MdCardModule } from '@angular2-material/card/card';
-import { MdIconModule } from '@angular2-material/icon/icon';
-import { MdProgressCircleModule } from '@angular2-material/progress-circle/progress-circle';
-import { MdProgressBarModule } from '@angular2-material/progress-bar/progress-bar';
-import { MdInputModule } from '@angular2-material/input/input';
-import { MdTabsModule } from '@angular2-material/tabs/tabs';
-import { MdToolbarModule } from '@angular2-material/toolbar/toolbar';
-import { MdTooltipModule } from '@angular2-material/tooltip/tooltip';
-import { MdRippleModule } from '@angular2-material/core/ripple/ripple';
-import { PortalModule } from '@angular2-material/core/portal/portal-directives';
-import { OverlayModule } from '@angular2-material/core/overlay/overlay-directives';
-import { MdMenuModule } from '@angular2-material/menu/menu';
-import { RtlModule } from '@angular2-material/core/rtl/dir';
-import { Angulartics2 } from 'angulartics2';
+import { MaterialModule } from '@angular/material';
+import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/src/providers/angulartics2-google-analytics';
 import { TranslateModule, TranslateLoader } from 'ng2-translate/ng2-translate';
-import { Angulartics } from './angulartics.workaround';
+import mawpediaComponents from './components';
 import mawpediaRoutes from './routes';
 import mawpediaServices from './services/';
 import mawpediaPipes from './pipes/';
@@ -50,42 +29,26 @@ if (__PRODUCTION__) {
 @NgModule({
   declarations: [
     RootComponent,
+    ...mawpediaComponents,
     ...mawpediaPipes
+  ],
+  entryComponents: [
+    RootComponent
   ],
   imports: [
     BrowserModule,
     CommonModule,
     FormsModule,
     HttpModule,
+    MaterialModule.forRoot(),
     RouterModule.forRoot(mawpediaRoutes),
-    MdButtonModule,
-    MdButtonToggleModule,
-    MdCardModule,
-    MdCheckboxModule,
-    MdGridListModule,
-    MdIconModule,
-    MdInputModule,
-    MdListModule,
-    MdMenuModule,
-    MdProgressBarModule,
-    MdProgressCircleModule,
-    MdRadioModule,
-    MdRippleModule,
-    MdSidenavModule,
-    MdSliderModule,
-    MdSlideToggleModule,
-    MdTabsModule,
-    MdToolbarModule,
-    MdTooltipModule,
-    OverlayModule,
-    PortalModule,
-    RtlModule,
-    TranslateModule.forRoot({ provide: TranslateLoader, useClass: mawpediaLanguagesLoader })
+    TranslateModule.forRoot({ provide: TranslateLoader, useClass: mawpediaLanguagesLoader }),
+    Angulartics2Module.forRoot()
   ],
+
   providers: [
     Title,
-    Angulartics2,
-    { provide: Angulartics2, useClass: Angulartics },
+    Angulartics2GoogleAnalytics,
     ...mawpediaServices
   ],
   bootstrap: [RootComponent]

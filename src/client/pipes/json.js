@@ -20,7 +20,7 @@ function toJsonReplacer(key, value) {
 
 @Pipe({ name: 'mpjson', pure: false })
 @Injectable()
-export default class MaWPediaJSONPipe {
+export default class {
   transform(value, args = [2]) {
 
     if (typeof value === 'undefined') {

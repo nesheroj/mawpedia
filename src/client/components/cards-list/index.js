@@ -6,18 +6,14 @@ import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { Subject } from 'rxjs/Subject';
-import { MdButton } from '@angular2-material/button';
-import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
-import { MD_INPUT_DIRECTIVES } from '@angular2-material/input';
-import { MdCheckbox } from '@angular2-material/checkbox';
-import { MaWPediaApiService } from '~/src/client/services/';
-import { MaWPediaCapitalisePipe } from '~/src/client/pipes/';
-import * as enums from '~/src/common/enums';
+import { MaWPediaApiService } from '../../services/';
+import { MaWPediaCapitalisePipe } from '../../pipes/';
+import * as enums from '../../../common/enums';
 import template from './index.html';
 import styles from './index.scss';
 
 @Component({
-  directives: [MD_CARD_DIRECTIVES, ROUTER_DIRECTIVES, MD_INPUT_DIRECTIVES, MdButton, MdCheckbox],
+  directives: [ROUTER_DIRECTIVES],
   pipes: [MaWPediaCapitalisePipe],
   selector: 'cards-list',
   styles: [styles],
@@ -73,7 +69,7 @@ class CardsHomeComponent {
     const params = { offset };
     const filters = {};
 
-    if (this.searchTerm.length) {
+    if (this.searchTerm.length > 0) {
 
       filters.term = this.searchTerm.trim();
 
@@ -109,7 +105,7 @@ class CardsHomeComponent {
 
     }
 
-    if (this.sortBy.length) {
+    if (this.sortBy.length > 0) {
 
       params.sortBy = this.sortBy.toLowerCase();
 
@@ -121,7 +117,7 @@ class CardsHomeComponent {
 
     }
 
-    if (Object.keys(filters).length) {
+    if (Object.keys(filters).length > 0) {
 
       params.filters = JSON.stringify(filters);
 

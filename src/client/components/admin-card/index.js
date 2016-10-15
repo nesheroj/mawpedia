@@ -1,22 +1,15 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MdButton } from '@angular2-material/button';
-import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
-import { MD_INPUT_DIRECTIVES } from '@angular2-material/input';
-import { MD_LIST_DIRECTIVES } from '@angular2-material/list';
-import { MdRadioButton, MdRadioGroup, MdUniqueSelectionDispatcher } from '@angular2-material/radio';
-import { MaWPediaApiService } from '~/src/client/services/';
-import { MaWPediaJSONPipe } from '~/src/client/pipes/';
-import { objSome } from '~/src/common/object-utils';
-import * as enums from '~/src/common/enums';
+import { MaWPediaApiService } from '../../services/';
+import { MaWPediaJSONPipe } from '../..//pipes/';
+import { objSome } from '../../../common/object-utils';
+import * as enums from '../../../common/enums';
 import template from './index.html';
 import styles from './index.scss';
 
 @Component({
-  directives: [MD_CARD_DIRECTIVES, MD_INPUT_DIRECTIVES, MD_LIST_DIRECTIVES, MdRadioButton, MdRadioGroup, MdButton],
   pipes: [MaWPediaJSONPipe],
-  providers: [MdUniqueSelectionDispatcher],
   selector: 'admin-card',
   styles: [styles],
   template
@@ -113,6 +106,13 @@ class AdminCardHomeComponent {
 
   }
 
+  addArtist() {
+
+    this.illustration.artists.push(this.artist);
+    this.artist = '';
+
+  }
+
   initialiseCard() {
 
     const texts = {};
@@ -135,7 +135,7 @@ class AdminCardHomeComponent {
       defaultIllustration: 0,
       illustrations: [],
       texts,
-      publishDate: new Date().toISOString().split('T')[0]
+      publishDate: '' // new Date().toISOString().split('T')[0]
     };
     this.keyword = '';
 
@@ -145,9 +145,10 @@ class AdminCardHomeComponent {
 
     this.illustration = {
       code: '',
-      artistName: '',
+      artists: [],
       note: ''
     };
+    this.artist = '';
 
   }
 
@@ -184,6 +185,12 @@ class AdminCardHomeComponent {
 
   }
 
+  removeArtist(index) {
+
+    this.illustration.artists.splice(index, 1);
+
+  }
+
   editIllustration(index) {
 
     Object.assign(this.illustration, this.card.illustrations[index]);
@@ -201,7 +208,13 @@ class AdminCardHomeComponent {
 
   canAddKeyword() {
 
-    return this.keyword.length && this.card.keywords.indexOf(this.keyword) === -1;
+    return this.keyword.length && !this.card.keywords.includes(this.keyword);
+
+  }
+
+  canAddArtist() {
+
+    return this.artist.length && !this.illustration.artists.includes(this.artist);
 
   }
 
@@ -211,11 +224,11 @@ class AdminCardHomeComponent {
 
       switch (column) {
         case 'cost':
-          return ['Character', 'Token', 'Gear', 'Resource', 'Action', 'Summon'].map(type => this.cardTypes.indexOf(type)).indexOf(this.card.type) !== -1;
+          return ['Character', 'Token', 'Gear', 'Resource', 'Action', 'Summon'].map(type => this.cardTypes.indexOf(type)).includes(this.card.type);
         case 'strength':
-          return ['Character', 'Token', 'Gear'].map(type => this.cardTypes.indexOf(type)).indexOf(this.card.type) !== -1;
+          return ['Character', 'Token', 'Gear'].map(type => this.cardTypes.indexOf(type)).includes(this.card.type);
         case 'power':
-          return ['Character', 'Token', 'Gear', 'Pantheon', 'Summon'].map(type => this.cardTypes.indexOf(type)).indexOf(this.card.type) !== -1;
+          return ['Character', 'Token', 'Gear', 'Pantheon', 'Summon'].map(type => this.cardTypes.indexOf(type)).includes(this.card.type);
         default:
           return false;
       }

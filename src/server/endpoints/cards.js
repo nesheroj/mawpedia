@@ -1,34 +1,35 @@
 import koaRouter from 'koa-router';
-import * as enums from '~/src/common/enums';
-import { sanitizeForSearch } from '~/src/common/string-utils';
-import { validateRequest } from '~/src/server/core/validation';
-import { checkAuth } from '~/src/server/core/auth';
+import * as enums from '../../common/enums';
+import { sanitizeForSearch } from '../../common/string-utils';
+import { validateRequest } from '../core/validation';
+import { checkAuth } from '../core/auth';
 import {
   getCards,
   getCardByCode,
   removeCard,
   upsertCard
-} from '~/src/server/data/card';
-import { cardCreateRequest } from '~/src/server/schemas/card';
+} from '../data/card';
+import { cardCreateRequest } from '../schemas/card';
 
 const PAGE_SIZE = 15;
 
 const router = koaRouter({ prefix: '/cards' });
 
-const isPublishedBefore = currentDate => card => currentDate >= new Date(card.publishDate);
+const isPublishedBefore = currentDate => card => card.publishDate.length && currentDate >= new Date(card.publishDate);
 
-router.get('/byartist/:artistName', async (ctx, next) => {
+router.get('/byartist/:artistName', checkAuth(), async (ctx, next) => {
 
   let total = 0;
+  const currentDate = new Date();
 
   await getCards(ctx.state.realm)
-    .then(cards => ctx.state.isAuthorised ? cards : cards.filter(isPublishedBefore(new Date())))
-    .then(cards => cards.filter(card => {
+    .then(cards => ctx.state.isAuthorised ? cards : cards.filter(isPublishedBefore(currentDate)))
+    .then(cards => cards.reduce((acc, card) => {
 
-      card.illustrations = card.illustrations.filter(illustration => illustration.artistName === ctx.params.artistName);
-      return card.illustrations.length;
+      card.illustrations = card.illustrations.filter(illustration => illustration.artists.includes(ctx.params.artistName));
+      return card.illustrations.length > 0 ? [...acc, card] : acc;
 
-    }))
+    }, []))
     .then(cards => ctx.query.filters ? cards.filter(processFilters(JSON.parse(ctx.query.filters))) : cards)
     .then(cards => ctx.query.sortBy ? cards.sort(compareCardsBy(ctx.query.sortBy, !!ctx.query.reverse)) : cards)
     .then(cards => {
@@ -50,9 +51,10 @@ router.get('/byartist/:artistName', async (ctx, next) => {
 router.get('/', checkAuth(), async (ctx, next) => {
 
   let total = 0;
+  const currentDate = new Date();
 
   await getCards(ctx.state.realm)
-    .then(cards => ctx.state.isAuthorised ? cards : cards.filter(isPublishedBefore(new Date())))
+    .then(cards => ctx.state.isAuthorised ? cards : cards.filter(isPublishedBefore(currentDate)))
     .then(cards => ctx.query.filters ? cards.filter(processFilters(JSON.parse(ctx.query.filters))) : cards)
     .then(cards => ctx.query.sortBy ? cards.sort(compareCardsBy(ctx.query.sortBy, !!ctx.query.reverse)) : cards)
     .then(cards => {
@@ -73,10 +75,12 @@ router.get('/', checkAuth(), async (ctx, next) => {
 
 router.get('/:code', checkAuth(), async (ctx, next) => {
 
+  const currentDate = new Date();
+
   await getCardByCode(ctx.state.realm, ctx.params.code)
     .then(resultDocument => {
 
-      if (ctx.state.isAuthorised || isPublishedBefore(new Date())(resultDocument)) {
+      if (ctx.state.isAuthorised || isPublishedBefore(currentDate)(resultDocument)) {
 
         ctx.status = 200;
         ctx.body = resultDocument;
@@ -104,7 +108,7 @@ router.post('/', checkAuth(true), validateRequest(cardCreateRequest), async (ctx
 
 });
 
-router.del('/:code', checkAuth(), async (ctx, next) => {
+router.del('/:code', checkAuth(true), async (ctx, next) => {
 
   await removeCard(ctx.state.realm, ctx.params.code)
     .then(resultDocument => {

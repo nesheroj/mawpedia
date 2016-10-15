@@ -1,7 +1,27 @@
-web:
+app:
   build: .
+  command: npm run dev
+  environment:
+    NODE_ENV: development
   links:
     - db
-
+  ports:
+    - "80:8080"
+  volumes:
+    - ./config:/usr/src/app/config
+    - /usr/src/app/cdn
+    - ./nodemon.json:/usr/src/app/nodemon.json
+    - ./package.json:/usr/src/app/package.json
+    - ./scripts:/usr/src/app/scripts
+    - ./src:/usr/src/app/src
+    - ./static:/usr/src/app/static
+    - ./test:/usr/src/app/test
+    - ./webpack.config.js:/usr/src/app/webpack.config.js
 db:
   image: redis:latest
+  ports:
+    - "6379:6379"
+  volumes:
+    - /data
+  command: redis-server --appendonly yes
+  restart: always

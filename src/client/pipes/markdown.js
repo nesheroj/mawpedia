@@ -6,7 +6,7 @@ const remarkable = new Remarkable();
 
 @Pipe({ name: 'mpmarkdown' })
 @Injectable()
-export default class MaWPediaMarkdownPipe {
+export default class {
   transform(value) {
 
     if (typeof value !== 'string') {

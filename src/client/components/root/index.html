@@ -3,7 +3,7 @@
   <md-progress-bar mode="query" *ngIf="isLoading()"></md-progress-bar>
   <md-toolbar>
     <a md-button color="primary" href="/" (click)="onRoot($event)">{{ 'MaWpedia' | translate }} [&nbsp;⚠️&nbsp;BETA&nbsp;⚠️&nbsp;]</a>
-    <separator></separator>
+    <div class="separator"></div>
     <a md-button color="primary" *ngIf="isLogged()" [routerLink]="['/createcard']">{{ 'Create card' | translate }}</a>
     <a md-button color="primary" *ngIf="!isLogged()" [routerLink]="['/login']">{{ 'Login' | translate }}</a>
     <a md-button color="primary" class="pointer" *ngIf="isLogged()" (click)="onLogout()">{{ 'Logout' | translate }}</a>
@@ -16,6 +16,6 @@
 </section>
 <footer>
     <div class="center">
-      <p>{{ 'MaWpedia' | translate }} is made with 💚&nbsp; by <a href="https://github.com/nesukun">Nestor Hernandez Ojeda</a> and our one-lady-army QA/data team.</p><p><a href="http://en.guerrademitos.com/">Myths at War</a> is © of GdM Games. Artwork is © of their respective artists.</p>
+      <p>{{ 'MaWpedia' | translate }} is made with 💚&nbsp; by <a href="https://github.com/nesukun">Nestor Hernandez Ojeda</a> and our one-lady-army QA/data team.</p><p><a href="{{ 'http://en.guerrademitos.com/' | translate }}'">{{ 'Myths at War' | translate }}</a> is © of GdM Games. Artwork is © of their respective artists.</p>
     </div>
 </footer>

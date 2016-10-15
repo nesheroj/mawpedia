@@ -3,8 +3,8 @@ import test from 'ava';
 import request from 'supertest';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
-import { validateRequest } from '~/src/server/core/validation';
-import { cardCreateRequest } from '~/src/server/schemas/card';
+import { validateRequest } from '../../../src/server/core/validation';
+import { cardCreateRequest } from '../../../src/server/schemas/card';
 import createCardFixture from './fixtures/card';
 
 const passthrough = (ctx, next) => {

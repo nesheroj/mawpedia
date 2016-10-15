@@ -1,16 +1,16 @@
 import { Injectable, Pipe } from '@angular/core';
 
-@Pipe({ name: 'mpcapitalise' })
+@Pipe({ name: 'split' })
 @Injectable()
 export default class {
-  transform(value) {
+  transform(value, [separator] = [';']) {
 
     if (typeof value !== 'string') {
 
       return value;
 
     }
-    return [value.slice(0, 1).toUpperCase(), value.slice(1)].join('');
+    return value.split(separator);
 
   }
 
