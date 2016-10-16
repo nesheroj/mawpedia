@@ -1,8 +1,14 @@
 import path from 'path';
-// import autoprefixer from 'autoprefixer';
+import autoprefixer from 'autoprefixer';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import StatsPlugin from 'stats-webpack-plugin';
 import webpack from 'webpack';
+
+const postcssOptions = {
+  plugins: () => [
+    autoprefixer({ browsers: ['last 2 versions'] })
+  ]
+};
 
 const config = {
   cache: false,
@@ -32,12 +38,38 @@ const config = {
       loader: 'html'
     }, {
       test: /\.css$/i,
-      loader: 'raw'
+      loaders: [
+        'style',
+        'css'
+      ]
     }, {
       test: /\.scss$/i,
+      exclude: [
+        /src(\\|\/)+client(\\|\/)+index\.scss$/i
+      ],
       loaders: [
         'raw',
-        // 'postcss',
+        {
+          loader: 'postcss',
+          options: postcssOptions
+        },
+        'sass'
+      ]
+    }, {
+      test: /\.scss$/i,
+      include: [
+        /src(\\|\/)+client(\\|\/)+index\.scss$/i
+      ],
+      loaders: [
+        'style',
+        {
+          loader: 'css',
+          options: { importLoaders: 1 }
+        },
+        {
+          loader: 'postcss',
+          options: postcssOptions
+        },
         'sass'
       ]
     }, {
@@ -54,13 +86,6 @@ const config = {
       }
     }]
   },
-  // postcss: () => {
-
-  //   return {
-  //     defaults: [autoprefixer({ browsers: ['last 2 versions'] })]
-  //   };
-
-  // },
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
