@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 import 'zone.js';
-import '!!style!css!@angular/material/core/theming/prebuilt/indigo-pink.css';
-import '!!style!css!sass!./index.scss';
+import '@angular/material/core/theming/prebuilt/indigo-pink.css';
+import './index.scss';
 import { NgModule, enableProdMode } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
