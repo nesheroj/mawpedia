@@ -1,4 +1,3 @@
-import '../../helpers';  /* eslint import-order/import-order: [0] */
 import test from 'ava';
 import request from 'supertest';
 import Koa from 'koa';
