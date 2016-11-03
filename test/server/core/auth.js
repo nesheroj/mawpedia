@@ -1,4 +1,4 @@
-simport test from 'ava';
+import test from 'ava';
 import request from 'supertest';
 import Koa from 'koa';
 
