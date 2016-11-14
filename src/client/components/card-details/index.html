@@ -29,7 +29,7 @@
         <img md-card-image src="{{ 'CDNROOT' | translate }}/JPG/{{ illustration.code }}.jpg">
       </a>
       <md-card-title>
-        <template ngFor let-artistName [ngForOf]="defaultIllustration.artists" let-i="index">
+        <template ngFor let-artistName [ngForOf]="illustration.artists" let-i="index">
           <span *ngIf="i > 0">, </span>
           <a [routerLink]="['/cards', 'artist', artistName]">{{ artistName }}</a>
         </template>

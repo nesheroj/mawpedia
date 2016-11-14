@@ -23,6 +23,7 @@ class CardsHomeComponent {
 
   static parameters = [[ActivatedRoute], [Title], [MaWPediaApiService]];
 
+  realm = window.location.hostname.split('.')[0] === 'mawpedia' ? 'mawpedia' : 'mitopedia';
   nextOffset = 0;
   maxOffset = 0;
   searchTerm = '';
@@ -32,8 +33,8 @@ class CardsHomeComponent {
   searchTermStream = new Subject();
   sortFields = enums.sortFields;
   cardTypes = enums.cardTypes;
-  cardFactions = enums.cardFactions.filter(faction => enums.hiddenFactions && !enums.hiddenFactions.includes(faction));
-  cardExpansions = enums.cardExpansions[window.location.hostname.split('.')[0] === 'mawpedia' ? 'mawpedia' : 'mitopedia'];
+  cardFactions = enums.cardFactions.filter(faction => enums.hiddenFactions[this.realm] && !enums.hiddenFactions[this.realm].includes(faction));
+  cardExpansions = enums.cardExpansions[this.realm].filter(expansion => enums.hiddenExpansions[this.realm] && !enums.hiddenExpansions[this.realm].includes(expansion));
   extendedSearch = false;
   typeFilter = -1;
   textTypeFilter = -1;

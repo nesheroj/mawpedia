@@ -17,7 +17,7 @@ const router = koaRouter({ prefix: '/cards' });
 
 const isPublishedBefore = currentDate => card => card.publishDate.length && currentDate >= new Date(card.publishDate);
 
-const isFactionVisible = card => enums.hiddenFactions.length && enums.hiddenFactions(card.faction);
+const isFactionVisible = realm => card => enums.hiddenFactions[realm].length && enums.hiddenFactions[realm].includes(card.faction);
 
 router.get('/byartist/:artistName', checkAuth(), async (ctx, next) => {
 
@@ -25,7 +25,7 @@ router.get('/byartist/:artistName', checkAuth(), async (ctx, next) => {
   const currentDate = new Date();
 
   await getCards(ctx.state.realm)
-    .then(cards => ctx.state.isAuthorised ? cards : cards.filter(isFactionVisible && isPublishedBefore(currentDate)))
+    .then(cards => ctx.state.isAuthorised ? cards : cards.filter(isFactionVisible(ctx.state.realm) && isPublishedBefore(currentDate)))
     .then(cards => cards.reduce((acc, card) => {
 
       card.illustrations = card.illustrations.filter(illustration => illustration.artists.includes(ctx.params.artistName));
@@ -56,7 +56,7 @@ router.get('/', checkAuth(), async (ctx, next) => {
   const currentDate = new Date();
 
   await getCards(ctx.state.realm)
-    .then(cards => ctx.state.isAuthorised ? cards : cards.filter(isPublishedBefore(currentDate)))
+    .then(cards => ctx.state.isAuthorised ? cards : cards.filter(isFactionVisible(ctx.state.realm) && isPublishedBefore(currentDate)))
     .then(cards => ctx.query.filters ? cards.filter(processFilters(JSON.parse(ctx.query.filters))) : cards)
     .then(cards => ctx.query.sortBy ? cards.sort(compareCardsBy(ctx.query.sortBy, !!ctx.query.reverse)) : cards)
     .then(cards => {
@@ -82,7 +82,7 @@ router.get('/:code', checkAuth(), async (ctx, next) => {
   await getCardByCode(ctx.state.realm, ctx.params.code)
     .then(resultDocument => {
 
-      if (ctx.state.isAuthorised || isPublishedBefore(currentDate)(resultDocument)) {
+      if (ctx.state.isAuthorised || (isFactionVisible(ctx.state.realm)(resultDocument) && isPublishedBefore(currentDate)(resultDocument))) {
 
         ctx.status = 200;
         ctx.body = resultDocument;
@@ -171,6 +171,7 @@ function compareCardsBy(field, reverse) {
     return 0;
 
   };
+
   switch (field) {
     case 'type':
       return (a, b) => reverse ? sorter(enums.cardTypes[a[field]], enums.cardTypes[b[field]]) : sorter(enums.cardTypes[b[field]], enums.cardTypes[a[field]]);

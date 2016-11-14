@@ -85,6 +85,7 @@ class MaWPediaApiService {
       .map(response => {
 
         const data = unpackResponse(response.text());
+        console.log(data.cards.map(card => card.cost));
         const cards = data.cards;
         cards.total = data.total;
         return cards;
