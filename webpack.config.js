@@ -22,13 +22,13 @@ const config = {
     path: path.resolve('./static')
   },
   module: {
-    loaders: [{
+    rules: [{
       test: /\.js$/i,
       exclude: /node_modules/i,
       loader: 'babel',
       query: {
         plugins: ['transform-runtime', 'transform-decorators-legacy'],
-        presets: [['es2015', { module: false }], 'es2016', 'es2017', 'stage-1']
+        presets: [['es2015', { modules: false }], 'es2016', 'es2017', 'stage-1']
       }
     }, {
       test: /\.json$/i,
