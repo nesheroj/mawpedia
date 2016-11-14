@@ -50,7 +50,7 @@ fetch(`http://mitopedia.guerrademitos.com/api/cards`)
             type: cardTypeMap[card.type],
             expansion: enums.cardExpansions.mitopedia.indexOf(card.expansion),
             faction: factionMap[card.mythology],
-            cost: Number(card.strength) || 0,
+            cost: Number(card.cost) || 0,
             strength: Number(card.strength) || 0,
             power: Number(card.power) || 0,
             keywords: card.keywords.length ? card.keywords.split(';') : [],

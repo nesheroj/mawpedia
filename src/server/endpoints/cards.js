@@ -17,7 +17,7 @@ const router = koaRouter({ prefix: '/cards' });
 
 const isPublishedBefore = currentDate => card => card.publishDate.length && currentDate >= new Date(card.publishDate);
 
-const isFactionVisible = realm => card => enums.hiddenFactions[realm].length && enums.hiddenFactions[realm].includes(card.faction);
+const isFactionVisible = realm => card => enums.hiddenFactions[realm].length && !enums.hiddenFactions[realm].includes(card.faction);
 
 router.get('/byartist/:artistName', checkAuth(), async (ctx, next) => {
 
