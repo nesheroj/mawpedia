@@ -35,9 +35,13 @@ class CardDetailsHomeComponent {
     this._apiService.getCardByCode(this.code).toPromise()
     .then(card => {
 
-      this.card = card;
-      this.defaultIllustration = this.card.illustrations[this.card.defaultIllustration || 0];
-      // this._titleService.setTitle(`MaWpedia - [${this.code}] ${this.card.name}`);
+      if (card) {
+
+        this.card = card;
+        this.defaultIllustration = this.card.illustrations[this.card.defaultIllustration || 0];
+        // this._titleService.setTitle(`MaWpedia - [${this.code}] ${this.card.name}`);
+
+      }
 
     });
 

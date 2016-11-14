@@ -89,7 +89,8 @@ class MaWPediaApiService {
         cards.total = data.total;
         return cards;
 
-      });
+      })
+      .catch(() => []);
 
   }
 
@@ -106,7 +107,8 @@ class MaWPediaApiService {
         cards.total = data.total;
         return cards;
 
-      });
+      })
+      .catch(() => []);
 
   }
 
@@ -115,7 +117,8 @@ class MaWPediaApiService {
     const headers = this._setTokenHeader();
 
     return this._request('get', `/api/cards/${code}`, new RequestOptions({ headers }))
-      .map(response => unpackResponse(response.text()));
+      .map(response => unpackResponse(response.text()))
+      .catch(() => undefined);
 
   }
 
