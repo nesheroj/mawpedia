@@ -25,22 +25,22 @@ const config = {
     rules: [{
       test: /\.js$/i,
       exclude: /node_modules/i,
-      loader: 'babel',
+      loader: 'babel-loader',
       query: {
         plugins: ['transform-runtime', 'transform-decorators-legacy'],
         presets: [['es2015', { modules: false }], 'es2016', 'es2017', 'stage-1']
       }
     }, {
       test: /\.json$/i,
-      loader: 'json'
+      loader: 'json-loader'
     }, {
       test: /\.html$/i,
-      loader: 'html'
+      loader: 'html-loader'
     }, {
       test: /\.css$/i,
       loaders: [
-        'style',
-        'css'
+        'style-loader',
+        'css-loader'
       ]
     }, {
       test: /\.scss$/i,
@@ -48,12 +48,12 @@ const config = {
         /src(\\|\/)+client(\\|\/)+index\.scss$/i
       ],
       loaders: [
-        'raw',
+        'raw-loader',
         {
-          loader: 'postcss',
+          loader: 'postcss-loader',
           options: postcssOptions
         },
-        'sass'
+        'sass-loader'
       ]
     }, {
       test: /\.scss$/i,
@@ -61,26 +61,26 @@ const config = {
         /src(\\|\/)+client(\\|\/)+index\.scss$/i
       ],
       loaders: [
-        'style',
+        'style-loader',
         {
-          loader: 'css',
+          loader: 'css-loader',
           options: { importLoaders: 1 }
         },
         {
-          loader: 'postcss',
+          loader: 'postcss-loader',
           options: postcssOptions
         },
-        'sass'
+        'sass-loader'
       ]
     }, {
       test: /\.(jpe?g|png|gif)$/i,
-      loader: 'file',
+      loader: 'file-loader',
       query: {
         name: '[path][name].[ext]?[hash]'
       }
     }, {
       test: /\.(ttf|woff|eot)$/i,
-      loader: 'file',
+      loader: 'file-loader',
       query: {
         name: '[path][name].[ext]?[hash]'
       }
