@@ -59,7 +59,7 @@
     "html-loader": "^0.4.4",
     "html-webpack-plugin": "^2.24.1",
     "ioredis": "^2.4.0",
-    "joi": "^9.2.0",
+    "joi": "^10.0.0",
     "json-loader": "^0.5.4",
     "jsonpack": "^1.1.5",
     "jsonwebtoken": "^7.1.9",
