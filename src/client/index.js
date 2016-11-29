@@ -42,12 +42,11 @@ if (__PRODUCTION__) {
     MaterialModule.forRoot(),
     RouterModule.forRoot(mawpediaRoutes),
     TranslateModule.forRoot({ provide: TranslateLoader, useClass: mawpediaLanguagesLoader }),
-    Angulartics2Module.forRoot()
+    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics])
   ],
 
   providers: [
     Title,
-    Angulartics2GoogleAnalytics,
     ...mawpediaServices
   ],
   bootstrap: [RootComponent]

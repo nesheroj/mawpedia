@@ -1,7 +1,6 @@
 {
    "dbindex": 0,
    "maxForks": 1,
-   "port": 8081,
    "secret": "Seductive rhodent arbitrary number",
    "authenticators": [
      "Seductive rhodent arbitrary number"
