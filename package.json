@@ -38,7 +38,7 @@
     "@angular/router": "^3.1.2",
     "@angular/material": "2.0.0-alpha.9-experimental",
     "angulartics2": "^1.4.2",
-    "autoprefixer": "^6.5.3",
+    "autoprefixer": "^6.7.0",
     "babel-core": "^6.18.2",
     "babel-eslint": "^7.1.0",
     "babel-loader": "^6.2.7",
