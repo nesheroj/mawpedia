@@ -1,5 +1,6 @@
 import 'babel-polyfill';
 import 'zone.js';
+import 'reflect-metadata';
 import '@angular/material/core/theming/prebuilt/indigo-pink.css';
 import './index.scss';
 import { NgModule, enableProdMode } from '@angular/core';

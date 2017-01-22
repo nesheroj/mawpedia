@@ -23,10 +23,10 @@
               <label for="typeFilter">{{ 'Card type' | translate }}: </label>
             </td>
             <td>
-              <select name="typeFilter" [(ngModel)]="typeFilter">
-                <option [value]="-1">{{ 'Please select' | translate }}</option>
-                <option [value]="i" *ngFor="let cardType of cardTypes; let i = index">{{ cardType | translate }}</option>
-              </select>
+              <md-select name="typeFilter" [(ngModel)]="typeFilter">
+                <md-option [value]="-1">{{ 'Please select' | translate }}</md-option>
+                <md-option [value]="i" *ngFor="let cardType of cardTypes; let i = index">{{ cardType | translate }}</md-option>
+              </md-select>
             </td>
           </tr>
           <tr>
@@ -34,10 +34,10 @@
               <label for="factionFilter">{{ 'Faction' | translate }}: </label>
             </td>
             <td>
-              <select name="factionFilter" [(ngModel)]="factionFilter">
-                <option [value]="-1">{{ 'Please select' | translate }}</option>
-                <option [value]="i" *ngFor="let cardFaction of cardFactions; let i = index">{{ cardFaction | translate }}</option>
-              </select>
+              <md-select name="factionFilter" [(ngModel)]="factionFilter">
+                <md-option [value]="-1">{{ 'Please select' | translate }}</md-option>
+                <md-option [value]="i" *ngFor="let cardFaction of cardFactions; let i = index">{{ cardFaction | translate }}</md-option>
+              </md-select>
             </td>
           </tr>
           <tr>
@@ -45,10 +45,10 @@
               <label for="expansionFilter">{{ 'Expansion' | translate }}: </label>
             </td>
             <td>
-              <select name="expansionFilter" [(ngModel)]="expansionFilter">
-                <option [value]="-1">{{ 'Please select' | translate }}</option>
-                <option [value]="i" *ngFor="let cardExpansion of cardExpansions; let i = index">{{ cardExpansion | translate }}</option>
-              </select>
+              <md-select name="expansionFilter" [(ngModel)]="expansionFilter">
+                <md-option [value]="-1">{{ 'Please select' | translate }}</md-option>
+                <md-option [value]="i" *ngFor="let cardExpansion of cardExpansions; let i = index">{{ cardExpansion | translate }}</md-option>
+              </md-select>
             </td>
           </tr>
           <tr>
@@ -56,11 +56,11 @@
               <label for="textTypeFilter">{{ 'Action type' | translate }}: </label>
             </td>
             <td>
-              <select name="textTypeFilter" [(ngModel)]="textTypeFilter">
-                <option [value]="-1">{{ 'Please select' | translate }}</option>
-                <option [value]="'Confrontation'">{{ 'Confrontation' | translate }}</option>
-                <option [value]="'Influence'">{{ 'Influence' | translate }}</option>
-              </select>
+              <md-select name="textTypeFilter" [(ngModel)]="textTypeFilter">
+                <md-option [value]="-1">{{ 'Please select' | translate }}</md-option>
+                <md-option [value]="'Confrontation'">{{ 'Confrontation' | translate }}</md-option>
+                <md-option [value]="'Influence'">{{ 'Influence' | translate }}</md-option>
+              </md-select>
             </td>
           </tr>
           <tr>
@@ -68,10 +68,10 @@
               <label for="sortBy">{{ 'Sort by' | translate }}: </label>
             </td>
             <td>
-              <select name="sortBy" [(ngModel)]="sortBy">
-                <option value="">{{ 'Please select' | translate }}</option>
-                <option [value]="field" *ngFor="let field of sortFields">{{ field | mpcapitalise | translate }}</option>
-              </select>
+              <md-select name="sortBy" [(ngModel)]="sortBy">
+                <md-option value="">{{ 'Please select' | translate }}</md-option>
+                <md-option [value]="field" *ngFor="let field of sortFields">{{ field | mpcapitalise | translate }}</md-option>
+              </md-select>
             </td>
           </tr>
           <tr *ngIf="sortBy !== ''" >

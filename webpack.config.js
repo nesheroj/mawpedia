@@ -27,8 +27,14 @@ const config = {
       exclude: /node_modules/i,
       loader: 'babel-loader',
       query: {
-        plugins: ['transform-runtime', 'transform-decorators-legacy'],
-        presets: [['es2015', { modules: false }], 'es2016', 'es2017', 'stage-1']
+        plugins: ['transform-runtime', 'transform-class-properties', 'transform-decorators-legacy'],
+        presets: [['env', {
+          modules: false,
+          targets: {
+            browsers: 'last 2 versions'
+          },
+          useBuiltIns: true
+        }], 'stage-3']
       }
     }, {
       test: /\.json$/i,
@@ -66,10 +72,10 @@ const config = {
           loader: 'css-loader',
           options: { importLoaders: 1 }
         },
-        {
-          loader: 'postcss-loader',
-          options: postcssOptions
-        },
+        // {
+        //   loader: 'postcss-loader',
+        //   options: postcssOptions
+        // },
         'sass-loader'
       ]
     }, {
