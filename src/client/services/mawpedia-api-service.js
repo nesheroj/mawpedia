@@ -140,9 +140,10 @@ class MaWPediaApiService {
 
   }
 
-  _request(verb, ...params) {
+  _request(verb, path, ...params) {
 
-    const request = this._http[verb](...params);
+    // const request = this._http[verb](`https://mawpedia.guerrademitos.com${path}`, ...params);
+    const request = this._http[verb](path, ...params);
     this._requests.add(request);
 
     const onError = error => {

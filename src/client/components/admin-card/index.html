@@ -3,19 +3,19 @@
   <md-card-content>
     <form #cardForm="ngForm">
       <p>
-        <md-radio-group name="cardType" ngControl="cardTypeControl" [(ngModel)]="card.type">
-          <md-radio-button [value]="i" name="cardType" *ngFor="let cardType of cardTypes; let i = index">{{ cardType | translate }}</md-radio-button>
-        </md-radio-group>
+        <md-select name="cardType" [(ngModel)]="card.type">
+          <md-option [value]="i" *ngFor="let cardType of cardTypes; let i = index">{{ cardType | translate }}</md-option>
+        </md-select>
       </p>
       <p>
-        <md-radio-group name="cardFaction" ngControl="cardFactionControl" [(ngModel)]="card.faction">
-          <md-radio-button [value]="i" name="cardFaction" *ngFor="let cardFaction of cardFactions; let i = index">{{ cardFaction | translate }}</md-radio-button>
-        </md-radio-group>
+        <md-select name="cardFaction" [(ngModel)]="card.faction">
+          <md-option [value]="i" *ngFor="let cardFaction of cardFactions; let i = index">{{ cardFaction | translate }}</md-option>
+        </md-select>
       </p>
       <p>
-        <md-radio-group name="cardExpansion" ngControl="cardExpansionControl" [(ngModel)]="card.expansion">
-          <md-radio-button [value]="i" name="cardExpansion" *ngFor="let cardExpansion of cardExpansions; let i = index">{{ cardExpansion | translate }}</md-radio-button>
-        </md-radio-group>
+        <md-select name="cardExpansion" [(ngModel)]="card.expansion">
+          <md-option [value]="i" *ngFor="let cardExpansion of cardExpansions; let i = index">{{ cardExpansion | translate }}</md-option>
+        </md-select>
       </p>
       <p>
         <md-input required placeholder="{{ 'Card code' | translate }}'" name="cardCode" ngControl="cardCodeControl" [disabled]="card._created" [(ngModel)]="card.code"></md-input>
@@ -124,9 +124,9 @@
     <md-card-title>{{ 'Add card text' | translate }}</md-card-title>
     <md-card-content>
       <p class="center">
-        <md-radio-group name="textType" ngControl="textType" [(ngModel)]="text.type">
-          <md-radio-button [value]="textType" name="textType" *ngFor="let textType of textTypes">{{ textType | translate }}</md-radio-button>
-        </md-radio-group>
+        <md-select name="textType" [(ngModel)]="text.type">
+          <md-option [value]="textType" *ngFor="let textType of textTypes; let i = index">{{ textType | translate }}</md-option>
+        </md-select>
       </p>
       <p class="center">
         <textarea required ngControl="textText" name="textText" [(ngModel)]="text.content" rows="5" style="width: 400px"></textarea>

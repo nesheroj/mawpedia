@@ -36,10 +36,10 @@ class CardsHomeComponent {
   cardFactions = enums.cardFactions.filter(faction => enums.hiddenFactions[this.realm] && !enums.hiddenFactions[this.realm].includes(faction));
   cardExpansions = enums.cardExpansions[this.realm].filter(expansion => enums.hiddenExpansions[this.realm] && !enums.hiddenExpansions[this.realm].includes(expansion));
   extendedSearch = false;
-  typeFilter = -1;
+  typeFilter = [];
   textTypeFilter = -1;
-  factionFilter = -1;
-  expansionFilter = -1;
+  factionFilter = [];
+  expansionFilter = [];
   canLoadMore = false;
 
   cards = this.searchTermStream
@@ -82,7 +82,7 @@ class CardsHomeComponent {
 
     }
 
-    if (~this.typeFilter) {
+    if (this.typeFilter.length !== 0) {
 
       filters.type = this.typeFilter;
 
@@ -94,13 +94,13 @@ class CardsHomeComponent {
 
     }
 
-    if (~this.factionFilter) {
+    if (this.factionFilter.length !== 0) {
 
       filters.faction = this.factionFilter;
 
     }
 
-    if (~this.expansionFilter) {
+    if (this.expansionFilter.length !== 0) {
 
       filters.expansion = this.expansionFilter;
 
@@ -138,10 +138,10 @@ class CardsHomeComponent {
 
     this.searchTerm = '';
     this.extendedSearch = false;
-    this.typeFilter = -1;
+    this.typeFilter = [];
     this.textTypeFilter = -1;
-    this.factionFilter = -1;
-    this.expansionFilter = -1;
+    this.factionFilter = [];
+    this.expansionFilter = [];
     this.sortBy = '';
     this.reverse = false;
 
@@ -152,6 +152,23 @@ class CardsHomeComponent {
     this.showFilters = !this.showFilters;
     $event.preventDefault();
     $event.stopPropagation();
+
+  }
+
+  toggleFilter(index, filter, event) {
+
+    if (filter.includes(index)) {
+
+      filter.splice(filter.indexOf(index), 1);
+
+    } else {
+
+      filter.push(index);
+
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
 
   }
 

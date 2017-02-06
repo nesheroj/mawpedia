@@ -23,10 +23,16 @@
               <label for="typeFilter">{{ 'Card type' | translate }}: </label>
             </td>
             <td>
-              <md-select name="typeFilter" [(ngModel)]="typeFilter">
-                <md-option [value]="-1">{{ 'Please select' | translate }}</md-option>
-                <md-option [value]="i" *ngFor="let cardType of cardTypes; let i = index">{{ cardType | translate }}</md-option>
-              </md-select>
+              <span>{{ typeFilter.length ? ('Selected' | translate) + ' (' + typeFilter.length + ')' : ('Any' | translate) }}</span>
+              <button md-icon-button [mdMenuTriggerFor]="typeFilterMenu">
+                <md-icon>more_horiz</md-icon>
+              </button>
+              <md-menu #typeFilterMenu="mdMenu">
+                <button md-menu-item *ngFor="let cardType of cardTypes; let i = index" (click)="toggleFilter(i, typeFilter, $event)">
+                  <md-icon>{{ typeFilter.includes(i) ? 'check' : 'remove' }}</md-icon>
+                  <span>{{ cardType | translate }}</span>
+                </button>
+              </md-menu>
             </td>
           </tr>
           <tr>
@@ -34,10 +40,16 @@
               <label for="factionFilter">{{ 'Faction' | translate }}: </label>
             </td>
             <td>
-              <md-select name="factionFilter" [(ngModel)]="factionFilter">
-                <md-option [value]="-1">{{ 'Please select' | translate }}</md-option>
-                <md-option [value]="i" *ngFor="let cardFaction of cardFactions; let i = index">{{ cardFaction | translate }}</md-option>
-              </md-select>
+              <span>{{ factionFilter.length ? ('Selected' | translate) + ' (' + factionFilter.length + ')' : ('Any' | translate) }}</span>
+              <button md-icon-button [mdMenuTriggerFor]="factionFilterMenu">
+                <md-icon>more_horiz</md-icon>
+              </button>
+              <md-menu #factionFilterMenu="mdMenu">
+                <button md-menu-item *ngFor="let cardFaction of cardFactions; let i = index" (click)="toggleFilter(i, factionFilter, $event)">
+                  <md-icon>{{ factionFilter.includes(i) ? 'check' : 'remove' }}</md-icon>
+                  <span>{{ cardFaction | translate }}</span>
+                </button>
+              </md-menu>
             </td>
           </tr>
           <tr>
@@ -45,10 +57,16 @@
               <label for="expansionFilter">{{ 'Expansion' | translate }}: </label>
             </td>
             <td>
-              <md-select name="expansionFilter" [(ngModel)]="expansionFilter">
-                <md-option [value]="-1">{{ 'Please select' | translate }}</md-option>
-                <md-option [value]="i" *ngFor="let cardExpansion of cardExpansions; let i = index">{{ cardExpansion | translate }}</md-option>
-              </md-select>
+              <span>{{ expansionFilter.length ? ('Selected' | translate) + ' (' + expansionFilter.length + ')' : ('Any' | translate) }}</span>
+              <button md-icon-button [mdMenuTriggerFor]="expansionFilterMenu">
+                <md-icon>more_horiz</md-icon>
+              </button>
+              <md-menu #expansionFilterMenu="mdMenu">
+                <button md-menu-item *ngFor="let cardExpansion of cardExpansions; let i = index" (click)="toggleFilter(i, expansionFilter, $event)">
+                  <md-icon>{{ expansionFilter.includes(i) ? 'check' : 'remove' }}</md-icon>
+                  <span>{{ cardExpansion | translate }}</span>
+                </button>
+              </md-menu>
             </td>
           </tr>
           <tr>

@@ -144,7 +144,7 @@ function processFilters(filters) {
 
     }
 
-    pass = pass && ['type', 'expansion', 'faction'].every(field => typeof filters[field] === 'undefined' || Number(filters[field]) === card[field]);
+    pass = pass && ['type', 'expansion', 'faction'].every(field => typeof filters[field] === 'undefined' || filters[field].some(filter => Number(filter) === card[field]));
 
     return pass;
 
