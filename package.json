@@ -83,7 +83,7 @@
     "string-replace-loader": "^1.0.5",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.0",
-    "zone.js": "^0.7.6"
+    "zone.js": "^0.8.0"
   },
   "devDependencies": {
     "ava": "^0.17.0",
