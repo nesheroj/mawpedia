@@ -79,7 +79,7 @@
     "remarkable": "^1.7.1",
     "rxjs": "^5.1.0",
     "sass-loader": "^4.1.1",
-    "stats-webpack-plugin": "^0.4.3",
+    "stats-webpack-plugin": "^0.6.0",
     "string-replace-loader": "^1.0.5",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.0",
