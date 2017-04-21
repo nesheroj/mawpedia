@@ -35,7 +35,7 @@
     "@angular/http": "^2.4.3",
     "@angular/material": "2.0.0-beta.1",
     "@angular/platform-browser": "^2.4.3",
-    "@angular/platform-browser-dynamic": "^2.4.3",
+    "@angular/platform-browser-dynamic": "^4.0.3",
     "@angular/router": "^3.4.3",
     "angulartics2": "^1.6.3",
     "autoprefixer": "^6.6.1",
