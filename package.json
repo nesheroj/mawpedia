@@ -89,7 +89,7 @@
     "ava": "^0.17.0",
     "concurrently": "^3.1.0",
     "eslint-plugin-babel": "^4.0.0",
-    "jsdom": "^9.9.1",
+    "jsdom": "^11.0.0",
     "node-fetch": "^1.6.3",
     "nodemon": "^1.11.0",
     "nyc": "^10.1.2",
