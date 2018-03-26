@@ -2,7 +2,7 @@ export const cardTypes = ['Pantheon', 'Character', 'Gear', 'Resource', 'Action',
 export const textTypes = ['Flavor', 'General', 'Influence', 'Confrontation', 'Lore', 'Notes'];
 export const cardExpansions = {
   mawpedia: ['MaW1', 'MaW2'],
-  mitopedia: ['Promocional', 'GDM1', 'GDM2', 'GDM3', 'GDM4', 'GDM5', 'GDM6', 'GDM7', 'GDM8', 'GDM9', 'GDM10', 'GDM11', 'GDM12']
+  mitopedia: ['Promocional', 'GDM1', 'GDM2', 'GDM3', 'GDM4', 'GDM5', 'GDM6', 'GDM7', 'GDM8', 'GDM9', 'GDM10', 'GDM11', 'GDM12', 'GDM13']
 };
 export const hiddenExpansions = {
   mawpedia: ['MaW2'],
