@@ -10,7 +10,6 @@ app:
   volumes:
     - ./config:/usr/src/app/config
     - /usr/src/app/cdn
-    - ./nodemon.json:/usr/src/app/nodemon.json
     - ./package.json:/usr/src/app/package.json
     - ./scripts:/usr/src/app/scripts
     - ./src:/usr/src/app/src

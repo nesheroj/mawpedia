@@ -1,1 +1,13 @@
-.git
+*
+!.babelrc
+!.eslintignore
+!.eslintrc
+!.prettierignore
+!.prettierrc
+!config
+!scripts
+!src
+!static
+!test
+!jest.config.js
+!webpack.config.js

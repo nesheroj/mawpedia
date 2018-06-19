@@ -1,0 +1,43 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "xo/esnext",
+    "plugin:unicorn/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:jest/recommended",
+    "prettier"
+  ],
+  "plugins": ["unicorn", "import", "jest"],
+  "globals": {},
+  "env": {
+    "es6": true
+  },
+  "rules": {
+    "no-unused-expressions": [2, { "allowShortCircuit": true }],
+    "no-unused-vars": [
+      2,
+      {
+        "vars": "all",
+        "args": "none",
+        "ignoreRestSiblings": true
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["scripts/**/*.js", "src/server/**/*.js"],
+      "env": {
+        "es6": true,
+        "node": true
+      }
+    },
+    {
+      "files": ["src/client/**/*.js"],
+      "env": {
+        "browser": true,
+        "es6": true
+      }
+    }
+  ]
+}

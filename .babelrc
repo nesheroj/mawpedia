@@ -1,0 +1,31 @@
+{
+  "env": {
+    "browser": {
+      "plugins": ["transform-decorators-legacy"],
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "browsers": ["ie 11"]
+            }
+          }
+        ],
+        "stage-0"
+      ]
+    },
+    "node": {
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "node": "current"
+            }
+          }
+        ],
+        "stage-0"
+      ]
+    }
+  }
+}

@@ -1,0 +1,7 @@
+dist
+coverage
+package.json
+package-lock.json
+src/webpack-assets.json
+ansible-new/roles/app_prepare/templates/app-config.json
+test/load-tests/config/**/users.json

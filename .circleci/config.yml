@@ -1,0 +1,74 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/work
+    docker:
+      - image: docker:stable
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build image
+          command: 'docker build -t dvr-api-1 .'
+      - run:
+          name: Save image
+          command: 'docker save -o ~/work/dvr-api-1.tar dvr-api-1'
+      - persist_to_workspace:
+          root: ~/work
+          paths:
+            - dvr-api-1.tar
+            - docker-compose.prod.yml
+
+  deploy-prod:
+    working_directory: ~/work
+    machine: true
+    steps:
+      - add_ssh_keys
+      - attach_workspace:
+          at: ~/work
+      - run:
+          name: Prepare files
+          command: 'cd ~/work/; mv docker-compose.prod.yml docker-compose.yml'
+      - run:
+          name: Upload files
+          command: 'scp -Cr ~/work/* root@deviantrobot.com:~/deviantrobot/dvr-api-1/'
+      - run:
+          name: Load the image
+          command: 'ssh root@deviantrobot.com "docker load -i ~/deviantrobot/dvr-api-1/dvr-api-1.tar"'
+      - run:
+          name: Restart the services
+          command: 'ssh root@deviantrobot.com "(cd deviantrobot/dvr-api-1/; docker-compose down; docker-compose up -d)"'
+
+  cleanup:
+    working_directory: ~/work
+    machine: true
+    steps:
+      - add_ssh_keys
+      - run:
+          name: Cleanup unused images
+          command: 'ssh root@deviantrobot.com "yes | docker system prune"'
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /v[0-9]+(\.[0-9]+)+/
+      - deploy-prod:
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v[0-9]+(\.[0-9]+)+/
+      - cleanup:
+          requires:
+            - deploy-prod
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v[0-9]+(\.[0-9]+)+/
