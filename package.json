@@ -22,7 +22,9 @@
     "tdd": "nodemon --exec \"npm run testlocal && npm run lint\"",
     "test": "nyc ava --check-coverage && nyc report --reporter=text-lcov > coverage.lcov",
     "testlocal": "ava",
-    "watch": "nodemon"
+    "watch": "nodemon",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "author": "",
   "license": "MIT",
@@ -83,7 +85,8 @@
     "string-replace-loader": "^1.0.5",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.0",
-    "zone.js": "^0.7.6"
+    "zone.js": "^0.7.6",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "ava": "^0.17.0",
@@ -210,5 +213,6 @@
         "always"
       ]
     }
-  }
+  },
+  "snyk": true
 }
